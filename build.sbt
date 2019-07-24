@@ -11,12 +11,12 @@ resolvers += Resolver.bintrayRepo("oyvindberg", "ScalablyTyped")
 
 // This is an application with a main method
 
-
+/*
 scalaJSModuleInitializers += ModuleInitializer
   .mainMethod(
     "com.lyrx.pyramids.frontend.Main"
     ,"init")
-
+*/
 
 scalaJSUseMainModuleInitializer := true
 
@@ -24,11 +24,17 @@ scalaJSUseMainModuleInitializer := true
 
 libraryDependencies ++= Seq(
   "org.scala-js" %%% "scalajs-dom" % "0.9.7",
-  ScalablyTyped.J.jquery
+  "me.shadaj" %%% "slinky-web" % "0.1.0",
+  "default" %%% "humbletokenizer" % "0.0.3",
+  ScalablyTyped.R.react,
+  ScalablyTyped.R.`react-dom`
 )
 
 npmDependencies in Compile ++= Seq(
-  "jquery" -> "3.4.1"
+  "react" -> "16.8",
+  "react-dom" -> "16.8"
+
+
 )
 
 testFrameworks += new TestFramework("utest.runner.Framework")
@@ -45,4 +51,5 @@ copyjs := {
   }
   IO.copy(files, true)
 }
+
 addCommandAlias("mywebpack", ";fullOptJS::webpack;copyjs")
