@@ -3,3 +3,4 @@ target/
 projecr/project
 project/target
 node_modules/
+src/main/webapp/js/gotcha*.js
