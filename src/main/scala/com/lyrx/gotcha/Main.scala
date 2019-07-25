@@ -36,7 +36,7 @@ import scala.scalajs.js.annotation.ScalaJSDefined
 
   override def componentDidMount(): Unit =
     initPyramid()
-      .map(p => setState(State(Some(new Pyramid(p.config.withMessage("Eternalize Your Documents In The Blockchain!"))))))
+      .map(p => setState(State(Some(new Pyramid(p.config.withMessage("Eternalize Your Documents In The Pyramid!"))))))
 }
 
 object Main {
