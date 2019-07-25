@@ -37,7 +37,6 @@ import scala.scalajs.js.annotation.ScalaJSDefined
   override def componentDidMount(): Unit =
     initPyramid()
       .map(p => setState(State(Some(p))))
-
 }
 
 object Main {
