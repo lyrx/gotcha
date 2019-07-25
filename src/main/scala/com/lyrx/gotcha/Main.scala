@@ -15,7 +15,7 @@ import js.Dynamic.{literal => l}
 import scala.scalajs.js.annotation.ScalaJSDefined
 @react class Pyramidal extends Component {
   case class State(pyramidOpt: Option[Pyramid])
-  case class Props(name: String)
+  type Props = Unit
 
   implicit val ec = ExecutionContext.global
   implicit val timeout: Timeout = new Timeout(30)
@@ -36,10 +36,10 @@ import scala.scalajs.js.annotation.ScalaJSDefined
 
   override def componentDidMount(): Unit =
     initPyramid()
-      .map(p => setState(State(Some(p))))
+      .map(p => setState(State(Some(new Pyramid(p.config.withMessage("Eternalize Your Documents In The Blockchain!"))))))
 }
 
 object Main {
   def main(args: Array[String]): Unit =
-    ReactDOM.render(Pyramidal(name = ""), document.getElementById("root"))
+    ReactDOM.render(Pyramidal(), document.getElementById("root"))
 }

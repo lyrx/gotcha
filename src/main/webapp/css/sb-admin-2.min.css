@@ -553,7 +553,15 @@ pre code {
     padding-right: .75rem;
     padding-left: .75rem;
     margin-right: auto;
-    margin-left: auto
+    margin-left: auto;
+
+
+
+
+}
+#root{
+     height: 756px;
+    background-image: url('../img/ETER-header.jpg');
 }
 
 .row {
