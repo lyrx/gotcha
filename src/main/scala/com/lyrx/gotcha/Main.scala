@@ -19,10 +19,6 @@ import scala.scalajs.js.annotation.ScalaJSDefined
   case class Props(pyramidOpt: Option[Pyramid])
 
 
-  implicit val ec = ExecutionContext.global
-  implicit val timeout: Timeout = new Timeout(30)
-  implicit val isTest: Boolean = true
-
   def initPyramid()(implicit executionContext: ExecutionContext) =
     Config
       .createFuture()
@@ -39,6 +35,7 @@ import scala.scalajs.js.annotation.ScalaJSDefined
   }
 
   override def componentDidMount(): Unit = {
+    import ReactElements.ec
     initPyramid()
       .map(p => ReactElements
         .renderAll(Pyramidal(
