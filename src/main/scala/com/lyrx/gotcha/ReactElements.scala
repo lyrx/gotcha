@@ -20,8 +20,10 @@ object ReactElements {
       a(className:="nav-link", href := "index.html")(
         i(className:="fas fa-fw fa-tachometer-alt"),
         span()("Dashboard")
-      )
-
+      )),
+    hr(className:="sidebar-divider d-none d-md-block"),
+    div(className:="text-center d-none d-md-inline")(
+      button( className:="rounded-circle border-0", id:="sidebarToggle")
     )
   )
 
@@ -173,7 +175,17 @@ object ReactElements {
         )
       )
     ),
-    div(className := "container-fluid" , id :="pyramid-root")
+    div(className := "container-fluid" , id :="pyramid-root"),
+
+    /*
+    <a class="scroll-to-top rounded" href="#page-top">
+    <i class="fas fa-angle-up"></i>
+</a>
+
+     */
+    a( className:="scroll-to-top rounded", href:="#page-top")(
+      i(className:="fas fa-angle-up")
+    )
   )
 
   /*
