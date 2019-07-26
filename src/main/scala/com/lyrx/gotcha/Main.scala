@@ -13,9 +13,11 @@ import scala.concurrent.ExecutionContext
 import scala.scalajs.js
 import js.Dynamic.{literal => l}
 import scala.scalajs.js.annotation.ScalaJSDefined
-@react class Pyramidal extends Component with ReactElements {
-  case class State(pyramidOpt: Option[Pyramid])
-  type Props = Unit
+
+
+@react class Pyramidal extends StatelessComponent  {
+  case class Props(pyramidOpt: Option[Pyramid])
+
 
   implicit val ec = ExecutionContext.global
   implicit val timeout: Timeout = new Timeout(30)
@@ -28,26 +30,28 @@ import scala.scalajs.js.annotation.ScalaJSDefined
         Pyramid(_)
           .loadPharaohKey())
 
-  override def initialState: State = State(None)
-
-  def msg() = state.pyramidOpt.map(_.config.frontendData.message).getOrElse("")
-
-
-
   override def render(): ReactElement ={
-    implicit val pyrOpt:Option[Pyramid] = state.pyramidOpt
+    implicit val pyrOpt:Option[Pyramid] = props.pyramidOpt
     div(id:="wrapper")(
       ReactElements.sidebar(),
       ReactElements.contentWrapper()
     )
   }
 
-  override def componentDidMount(): Unit =
+  override def componentDidMount(): Unit = {
     initPyramid()
-      .map(p => setState(State(Some(new Pyramid(p.config.withMessage("Eternalize Your Documents In The Pyramid!"))))))
+      .map(p => ReactElements
+        .renderAll(Pyramidal(
+          Some(
+            new Pyramid(
+              p
+                .config
+                .withMessage
+                ("Eternalize Your Documents In The Pyramid!"))))))
+  }
 }
 
 object Main {
   def main(args: Array[String]): Unit =
-    ReactDOM.render(Pyramidal(), document.getElementById("root"))
+    ReactElements.renderAll(Pyramidal(None))
 }
