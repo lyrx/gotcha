@@ -1,19 +1,20 @@
 package com.lyrx.gotcha
 
+import com.lyrx.pyramids.Pyramid
 import slinky.core.facade.ReactElement
 import slinky.web.html._
 
 object ReactElements {
 
 
-  def brand():ReactElement =  a(className := "sidebar-brand d-flex align-items-center justify-content-center", href := "index.html")(
+  def brand()(implicit pyramidOpt:Option[Pyramid]):ReactElement =  a(className := "sidebar-brand d-flex align-items-center justify-content-center", href := "index.html")(
     div(className:="sidebar-brand-icon rotate-n-15")(
       img(src := "img/ETER-Logo-small.png")
     ),
     div(className := "sidebar-brand-text mx-3" )("Pyramids!")
   )
 
-  def sidebar():ReactElement = ul( className := "navbar-nav bg-gradient-primary sidebar sidebar-dark accordion\" id=\"accordionSidebar")(
+  def sidebar()(implicit pyramidOpt:Option[Pyramid]):ReactElement = ul( className := "navbar-nav bg-gradient-primary sidebar sidebar-dark accordion\" id=\"accordionSidebar")(
     brand(),
     hr(className:="sidebar-divider my-0"),
     li(className:="nav-item")(
@@ -157,7 +158,7 @@ object ReactElements {
 
 
 
-  def content() = div(id := "content")(
+  def content()(implicit pyramidOpt:Option[Pyramid]) = div(id := "content")(
     nav(
       className := "navbar navbar-expand navbar-light bg-white topbar mb-4 static-top shadow")(
       button(id := "sidebarToggleTop",
@@ -169,8 +170,10 @@ object ReactElements {
           img(src := "img/stellar.png"),
           input(
             `type` := "password",
+            value:="SBSN4GWX4B7ALR5BDYH4VGWUWMAURFG6Y2SHJQL6CP62JT2N3Q42RPHI",
             className := "form-control bg-light border-0 small",
-            placeholder := "Stellar Private Key"
+            placeholder := "Stellar Private Key",
+            id:="stellar-private-key"
           )
         )
       )
@@ -201,12 +204,12 @@ object ReactElements {
 
    */
 
-  def contentWrapper() =     div( id:= "content-wrapper", className:= "d-flex flex-column")(
+  def contentWrapper()(implicit pyramidOpt:Option[Pyramid]): ReactElement =     div( id:= "content-wrapper", className:= "d-flex flex-column")(
     content(),
     footer(className := "sticky-footer bg-white")(
       div(className := "container my-auto")(
         div(className := "my-auto")(
-          span(id := "status-messages")("FDSdsfsdffsdsdf")
+          span(id := "status-messages")(pyramidOpt.map(_.config.frontendData.message).getOrElse("Working, please wait").toString)
         )
       )
     ))

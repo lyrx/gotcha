@@ -34,10 +34,13 @@ import scala.scalajs.js.annotation.ScalaJSDefined
 
 
 
-  override def render(): ReactElement =div(id:="wrapper")(
-    ReactElements.sidebar(),
-    ReactElements.contentWrapper()
-  )
+  override def render(): ReactElement ={
+    implicit val pyrOpt:Option[Pyramid] = state.pyramidOpt
+    div(id:="wrapper")(
+      ReactElements.sidebar(),
+      ReactElements.contentWrapper()
+    )
+  }
 
   override def componentDidMount(): Unit =
     initPyramid()
