@@ -34,7 +34,10 @@ import scala.scalajs.js.annotation.ScalaJSDefined
 
 
 
-  override def render(): ReactElement = h1(s"${msg()}")
+  override def render(): ReactElement =div(id:="wrapper")(
+    ReactElements.sidebar(),
+    ReactElements.contentWrapper()
+  )
 
   override def componentDidMount(): Unit =
     initPyramid()

@@ -1,20 +1,28 @@
 package com.lyrx.gotcha
 
+import slinky.core.facade.ReactElement
 import slinky.web.html._
 
-trait ReactElements {
+object ReactElements {
 
 
-  def brand() =  a(className := "sidebar-brand d-flex align-items-center justify-content-center", href := "index.html")(
+  def brand():ReactElement =  a(className := "sidebar-brand d-flex align-items-center justify-content-center", href := "index.html")(
     div(className:="sidebar-brand-icon rotate-n-15")(
       img(src := "img/ETER-Logo-small.png")
     ),
     div(className := "sidebar-brand-text mx-3" )("Pyramids!")
   )
 
-  def sidebar() = ul( className := "navbar-nav bg-gradient-primary sidebar sidebar-dark accordion\" id=\"accordionSidebar")(
+  def sidebar():ReactElement = ul( className := "navbar-nav bg-gradient-primary sidebar sidebar-dark accordion\" id=\"accordionSidebar")(
     brand(),
-    hr(className:="sidebar-divider my-0")
+    hr(className:="sidebar-divider my-0"),
+    li(className:="nav-item")(
+      a(className:="nav-link", href := "index.html")(
+        i(className:="fas fa-fw fa-tachometer-alt"),
+        span()("Dashboard")
+      )
+
+    )
   )
 
 
@@ -165,7 +173,7 @@ trait ReactElements {
         )
       )
     ),
-    div(className := "container-fluid")
+    div(className := "container-fluid" , id :="pyramid-root")
   )
 
   /*
