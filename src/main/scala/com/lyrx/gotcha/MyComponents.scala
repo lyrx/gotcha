@@ -12,9 +12,21 @@ object MyComponents {
 
   @react class  Balance extends  StatelessComponent  {
     case class Props(pyramidOpt: Option[Pyramid])
-
-
-    override def render(): ReactElement = ???
+    override def render(): ReactElement = div(className:="col-xl-3 col-md-6 mb-4")(
+      div(className:="card border-left-primary shadow h-100 py-2")(
+        div(className:="card-body")(
+          div(className:="row no-gutters align-items-center")(
+            div(className:="col mr-2")(
+              div(className:="text-xs font-weight-bold text-primary text-uppercase mb-1")("Earnings (Monthly)"),
+              div(className:="h5 mb-0 font-weight-bold text-gray-800")("$40,000")
+            ),
+            div(className:="col-auto")(
+              i(className:="fas fa-calendar fa-2x text-gray-300")
+            )
+          )
+        )
+      )
+    )
   }
 
     @react class Stellar extends Component {

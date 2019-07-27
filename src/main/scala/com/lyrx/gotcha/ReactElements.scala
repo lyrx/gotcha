@@ -73,7 +73,9 @@ object ReactElements  {
   def dashBoard()(implicit pyramidOpt:Option[Pyramid]): ReactElement =
     div(className := "container-fluid" , id :="pyramid-root")(
       pageHeading("Dashboard"),
-      div(className:="row")
+      div(className:="row")(
+        Balance(pyramidOpt)
+      )
 
 
       )
