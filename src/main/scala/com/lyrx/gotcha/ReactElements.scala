@@ -9,8 +9,8 @@ import slinky.web.ReactDOM
 import slinky.web.html._
 
 import scala.concurrent.ExecutionContext
-
-object ReactElements {
+import MyComponents._
+object ReactElements  {
 
 
   implicit val ec = ExecutionContext.global
@@ -18,6 +18,7 @@ object ReactElements {
   implicit val isTest: Boolean = true
 
 
+  def initReactElements()= renderAll(Pyramidal(None))
 
   def renderAll(p: ReactElement) = ReactDOM.render(p, document.getElementById("root"))
 
@@ -186,17 +187,7 @@ object ReactElements {
         i(className := "fa fa-bars")),
       form(
         className := "d-none d-sm-inline-block form-inline mr-auto ml-md-3 my-2 my-md-0 mw-100 navbar-search")(
-        div(className := "input-group")(
-          img(src := "img/stellar.png"),
-          input(
-            `type` := "password",
-            value:="SBSN4GWX4B7ALR5BDYH4VGWUWMAURFG6Y2SHJQL6CP62JT2N3Q42RPHI",
-            className := "form-control bg-light border-0 small",
-            placeholder := "Stellar Private Key",
-            id:="stellar-private-key",
-            onChange:= (e=>{})
-          )
-        )
+        Stellar(pyramidOpt)
       )
     ),
     dashBoard()
