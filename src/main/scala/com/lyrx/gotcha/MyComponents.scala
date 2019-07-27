@@ -25,18 +25,17 @@ object MyComponents {
     override def initialState: State = State(
      description="Your stellar account balance",
       currency="XLM",
-      amount ="..."
+      amount =""
     )
 
-    override def componentDidUpdate(prevProps: Props, prevState: State): Unit = if( prevProps.pyramidOpt.isEmpty) {
-      val pw = document.
-        getElementById(stellarPasswordFieldId).
-        asInstanceOf[HTMLInputElement]
-        .value
+    override def componentDidUpdate(prevProps: Props, prevState: State): Unit = if( prevProps.pyramidOpt.isEmpty)
       props
       .pyramidOpt
         .map(p => p.balanceStellar(
-          pw
+          document.
+            getElementById(stellarPasswordFieldId).
+            asInstanceOf[HTMLInputElement]
+            .value
          ).map(_.map(s=>setState(
           state
             .copy(
@@ -44,10 +43,10 @@ object MyComponents {
         )))
           .onComplete(t=>t.failed.map(e=>println(s"${e}")))
         )
-    }
 
 
-    override def render(): ReactElement = {
+
+    override def render(): ReactElement =
       div(className := "col-xl-3 col-md-6 mb-4")(
         div(className := "card border-left-primary shadow h-100 py-2")(
           div(className := "card-body")(
@@ -65,7 +64,6 @@ object MyComponents {
           )
         )
       )
-    }
   }
 
   @react class Stellar extends Component {
