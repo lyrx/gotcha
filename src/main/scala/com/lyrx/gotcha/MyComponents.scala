@@ -14,23 +14,21 @@ object MyComponents {
 
     val pw = "SBSN4GWX4B7ALR5BDYH4VGWUWMAURFG6Y2SHJQL6CP62JT2N3Q42RPHI"
 
-    case class Props(pyramidOpt:Option[Pyramid])
-    case class State(password:String)
-
+    case class Props(pyramidOpt: Option[Pyramid])
+    case class State(password: String)
 
     override def render(): ReactElement = div(className := "input-group")(
       img(src := "img/stellar.png"),
       input(
         `type` := "password",
-        defaultValue:=pw,
+        defaultValue := pw,
         className := "form-control bg-light border-0 small",
         placeholder := "Stellar Private Key",
-        id:="stellar-private-key" ,
-        onChange:= (e=>{
+        id := "stellar-private-key",
+        onChange := (e => {
           e.preventDefault()
           setState(state.copy(password = e.target.value))
         })
-
       ),
       /*
       <a href="#" class="btn btn-secondary btn-icon-split">
@@ -40,21 +38,19 @@ object MyComponents {
                     <span class="text">Split Button Secondary</span>
                   </a>
        */
-      a( href:="#",
-        className:="btn btn-secondary btn-icon-split",
-        onClick:= ( e=>{
+      a(href := "#",
+        className := "btn btn-secondary btn-icon-split",
+        onClick := (e => {
           e.preventDefault()
-        })
-      )(
-        span(className:="icon text-white-50")(
-          i(className:="fas fa-arrow-right")
+        }))(
+        span(className := "icon text-white-50")(
+          i(className := "fas fa-arrow-right")
         )
       )
     )
 
     override def initialState: State = State(pw)
   }
-
 
 
 
