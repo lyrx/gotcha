@@ -10,7 +10,14 @@ import scala.concurrent.ExecutionContext
 
 object MyComponents {
 
-  @react class Stellar extends Component {
+  @react class  Balance extends  StatelessComponent  {
+    case class Props(pyramidOpt: Option[Pyramid])
+
+
+    override def render(): ReactElement = ???
+  }
+
+    @react class Stellar extends Component {
 
     val pw = "SBSN4GWX4B7ALR5BDYH4VGWUWMAURFG6Y2SHJQL6CP62JT2N3Q42RPHI"
 
@@ -30,14 +37,7 @@ object MyComponents {
           setState(state.copy(password = e.target.value))
         })
       ),
-      /*
-      <a href="#" class="btn btn-secondary btn-icon-split">
-                    <span class="icon text-white-50">
-                      <i class="fas fa-arrow-right"></i>
-                    </span>
-                    <span class="text">Split Button Secondary</span>
-                  </a>
-       */
+
       a(href := "#",
         className := "btn btn-secondary btn-icon-split",
         onClick := (e => {
