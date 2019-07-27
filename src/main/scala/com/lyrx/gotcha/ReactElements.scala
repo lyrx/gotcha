@@ -2,7 +2,8 @@ package com.lyrx.gotcha
 
 import com.lyrx.pyramids.Pyramid
 import com.lyrx.pyramids.stellarsdk.Timeout
-import org.scalajs.dom.document
+import org.scalajs.dom.{Event, document,html}
+import slinky.core.SyntheticEvent
 import slinky.core.facade.ReactElement
 import slinky.web.ReactDOM
 import slinky.web.html._
@@ -172,6 +173,11 @@ object ReactElements {
 
 
 
+  def handleChange(e: SyntheticEvent[html.Input, Event]): Unit = {
+
+  }
+
+
   def content()(implicit pyramidOpt:Option[Pyramid]) = div(id := "content")(
     nav(
       className := "navbar navbar-expand navbar-light bg-white topbar mb-4 static-top shadow")(
@@ -187,12 +193,14 @@ object ReactElements {
             value:="SBSN4GWX4B7ALR5BDYH4VGWUWMAURFG6Y2SHJQL6CP62JT2N3Q42RPHI",
             className := "form-control bg-light border-0 small",
             placeholder := "Stellar Private Key",
-            id:="stellar-private-key"
+            id:="stellar-private-key",
+            onChange:= (e=>{})
           )
         )
       )
     ),
-    div(className := "container-fluid" , id :="pyramid-root"),
+    dashBoard()
+    ,
 
     /*
     <a class="scroll-to-top rounded" href="#page-top">
@@ -205,18 +213,29 @@ object ReactElements {
     )
   )
 
-  /*
 
-<footer class="sticky-footer bg-white">
-            <div class="container my-auto">
-                <div class="my-auto">
-                    <span id="status-messages">fsdfsdfsdsf</span>
-                </div>
-            </div>
-        </footer>
+  def dashBoard()(implicit pyramidOpt:Option[Pyramid]): ReactElement =
+    div(className := "container-fluid" , id :="pyramid-root")(
+      pageHeading("Dashboard"),
+      div(className:="row")
+    )
+
+  def pageHeading(title: String)(implicit pyramidOpt:Option[Pyramid])=
+    div(className:="d-sm-flex align-items-center justify-content-between mb-4")(
+      h1(className:="h3 mb-0 text-gray-800")(title)
+    )
+    /*
+
+  <footer class="sticky-footer bg-white">
+              <div class="container my-auto">
+                  <div class="my-auto">
+                      <span id="status-messages">fsdfsdfsdsf</span>
+                  </div>
+              </div>
+          </footer>
 
 
-   */
+     */
 
   def contentWrapper()(implicit pyramidOpt:Option[Pyramid]): ReactElement =     div( id:= "content-wrapper", className:= "d-flex flex-column")(
     content(),
