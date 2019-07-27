@@ -46,9 +46,6 @@ object ReactElements  {
 
 
 
-  def handleChange(e: SyntheticEvent[html.Input, Event]): Unit = {
-
-  }
 
 
   def content()(implicit pyramidOpt:Option[Pyramid]) = div(id := "content")(
@@ -70,15 +67,15 @@ object ReactElements  {
   )
 
 
-  def dashBoard()(implicit pyramidOpt:Option[Pyramid]): ReactElement =
+  def dashBoard()(
+    implicit pyramidOpt:Option[Pyramid]
+  ): ReactElement =
     div(className := "container-fluid" , id :="pyramid-root")(
       pageHeading("Dashboard"),
       div(className:="row")(
         Balance(pyramidOpt)
       )
-
-
-      )
+    )
 
   def pageHeading(title: String)(implicit pyramidOpt:Option[Pyramid])=
     div(className:="d-sm-flex align-items-center justify-content-between mb-4")(
