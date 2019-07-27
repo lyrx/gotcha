@@ -20,29 +20,41 @@ object MyComponents {
 
   @react class Balance extends Component {
     case class Props(pyramidOpt: Option[Pyramid])
-    case class State(description: String,currency:String, amount:String)
+    case class State(description: String,currency:String, amount:String, account:String)
 
     override def initialState: State = State(
      description="Your stellar account balance",
       currency="XLM",
-      amount =""
+      amount ="",
+      account = ""
     )
 
-    override def componentDidUpdate(prevProps: Props, prevState: State): Unit = if( prevProps.pyramidOpt.isEmpty)
-      props
-      .pyramidOpt
-        .map(p => p.balanceStellar(
-          document.
-            getElementById(stellarPasswordFieldId).
-            asInstanceOf[HTMLInputElement]
-            .value
-         ).map(_.map(s=>setState(
-          state
-            .copy(
-              amount=s)
-        )))
-          .onComplete(t=>t.failed.map(e=>println(s"${e}")))
-        )
+    override def componentDidUpdate(prevProps: Props, prevState: State): Unit = {
+      val pw = document.
+        getElementById(stellarPasswordFieldId).
+        asInstanceOf[HTMLInputElement]
+        .value
+      if( prevProps.pyramidOpt.isEmpty)
+        props
+          .pyramidOpt
+          .map(p => p
+            .balanceStellar(pw)
+            .map(
+              _.map(balance=>{
+                p.privateStellarAccountId(pw)
+                    .map(accountId=>{
+                      setState(
+                        state
+                          .copy(
+                            amount=balance,
+                            account = accountId)
+                      )
+                    })
+
+              }))
+            .onComplete(t=>t.failed.map(e=>println(s"${e}")))
+          )
+    }
 
 
 
@@ -53,7 +65,9 @@ object MyComponents {
             div(className := "row no-gutters align-items-center")(
               div(className := "col mr-2")(
                 div(className := "text-xs font-weight-bold text-primary text-uppercase mb-1")(
-                  state.description),
+                  s"${state.description}"),
+                /* div(className := "text-xs font-weight-bold text-primary text-uppercase mb-1")(
+                  state.account), */
                 div(className := "h5 mb-0 font-weight-bold text-gray-800")(
                   s"${state.currency} ${state.amount}")
               ),

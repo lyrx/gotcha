@@ -179,6 +179,12 @@ class Pyramid(val config: Config)
         Pyramid(config.withMessage("No keys imported (wrong file type)!"))
       }
 
+  def privateStellarAccountId(privateKey: String)(
+  implicit executionContext: ExecutionContext,
+  isTest: Boolean) = loadPrivateAccount(privateKey).map(_._2.accountId())
+
+
+
   def balanceStellar(privateKey: String)(
       implicit executionContext: ExecutionContext,
       isTest: Boolean) =
