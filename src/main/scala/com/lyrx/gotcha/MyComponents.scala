@@ -114,7 +114,7 @@ object MyComponents {
 
     override def initialState: State = State(pw)
   }
-  @react class Pyramidal extends StatelessComponent {
+  @react class IdentityManagement extends StatelessComponent {
     case class Props(pyramidOpt: Option[Pyramid])
 
     def initPyramid(isTestNet:Boolean)(implicit executionContext: ExecutionContext) =
@@ -137,7 +137,7 @@ object MyComponents {
         .map(
           p =>
             ReactElements
-              .renderAll(Pyramidal(Some(new Pyramid(p.config
+              .renderAll(IdentityManagement(Some(new Pyramid(p.config
                 .withMessage("Eternalize Your Documents In The Pyramid!"))))))
     }
   }
