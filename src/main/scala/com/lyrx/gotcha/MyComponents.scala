@@ -34,7 +34,7 @@ object MyComponents {
   }
   @react class ContentWrapper extends StatelessComponent {
 
-    case class Props(pyramidOpt: Option[Pyramid])
+    case class Props(pyramidOpt: Option[Pyramid], renderer: ()=>ReactElement)
 
     def content() = div(id := "content")(
       nav(
@@ -47,7 +47,8 @@ object MyComponents {
           Stellar(props.pyramidOpt)
         )
       ),
-      IdentityManagement(props.pyramidOpt),
+      //IdentityManagement(props.pyramidOpt),
+      props.renderer(),
       a(className := "scroll-to-top rounded", href := "#page-top")(
         i(className := "fas fa-angle-up")
       )
@@ -219,7 +220,7 @@ object MyComponents {
       implicit val pyrOpt: Option[Pyramid] = props.pyramidOpt
       div(id := "wrapper")(
         SideBar(pyrOpt),
-        ContentWrapper(pyrOpt)
+        ContentWrapper(pyrOpt, (() =>IdentityManagement(pyrOpt) ))
       )
     }
 
