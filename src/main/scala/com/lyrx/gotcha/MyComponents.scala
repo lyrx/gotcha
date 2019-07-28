@@ -17,7 +17,7 @@ object MyComponents {
 
 
 
-  @react class Balance extends Component {
+  @react class UserBalance extends Component {
     case class Props(pyramidOpt: Option[Pyramid])
     case class State(description: String,currency:String, amount:String, account:String)
 

@@ -73,7 +73,7 @@ object ReactElements  {
     div(className := "container-fluid" , id :="pyramid-root")(
       pageHeading("Identity Management"),
       div(className:="row")(
-        Balance(pyramidOpt)
+        UserBalance(pyramidOpt)
       )
     )
 
