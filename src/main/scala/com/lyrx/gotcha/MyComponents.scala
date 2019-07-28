@@ -32,7 +32,11 @@ object MyComponents {
       div(className := "container-fluid", id := "pyramid-root")(
         pageHeading("Identity Management"),
         div(className := "row")(
-          UserBalance(props.pyramidOpt)
+          PharaohBalance(
+            props.pyramidOpt,
+            retriever = (_.map(_.balanceStellar(MyComponents.passwordField.current.value)).getOrElse(Future{None})),
+            title= "Client account's balance",
+            currency = "XLM")
         )
       )
 
