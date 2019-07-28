@@ -16,11 +16,58 @@ object MyComponents {
   val stellarPasswordFieldId="stellar-private-key"
 
 
+  @react class ContentWrapper extends StatelessComponent {
+
+    case class Props(pyramidOpt: Option[Pyramid])
+
+
+    def pageHeading(title: String)=
+      div(className:="d-sm-flex align-items-center justify-content-between mb-4")(
+        h1(className:="h3 mb-0 text-gray-800")(title)
+      )
+
+
+    def identityManagement(): ReactElement =
+      div(className := "container-fluid" , id :="pyramid-root")(
+        pageHeading("Identity Management"),
+        div(className:="row")(
+          UserBalance(props.pyramidOpt)
+        )
+      )
 
 
 
+    def content() = div(id := "content")(
+      nav(
+        className := "navbar navbar-expand navbar-light bg-white topbar mb-4 static-top shadow")(
+        button(id := "sidebarToggleTop",
+          className := "btn btn-link d-md-none rounded-circle mr-3")(
+          i(className := "fa fa-bars")),
+        form(
+          className := "d-none d-sm-inline-block form-inline mr-auto ml-md-3 my-2 my-md-0 mw-100 navbar-search")(
+          Stellar(props.pyramidOpt)
+        )
+      ),
+      identityManagement()
+      ,
+      a( className:="scroll-to-top rounded", href:="#page-top")(
+        i(className:="fas fa-angle-up")
+      )
+    )
 
-  @react class SideBar extends StatelessComponent {
+    override def render(): ReactElement = div( id:= "content-wrapper", className:= "d-flex flex-column")(
+      content(),
+      footer(className := "sticky-footer bg-white")(
+        div(className := "container my-auto")(
+          div(className := "my-auto")(
+            span(id := "status-messages")(props.pyramidOpt.map(_.config.frontendData.message).getOrElse("Working, please wait").toString)
+          )
+        )
+      ))
+
+  }
+
+    @react class SideBar extends StatelessComponent {
 
     case class Props(pyramidOpt: Option[Pyramid])
 
@@ -37,7 +84,11 @@ object MyComponents {
       hr(className:="sidebar-divider my-0"),
       li(className:="nav-item")(
         a(className:="nav-link",
-          href := "index.html")(
+          href := "#",
+          onClick:=(e=>{
+            e.preventDefault()
+          })
+        )(
           i(className:="fas fa-fw fa-tachometer-alt"),
           span()("Indentity Management")
         )),
@@ -165,7 +216,7 @@ object MyComponents {
       implicit val pyrOpt: Option[Pyramid] = props.pyramidOpt
       div(id := "wrapper")(
         SideBar(pyrOpt),
-        ReactElements.contentWrapper()
+        ContentWrapper(pyrOpt)
       )
     }
 
