@@ -14,11 +14,19 @@ object Main {
   implicit val ec = ExecutionContext.global
   implicit val timeout: Timeout = new Timeout(30)
 
-  def initReactElements(pyramidOpt:Option[Pyramid]) = renderAll(ManagementWrapper(pyramidOpt,((aPyramidOpt) =>IdentityManagement(aPyramidOpt) )))
+  def initReactElements(pyramidOpt:Option[Pyramid],renderer:GotchaPyramidRenderer) = renderAll(
+    ManagementWrapper(pyramidOpt,renderer))
+
+
 
   def renderAll(p: ReactElement) =
     ReactDOM.render(p, document.getElementById("root"))
 
   def main(args: Array[String]): Unit =
-    initReactElements(None)
+    initReactElements(
+      None,
+      ((aPyramidOpt) =>IdentityManagement(aPyramidOpt) ))
+
+
+
 }

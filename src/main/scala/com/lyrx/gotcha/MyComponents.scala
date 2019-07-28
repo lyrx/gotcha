@@ -92,8 +92,15 @@ object MyComponents {
         brand(),
         hr(className := "sidebar-divider my-0"),
         li(className := "nav-item")(
-          a(className := "nav-link", href := "#", onClick := (e => {
+          a(className := "nav-link",
+            href := "#",
+            onClick := (e => {
             e.preventDefault()
+              Main.initReactElements(
+                props.pyramidOpt,
+                ((aPyramidOpt) =>IdentityManagement(aPyramidOpt) ))
+
+
           }))(
             i(className := "fas fa-fw fa-tachometer-alt"),
             span()("Indentity Management")
