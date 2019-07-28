@@ -11,8 +11,6 @@ import Main.ec
 
 import scala.concurrent.{ExecutionContext, Future}
 
-
-
 object MyComponents {
 
   val stellarPasswordFieldId = "stellar-private-key"
@@ -22,6 +20,8 @@ object MyComponents {
       className := "d-sm-flex align-items-center justify-content-between mb-4")(
       h1(className := "h3 mb-0 text-gray-800")(title)
     )
+
+
   @react class IdentityManagement extends StatelessComponent {
     case class Props(pyramidOpt: Option[Pyramid])
 
@@ -34,6 +34,25 @@ object MyComponents {
       )
 
   }
+
+
+  @react class Notary extends StatelessComponent {
+    case class Props(pyramidOpt: Option[Pyramid])
+
+    def render(): ReactElement =
+      div(className := "container-fluid", id := "pyramid-root")(
+        pageHeading("Notary"),
+        div(className := "row")(
+
+        )
+      )
+
+  }
+
+
+
+
+
   @react class ContentWrapper extends StatelessComponent {
 
     case class Props(pyramidOpt: Option[Pyramid], renderer: GotchaRenderer)
@@ -86,25 +105,29 @@ object MyComponents {
         div(className := "sidebar-brand-text mx-3")("Pyramids!")
       )
 
+    def navItem(renderer:GotchaPyramidRenderer,name:String) =li(className := "nav-item")(
+      a(
+        className := "nav-link",
+        href := "#",
+        onClick := (e => {
+          e.preventDefault()
+          println("Yippiyeau !!! ")
+          Main.initReactElements(
+            props.pyramidOpt,
+            renderer)
+        })
+      )(
+        i(className := "fas fa-fw fa-tachometer-alt"),
+        span()(name)
+      ))
+
     override def render(): ReactElement =
       ul(
         className := "navbar-nav bg-gradient-primary sidebar sidebar-dark accordion\" id=\"accordionSidebar")(
         brand(),
         hr(className := "sidebar-divider my-0"),
-        li(className := "nav-item")(
-          a(className := "nav-link",
-            href := "#",
-            onClick := (e => {
-            e.preventDefault()
-              Main.initReactElements(
-                props.pyramidOpt,
-                ((aPyramidOpt) =>IdentityManagement(aPyramidOpt) ))
-
-
-          }))(
-            i(className := "fas fa-fw fa-tachometer-alt"),
-            span()("Indentity Management")
-          )),
+        navItem( ((aPyramidOpt) => IdentityManagement(aPyramidOpt)),"Indentity Management"),
+        navItem( ((aPyramidOpt) => Notary(aPyramidOpt)),"Notary"),
         hr(className := "sidebar-divider d-none d-md-block"),
         div(className := "text-center d-none d-md-inline")(
           button(className := "rounded-circle border-0", id := "sidebarToggle")
@@ -214,27 +237,25 @@ object MyComponents {
     override def initialState: State = State(pw)
   }
   @react class ManagementWrapper extends StatelessComponent {
-    case class Props(pyramidOpt: Option[Pyramid]  ,
+    case class Props(pyramidOpt: Option[Pyramid],
                      renderer: GotchaPyramidRenderer)
 
     def initPyramid(isTestNet: Boolean)(
         implicit executionContext: ExecutionContext) =
-      props.pyramidOpt.map(p=>Future{p}).getOrElse(
-        Config
-          .createFuture(isTestNet)
-          .flatMap(
-            Pyramid(_)
+      props.pyramidOpt
+        .map(p => Future { p })
+        .getOrElse(
+          Config
+            .createFuture(isTestNet)
+            .flatMap(Pyramid(_)
               .loadPharaohKey())
-      )
-
-
-
+        )
 
     override def render(): ReactElement = {
       implicit val pyrOpt: Option[Pyramid] = props.pyramidOpt
       div(id := "wrapper")(
         SideBar(pyrOpt),
-        ContentWrapper(pyrOpt,  (()=>props.renderer(pyrOpt)))
+        ContentWrapper(pyrOpt, (() => props.renderer(pyrOpt)))
       )
     }
 
@@ -243,9 +264,11 @@ object MyComponents {
         .map(
           p =>
             Main
-              .renderAll(ManagementWrapper(Some(new Pyramid(p.config
-                .withMessage("Eternalize Your Documents In The Pyramid!"))),
-                props.renderer)))
+              .renderAll(
+                ManagementWrapper(
+                  Some(new Pyramid(p.config
+                    .withMessage("Eternalize Your Documents In The Pyramid!"))),
+                  props.renderer)))
     }
   }
 
