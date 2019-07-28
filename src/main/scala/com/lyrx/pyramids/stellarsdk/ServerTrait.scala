@@ -100,32 +100,17 @@ trait ServerTrait {
 
   def balanceForPrivate(privateKey: String)(
       implicit executionContext: concurrent.ExecutionContext) =
-    loadPrivateAcount(privateKey)
-      .flatMap(t => {
-        val accountId = t._2.accountId()
-        server
-          .accounts()
-          .accountId(accountId)
-          .call()
-          .toFuture
-      })
-      .map(_.balances.headOption)
-      .fmap(_.balance)
+    balanceForPublic(Keypair.fromSecret(privateKey).publicKey())
+
 
   def balanceForPublic(pubKey: String)(
-    implicit executionContext: concurrent.ExecutionContext) =
-    futureLoadAccount(pubKey)
-    .map(a=>(pubKey,a))
-      .flatMap(t => {
-        val accountId = t._2.accountId()
-        server
-          .accounts()
-          .accountId(accountId)
-          .call()
-          .toFuture
-      })
-      .map(_.balances.headOption)
-      .fmap(_.balance)
+    implicit executionContext: concurrent.ExecutionContext) =server
+    .accounts()
+    .accountId(pubKey)
+    .call()
+    .toFuture
+    .map(_.balances.headOption)
+    .fmap(_.balance)
 
 
 
