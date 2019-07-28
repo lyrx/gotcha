@@ -17,6 +17,20 @@ object MyComponents {
 
 
 
+  /*
+
+
+  @react class SideBar extends Component {
+
+    case class Props(pyramidOpt: Option[Pyramid])
+
+    case class State(description: String, currency: String, amount: String, account: String)
+
+  }
+*/
+
+
+
   @react class UserBalance extends Component {
     case class Props(pyramidOpt: Option[Pyramid])
     case class State(description: String,currency:String, amount:String, account:String)
@@ -27,6 +41,26 @@ object MyComponents {
       amount ="",
       account = ""
     )
+    def simpleCard(description:String,amount:String,currency:String): ReactElement =
+      div(className := "col-xl-3 col-md-6 mb-4")(
+        div(className := "card border-left-primary shadow h-100 py-2")(
+          div(className := "card-body")(
+            div(className := "row no-gutters align-items-center")(
+              div(className := "col mr-2")(
+                div(className := "text-xs font-weight-bold text-primary text-uppercase mb-1")(
+                  s"${description}"),
+                /* div(className := "text-xs font-weight-bold text-primary text-uppercase mb-1")(
+                  state.account), */
+                div(className := "h5 mb-0 font-weight-bold text-gray-800")(
+                  s"${currency} ${amount}")
+              ),
+              div(className := "col-auto")(
+                i(className := "fas fa-calendar fa-2x text-gray-300")
+              )
+            )
+          )
+        )
+      )
 
     override def componentDidUpdate(prevProps: Props, prevState: State): Unit = {
       val pw = document.
@@ -55,28 +89,10 @@ object MyComponents {
           )
     }
 
-
-
-    override def render(): ReactElement =
-      div(className := "col-xl-3 col-md-6 mb-4")(
-        div(className := "card border-left-primary shadow h-100 py-2")(
-          div(className := "card-body")(
-            div(className := "row no-gutters align-items-center")(
-              div(className := "col mr-2")(
-                div(className := "text-xs font-weight-bold text-primary text-uppercase mb-1")(
-                  s"${state.description}"),
-                /* div(className := "text-xs font-weight-bold text-primary text-uppercase mb-1")(
-                  state.account), */
-                div(className := "h5 mb-0 font-weight-bold text-gray-800")(
-                  s"${state.currency} ${state.amount}")
-              ),
-              div(className := "col-auto")(
-                i(className := "fas fa-calendar fa-2x text-gray-300")
-              )
-            )
-          )
-        )
-      )
+    override def render(): ReactElement = simpleCard(
+      description = state.description,
+      amount  = state.amount,
+      currency = state.currency)
   }
 
   @react class Stellar extends Component {

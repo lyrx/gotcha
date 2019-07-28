@@ -34,7 +34,8 @@ object ReactElements  {
     brand(),
     hr(className:="sidebar-divider my-0"),
     li(className:="nav-item")(
-      a(className:="nav-link", href := "index.html")(
+      a(className:="nav-link",
+        href := "index.html")(
         i(className:="fas fa-fw fa-tachometer-alt"),
         span()("Indentity Management")
       )),
@@ -59,7 +60,7 @@ object ReactElements  {
         Stellar(pyramidOpt)
       )
     ),
-    dashBoard()
+    identityManagement()
     ,
     a( className:="scroll-to-top rounded", href:="#page-top")(
       i(className:="fas fa-angle-up")
@@ -67,7 +68,7 @@ object ReactElements  {
   )
 
 
-  def dashBoard()(
+  def identityManagement()(
     implicit pyramidOpt:Option[Pyramid]
   ): ReactElement =
     div(className := "container-fluid" , id :="pyramid-root")(
