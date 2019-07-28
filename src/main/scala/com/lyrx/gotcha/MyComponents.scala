@@ -141,6 +141,30 @@ object MyComponents {
       )
 
   }
+
+  def simpleCard(description: String,
+                 amount: String,
+                 currency: String): ReactElement =
+    div(className := "col-xl-3 col-md-6 mb-4")(
+      div(className := "card border-left-primary shadow h-100 py-2")(
+        div(className := "card-body")(
+          div(className := "row no-gutters align-items-center")(
+            div(className := "col mr-2")(
+              div(className := "text-xs font-weight-bold text-primary text-uppercase mb-1")(
+                s"${description}"),
+              /* div(className := "text-xs font-weight-bold text-primary text-uppercase mb-1")(
+                state.account), */
+              div(className := "h5 mb-0 font-weight-bold text-gray-800")(
+                s"${currency} ${amount}")
+            ),
+            div(className := "col-auto")(
+              i(className := "fas fa-calendar fa-2x text-gray-300")
+            )
+          )
+        )
+      )
+    )
+
   @react class UserBalance extends Component {
     case class Props(pyramidOpt: Option[Pyramid])
     case class State(description: String,
@@ -148,32 +172,9 @@ object MyComponents {
                      amount: String)
 
     override def initialState: State = State(
-      description = "Your stellar account balance",
+      description = "Client account balance",
       currency = "XLM",
       amount = "")
-
-    def simpleCard(description: String,
-                   amount: String,
-                   currency: String): ReactElement =
-      div(className := "col-xl-3 col-md-6 mb-4")(
-        div(className := "card border-left-primary shadow h-100 py-2")(
-          div(className := "card-body")(
-            div(className := "row no-gutters align-items-center")(
-              div(className := "col mr-2")(
-                div(className := "text-xs font-weight-bold text-primary text-uppercase mb-1")(
-                  s"${description}"),
-                /* div(className := "text-xs font-weight-bold text-primary text-uppercase mb-1")(
-                  state.account), */
-                div(className := "h5 mb-0 font-weight-bold text-gray-800")(
-                  s"${currency} ${amount}")
-              ),
-              div(className := "col-auto")(
-                i(className := "fas fa-calendar fa-2x text-gray-300")
-              )
-            )
-          )
-        )
-      )
 
 
     def readBalance() = {
