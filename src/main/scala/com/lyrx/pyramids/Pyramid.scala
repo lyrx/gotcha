@@ -184,20 +184,19 @@ class Pyramid(val config: Config)
 
 
 
-  def balanceStellar(privateKey: String,isTestNet:Boolean)(
+  def balanceStellar(privateKey: String)(
       implicit executionContext: ExecutionContext) =
-    balanceForPrivate(privateKey,isTestNet)
+    balanceForPrivate(privateKey,config.blockchainData.stellar.testNet)
 
 
-  def balancePharaoh(isTestNet:Boolean)(
-    implicit executionContext: ExecutionContext,
-    isTest: Boolean) =
+  def balancePharaoh()(
+    implicit executionContext: ExecutionContext) =
     config
       .blockchainData
       .stellar
       .pharaohPubOpt
         .map(s=>
-        balanceForPublic(s,isTestNet)
+        balanceForPublic(s,config.blockchainData.stellar.testNet)
         ).getOrElse(Future{None})
 
 
@@ -207,8 +206,7 @@ class Pyramid(val config: Config)
 
   private def internalRegister(hash: String, aPrivateKey: String,isTestNet:Boolean)(
       implicit executionContext: ExecutionContext,
-      timeout: Timeout,
-      isTest: Boolean) =
+      timeout: Timeout) =
     config.blockchainData.stellar.registrationFeeXLMOpt
       .map(
         regFee =>

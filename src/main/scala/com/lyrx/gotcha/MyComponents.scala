@@ -46,7 +46,11 @@ object MyComponents {
       div(className := "container-fluid", id := "pyramid-root")(
         pageHeading("Notary"),
         div(className := "row")(
-
+          PharaohBalance(
+            props.pyramidOpt,
+            retriever = (_.map(_.balancePharaoh()).getOrElse(Future{None})),
+            title= "Notary account balance",
+          currency = "XLM")
         )
       )
 

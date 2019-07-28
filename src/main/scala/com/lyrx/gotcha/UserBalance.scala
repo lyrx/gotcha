@@ -26,7 +26,7 @@ import Main.ec
     props.pyramidOpt
       .map(
         p =>
-          p.balanceStellar(pw, p.config.blockchainData.stellar.testNet)
+          p.balanceStellar(pw)
             .map(_.map(balance => {
               setState(
                 state

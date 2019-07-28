@@ -56,7 +56,7 @@ trait Stellar {
 
 
   def balanceForPublic(pubKey:String,isTestNet:Boolean)(
-    implicit executionContext: ExecutionContext,isTest: Boolean)=
+    implicit executionContext: ExecutionContext)=
     initStellar(isTestNet).balanceForPublic(pubKey)
 
 
