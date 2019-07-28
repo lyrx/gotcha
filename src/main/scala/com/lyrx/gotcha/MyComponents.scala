@@ -4,12 +4,13 @@ import com.lyrx.pyramids.{Config, Pyramid}
 import slinky.core.{Component, StatelessComponent}
 import slinky.core.annotations.react
 import slinky.core.facade.ReactElement
-import ReactElements.{ec}
 import org.scalajs.dom.document
 import org.scalajs.dom.raw.HTMLInputElement
 import slinky.web.html._
-
+import Main.ec
 import scala.concurrent.ExecutionContext
+
+
 
 object MyComponents {
 
@@ -47,7 +48,6 @@ object MyComponents {
           Stellar(props.pyramidOpt)
         )
       ),
-      //IdentityManagement(props.pyramidOpt),
       props.renderer(),
       a(className := "scroll-to-top rounded", href := "#page-top")(
         i(className := "fas fa-angle-up")
@@ -228,7 +228,7 @@ object MyComponents {
       initPyramid(true)
         .map(
           p =>
-            ReactElements
+            Main
               .renderAll(IdentityManagementWrapper(Some(new Pyramid(p.config
                 .withMessage("Eternalize Your Documents In The Pyramid!"))))))
     }
