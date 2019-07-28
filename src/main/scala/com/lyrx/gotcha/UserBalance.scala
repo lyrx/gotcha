@@ -1,6 +1,6 @@
 package com.lyrx.gotcha
 
-import com.lyrx.gotcha.MyComponents.{simpleCard, stellarPasswordFieldId}
+import com.lyrx.gotcha.MyComponents.{simpleCard}
 import com.lyrx.pyramids.Pyramid
 import org.scalajs.dom.document
 import org.scalajs.dom.raw.HTMLInputElement
@@ -22,10 +22,7 @@ import Main.ec
 
 
   def readBalance() = {
-    val pw = document
-      .getElementById(stellarPasswordFieldId)
-      .asInstanceOf[HTMLInputElement]
-      .value
+    val pw = MyComponents.passwordField.current.value
     props.pyramidOpt
       .map(
         p =>

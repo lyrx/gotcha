@@ -3,18 +3,19 @@ package com.lyrx.gotcha
 import com.lyrx.pyramids.{Config, Pyramid}
 import slinky.core.{Component, StatelessComponent}
 import slinky.core.annotations.react
-import slinky.core.facade.ReactElement
-import org.scalajs.dom.document
-import org.scalajs.dom.raw.HTMLInputElement
+import slinky.core.facade.{React, ReactElement}
+
+import org.scalajs.dom
 import slinky.web.html._
 import Main.ec
 
 import scala.concurrent.{ExecutionContext, Future}
 
+
 object MyComponents {
 
-  val stellarPasswordFieldId = "stellar-private-key"
 
+  val passwordField = React.createRef[dom.html.Input]
 
 
   def pageHeading(title: String) =
@@ -176,14 +177,15 @@ object MyComponents {
     case class Props(pyramidOpt: Option[Pyramid])
     case class State(password: String)
 
-    override def render(): ReactElement = div(className := "input-group")(
+    override def render(): ReactElement = {
+      div(className := "input-group")(
       img(src := "img/stellar.png"),
       input(
+        ref := passwordField,
         `type` := "password",
         defaultValue := pw,
         className := "form-control bg-light border-0 small",
         placeholder := "Stellar Private Key",
-        id := stellarPasswordFieldId,
         onChange := (e => {
           e.preventDefault()
           setState(state.copy(password = e.target.value))
@@ -198,7 +200,8 @@ object MyComponents {
           i(className := "fas fa-arrow-right")
         )
       )
-    )
+    )}
+
 
     override def initialState: State = State(pw)
   }
