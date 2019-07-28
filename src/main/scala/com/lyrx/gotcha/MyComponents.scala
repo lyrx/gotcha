@@ -165,50 +165,9 @@ object MyComponents {
       )
     )
 
-  @react class UserBalance extends Component {
-    case class Props(pyramidOpt: Option[Pyramid])
-    case class State(description: String,
-                     currency: String,
-                     amount: String)
-
-    override def initialState: State = State(
-      description = "Client account balance",
-      currency = "XLM",
-      amount = "")
 
 
-    def readBalance() = {
-      val pw = document
-        .getElementById(stellarPasswordFieldId)
-        .asInstanceOf[HTMLInputElement]
-        .value
-      props.pyramidOpt
-        .map(
-          p =>
-            p.balanceStellar(pw, p.config.blockchainData.stellar.testNet)
-              .map(_.map(balance => {
-                setState(
-                      state
-                        .copy(amount = balance)
-                    )
-                  }))
-              .onComplete(t => t.failed.map(e => println(s"${e}"))))
-    }
-    override def componentDidMount(): Unit = {
-      readBalance()
-    }
-    override def componentDidUpdate(prevProps: Props,
-                                    prevState: State): Unit = {
-      if (prevProps.pyramidOpt.isEmpty)
-        readBalance()
-    }
 
-    override def render(): ReactElement = {
-      simpleCard(description = state.description,
-                 amount = state.amount,
-                 currency = state.currency)
-    }
-  }
 
   @react class Stellar extends Component {
 
