@@ -15,6 +15,8 @@ object MyComponents {
 
   val stellarPasswordFieldId = "stellar-private-key"
 
+
+
   def pageHeading(title: String) =
     div(
       className := "d-sm-flex align-items-center justify-content-between mb-4")(
@@ -105,28 +107,32 @@ object MyComponents {
         div(className := "sidebar-brand-text mx-3")("Pyramids!")
       )
 
-    def navItem(renderer:GotchaPyramidRenderer,name:String) =li(className := "nav-item")(
-      a(
-        className := "nav-link",
-        href := "#",
-        onClick := (e => {
-          e.preventDefault()
-          println("Yippiyeau !!! ")
-          Main.initReactElements(
-            props.pyramidOpt,
-            renderer)
-        })
-      )(
-        i(className := "fas fa-fw fa-tachometer-alt"),
-        span()(name)
-      ))
+    def navItem(renderer:GotchaPyramidRenderer,name:String) ={
+
+      def initMainPanel(po:Option[Pyramid]) =  Main
+        .initReactElements(
+        po,
+        renderer)
+      li(className := "nav-item")(
+        a(
+          className := "nav-link",
+          href := "#",
+          onClick := (e => {
+            e.preventDefault()
+            initMainPanel(props.pyramidOpt)
+          })
+        )(
+          i(className := "fas fa-fw fa-tachometer-alt"),
+          span()(name)
+        ))
+    }
 
     override def render(): ReactElement =
       ul(
         className := "navbar-nav bg-gradient-primary sidebar sidebar-dark accordion\" id=\"accordionSidebar")(
         brand(),
         hr(className := "sidebar-divider my-0"),
-        navItem( ((aPyramidOpt) => IdentityManagement(aPyramidOpt)),"Indentity Management"),
+        navItem( ((aPyramidOpt) => IdentityManagement(aPyramidOpt)),"Indentity"),
         navItem( ((aPyramidOpt) => Notary(aPyramidOpt)),"Notary"),
         hr(className := "sidebar-divider d-none d-md-block"),
         div(className := "text-center d-none d-md-inline")(
@@ -139,15 +145,13 @@ object MyComponents {
     case class Props(pyramidOpt: Option[Pyramid])
     case class State(description: String,
                      currency: String,
-                     amount: String,
-                     account: String)
+                     amount: String)
 
     override def initialState: State = State(
       description = "Your stellar account balance",
       currency = "XLM",
-      amount = "",
-      account = ""
-    )
+      amount = "")
+
     def simpleCard(description: String,
                    amount: String,
                    currency: String): ReactElement =
@@ -171,36 +175,38 @@ object MyComponents {
         )
       )
 
-    override def componentDidUpdate(prevProps: Props,
-                                    prevState: State): Unit = {
+
+    def readBalance() = {
       val pw = document
         .getElementById(stellarPasswordFieldId)
         .asInstanceOf[HTMLInputElement]
         .value
+      props.pyramidOpt
+        .map(
+          p =>
+            p.balanceStellar(pw, p.config.blockchainData.stellar.testNet)
+              .map(_.map(balance => {
+                setState(
+                      state
+                        .copy(amount = balance)
+                    )
+                  }))
+              .onComplete(t => t.failed.map(e => println(s"${e}"))))
+    }
+    override def componentDidMount(): Unit = {
+      readBalance()
+    }
+    override def componentDidUpdate(prevProps: Props,
+                                    prevState: State): Unit = {
       if (prevProps.pyramidOpt.isEmpty)
-        props.pyramidOpt
-          .map(
-            p =>
-              p.balanceStellar(pw, p.config.blockchainData.stellar.testNet)
-                .map(_.map(balance => {
-                  p.privateStellarAccountId(
-                      pw,
-                      p.config.blockchainData.stellar.testNet)
-                    .map(accountId => {
-                      setState(
-                        state
-                          .copy(amount = balance, account = accountId)
-                      )
-                    })
-
-                }))
-                .onComplete(t => t.failed.map(e => println(s"${e}"))))
+        readBalance()
     }
 
-    override def render(): ReactElement =
+    override def render(): ReactElement = {
       simpleCard(description = state.description,
                  amount = state.amount,
                  currency = state.currency)
+    }
   }
 
   @react class Stellar extends Component {
