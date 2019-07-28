@@ -18,7 +18,7 @@ object ReactElements  {
   implicit val isTest: Boolean = true
 
 
-  def initReactElements()= renderAll(IdentityManagement(None))
+  def initReactElements()= renderAll(IdentityManagementWrapper(None))
 
   def renderAll(p: ReactElement) = ReactDOM.render(p, document.getElementById("root"))
 
