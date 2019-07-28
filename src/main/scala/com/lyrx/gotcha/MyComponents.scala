@@ -208,7 +208,7 @@ object MyComponents {
   }
   @react class ManagementWrapper extends StatelessComponent {
     case class Props(pyramidOpt: Option[Pyramid]  ,
-                     renderer: GotchaRenderer)
+                     renderer: GotchaPyramidRenderer)
 
     def initPyramid(isTestNet: Boolean)(
         implicit executionContext: ExecutionContext) =
@@ -227,7 +227,7 @@ object MyComponents {
       implicit val pyrOpt: Option[Pyramid] = props.pyramidOpt
       div(id := "wrapper")(
         SideBar(pyrOpt),
-        ContentWrapper(pyrOpt, props.renderer)
+        ContentWrapper(pyrOpt,  (()=>props.renderer(pyrOpt)))
       )
     }
 
@@ -237,7 +237,8 @@ object MyComponents {
           p =>
             Main
               .renderAll(ManagementWrapper(Some(new Pyramid(p.config
-                .withMessage("Eternalize Your Documents In The Pyramid!"))),props.renderer)))
+                .withMessage("Eternalize Your Documents In The Pyramid!"))),
+                props.renderer)))
     }
   }
 
