@@ -4,7 +4,7 @@ import com.lyrx.pyramids.{Config, Pyramid}
 import slinky.core.{Component, StatelessComponent}
 import slinky.core.annotations.react
 import slinky.core.facade.ReactElement
-import ReactElements.ec
+import ReactElements.{ec}
 import org.scalajs.dom.document
 import org.scalajs.dom.raw.HTMLInputElement
 import slinky.web.html._
@@ -17,17 +17,38 @@ object MyComponents {
 
 
 
-  /*
 
 
-  @react class SideBar extends Component {
+
+  @react class SideBar extends StatelessComponent {
 
     case class Props(pyramidOpt: Option[Pyramid])
 
-    case class State(description: String, currency: String, amount: String, account: String)
+
+    def brand():ReactElement =  a(className := "sidebar-brand d-flex align-items-center justify-content-center", href := "index.html")(
+      div(className:="sidebar-brand-icon rotate-n-15")(
+        img(src := "img/ETER-Logo-small.png")
+      ),
+      div(className := "sidebar-brand-text mx-3" )("Pyramids!")
+    )
+
+    override def render(): ReactElement = ul( className := "navbar-nav bg-gradient-primary sidebar sidebar-dark accordion\" id=\"accordionSidebar")(
+      brand(),
+      hr(className:="sidebar-divider my-0"),
+      li(className:="nav-item")(
+        a(className:="nav-link",
+          href := "index.html")(
+          i(className:="fas fa-fw fa-tachometer-alt"),
+          span()("Indentity Management")
+        )),
+      hr(className:="sidebar-divider d-none d-md-block"),
+      div(className:="text-center d-none d-md-inline")(
+        button( className:="rounded-circle border-0", id:="sidebarToggle")
+      )
+    )
 
   }
-*/
+
 
 
 
@@ -143,7 +164,7 @@ object MyComponents {
     override def render(): ReactElement = {
       implicit val pyrOpt: Option[Pyramid] = props.pyramidOpt
       div(id := "wrapper")(
-        ReactElements.sidebar(),
+        SideBar(pyrOpt),
         ReactElements.contentWrapper()
       )
     }
