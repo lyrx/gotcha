@@ -14,7 +14,7 @@ object Main {
   implicit val ec = ExecutionContext.global
   implicit val timeout: Timeout = new Timeout(30)
 
-  def initReactElements(pyramidOpt:Option[Pyramid]) = renderAll(IdentityManagementWrapper(pyramidOpt))
+  def initReactElements(pyramidOpt:Option[Pyramid]) = renderAll(ManagementWrapper(pyramidOpt,(() =>IdentityManagement(pyramidOpt) )))
 
   def renderAll(p: ReactElement) =
     ReactDOM.render(p, document.getElementById("root"))

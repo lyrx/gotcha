@@ -8,7 +8,8 @@ import org.scalajs.dom.document
 import org.scalajs.dom.raw.HTMLInputElement
 import slinky.web.html._
 import Main.ec
-import scala.concurrent.ExecutionContext
+
+import scala.concurrent.{ExecutionContext, Future}
 
 
 
@@ -35,7 +36,7 @@ object MyComponents {
   }
   @react class ContentWrapper extends StatelessComponent {
 
-    case class Props(pyramidOpt: Option[Pyramid], renderer: ()=>ReactElement)
+    case class Props(pyramidOpt: Option[Pyramid], renderer: GotchaRenderer)
 
     def content() = div(id := "content")(
       nav(
@@ -205,22 +206,28 @@ object MyComponents {
 
     override def initialState: State = State(pw)
   }
-  @react class IdentityManagementWrapper extends StatelessComponent {
-    case class Props(pyramidOpt: Option[Pyramid])
+  @react class ManagementWrapper extends StatelessComponent {
+    case class Props(pyramidOpt: Option[Pyramid]  ,
+                     renderer: GotchaRenderer)
 
     def initPyramid(isTestNet: Boolean)(
         implicit executionContext: ExecutionContext) =
-      Config
-        .createFuture(isTestNet)
-        .flatMap(
-          Pyramid(_)
-            .loadPharaohKey())
+      props.pyramidOpt.map(p=>Future{p}).getOrElse(
+        Config
+          .createFuture(isTestNet)
+          .flatMap(
+            Pyramid(_)
+              .loadPharaohKey())
+      )
+
+
+
 
     override def render(): ReactElement = {
       implicit val pyrOpt: Option[Pyramid] = props.pyramidOpt
       div(id := "wrapper")(
         SideBar(pyrOpt),
-        ContentWrapper(pyrOpt, (() =>IdentityManagement(pyrOpt) ))
+        ContentWrapper(pyrOpt, props.renderer)
       )
     }
 
@@ -229,8 +236,8 @@ object MyComponents {
         .map(
           p =>
             Main
-              .renderAll(IdentityManagementWrapper(Some(new Pyramid(p.config
-                .withMessage("Eternalize Your Documents In The Pyramid!"))))))
+              .renderAll(ManagementWrapper(Some(new Pyramid(p.config
+                .withMessage("Eternalize Your Documents In The Pyramid!"))),props.renderer)))
     }
   }
 
