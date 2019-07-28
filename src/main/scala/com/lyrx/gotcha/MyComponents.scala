@@ -5,7 +5,6 @@ import slinky.core.{Component, StatelessComponent}
 import slinky.core.annotations.react
 import slinky.core.facade.ReactElement
 import ReactElements.ec
-import ReactElements.isTest
 import org.scalajs.dom.document
 import org.scalajs.dom.raw.HTMLInputElement
 import slinky.web.html._
@@ -38,10 +37,10 @@ object MyComponents {
         props
           .pyramidOpt
           .map(p => p
-            .balanceStellar(pw)
+            .balanceStellar(pw,p.config.blockchainData.stellar.testNet)
             .map(
               _.map(balance=>{
-                p.privateStellarAccountId(pw)
+                p.privateStellarAccountId(pw,p.config.blockchainData.stellar.testNet)
                     .map(accountId=>{
                       setState(
                         state
@@ -118,9 +117,9 @@ object MyComponents {
   @react class Pyramidal extends StatelessComponent {
     case class Props(pyramidOpt: Option[Pyramid])
 
-    def initPyramid()(implicit executionContext: ExecutionContext) =
+    def initPyramid(isTestNet:Boolean)(implicit executionContext: ExecutionContext) =
       Config
-        .createFuture()
+        .createFuture(isTestNet)
         .flatMap(
           Pyramid(_)
             .loadPharaohKey())
@@ -134,7 +133,7 @@ object MyComponents {
     }
 
     override def componentDidMount(): Unit = {
-      initPyramid()
+      initPyramid(true)
         .map(
           p =>
             ReactElements

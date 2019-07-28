@@ -36,7 +36,7 @@ object ReactElements  {
     li(className:="nav-item")(
       a(className:="nav-link", href := "index.html")(
         i(className:="fas fa-fw fa-tachometer-alt"),
-        span()("Dashboard")
+        span()("Indentity Management")
       )),
     hr(className:="sidebar-divider d-none d-md-block"),
     div(className:="text-center d-none d-md-inline")(
@@ -71,7 +71,7 @@ object ReactElements  {
     implicit pyramidOpt:Option[Pyramid]
   ): ReactElement =
     div(className := "container-fluid" , id :="pyramid-root")(
-      pageHeading("Dashboard"),
+      pageHeading("Identity Management"),
       div(className:="row")(
         Balance(pyramidOpt)
       )

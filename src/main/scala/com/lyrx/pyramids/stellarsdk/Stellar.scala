@@ -17,8 +17,8 @@ object StellarObject {
 trait Stellar {
 
 
-  def initStellar()
-                 (implicit executionContext: ExecutionContext,isTest: Boolean) = {
+  def initStellar(isTest:Boolean)
+                 (implicit executionContext: ExecutionContext) = {
     // Uncomment the following line to build transactions for the live network. Be
     // sure to also change the horizon hostname.
     // StellarSdk.Network.usePublicNetwork();
@@ -33,14 +33,14 @@ trait Stellar {
 
   }
 
-  def loadPrivateAccount(privateKey: String)(
-      implicit executionContext: ExecutionContext,isTest: Boolean) =
-    initStellar().loadPrivateAcount(privateKey)
+  def loadPrivateAccount(privateKey: String,isTestNet:Boolean)(
+      implicit executionContext: ExecutionContext) =
+    initStellar(isTestNet).loadPrivateAcount(privateKey)
 
 
-  def register(value:String,privateKey: String,aSendTo:String,amount:String)(
-    implicit executionContext: ExecutionContext,t:Timeout,isTest: Boolean) =
-    initStellar()
+  def register(value:String,privateKey: String,aSendTo:String,amount:String,isTestNet:Boolean)(
+    implicit executionContext: ExecutionContext,t:Timeout) =
+    initStellar(isTestNet)
       .register(aaHash = value,
         aPrivateKey = privateKey,
         sendTo = aSendTo,
@@ -50,14 +50,14 @@ trait Stellar {
 
 
 
-  def balanceForPrivate(privateKey:String)(
-    implicit executionContext: ExecutionContext,isTest: Boolean)=
-    initStellar().balanceForPrivate(privateKey)
+  def balanceForPrivate(privateKey:String,isTestNet:Boolean)(
+    implicit executionContext: ExecutionContext)=
+    initStellar(isTestNet).balanceForPrivate(privateKey)
 
 
-  def balanceForPublic(pubKey:String)(
+  def balanceForPublic(pubKey:String,isTestNet:Boolean)(
     implicit executionContext: ExecutionContext,isTest: Boolean)=
-    initStellar().balanceForPublic(pubKey)
+    initStellar(isTestNet).balanceForPublic(pubKey)
 
 
 

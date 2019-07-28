@@ -179,19 +179,17 @@ class Pyramid(val config: Config)
         Pyramid(config.withMessage("No keys imported (wrong file type)!"))
       }
 
-  def privateStellarAccountId(privateKey: String)(
-  implicit executionContext: ExecutionContext,
-  isTest: Boolean) = loadPrivateAccount(privateKey).map(_._2.accountId())
+  def privateStellarAccountId(privateKey: String,isTestNet:Boolean)(
+  implicit executionContext: ExecutionContext) = loadPrivateAccount(privateKey,isTestNet).map(_._2.accountId())
 
 
 
-  def balanceStellar(privateKey: String)(
-      implicit executionContext: ExecutionContext,
-      isTest: Boolean) =
-    balanceForPrivate(privateKey)
+  def balanceStellar(privateKey: String,isTestNet:Boolean)(
+      implicit executionContext: ExecutionContext) =
+    balanceForPrivate(privateKey,isTestNet)
 
 
-  def balancePharaoh()(
+  def balancePharaoh(isTestNet:Boolean)(
     implicit executionContext: ExecutionContext,
     isTest: Boolean) =
     config
@@ -199,7 +197,7 @@ class Pyramid(val config: Config)
       .stellar
       .pharaohPubOpt
         .map(s=>
-        balanceForPublic(s)
+        balanceForPublic(s,isTestNet)
         ).getOrElse(Future{None})
 
 
@@ -207,7 +205,7 @@ class Pyramid(val config: Config)
 
 
 
-  private def internalRegister(hash: String, aPrivateKey: String)(
+  private def internalRegister(hash: String, aPrivateKey: String,isTestNet:Boolean)(
       implicit executionContext: ExecutionContext,
       timeout: Timeout,
       isTest: Boolean) =
@@ -220,35 +218,35 @@ class Pyramid(val config: Config)
                 register(value = hash,
                          privateKey = aPrivateKey,
                          aSendTo = pharaohPub,
-                         amount = regFee)))
+                         amount = regFee,
+                  isTestNet)))
       .flatten
       .get
 
-  def registerStellar(privateKey: String)(
+  def registerStellar(privateKey: String,isTestNet:Boolean)(
       implicit executionContext: ExecutionContext,
       timeout: Timeout,
       isTest: Boolean) =
     config.ipfsData.regOpt
-      .map(registrationHash => internalRegister(registrationHash, privateKey))
+      .map(registrationHash => internalRegister(registrationHash, privateKey,isTestNet))
       .flip()
       .fmap(s => new Pyramid(config.withMessage(s)))
 
-  def notarizeStellar(privateKey: String)(
+  def notarizeStellar(privateKey: String,isTestNet:Boolean)(
       implicit executionContext: ExecutionContext,
-      timeout: Timeout,
-      isTest: Boolean) =
+      timeout: Timeout) =
     config.ipfsData.uploads.foldLeft(Future { Some(this) }: Future[Option[Pyramid]])(
       (pf: Future[Option[Pyramid]], upload: Upload) =>
-        registerUpload(pf, upload, privateKey))
+        registerUpload(pf, upload, privateKey,isTestNet))
     .fmap(p=>new Pyramid(p.config.withMessage("All uploads are now notarized!")))
 
   def registerUpload(
       pf: Future[Option[Pyramid]],
       upload: Upload,
-      privKey: String
+      privKey: String,
+      isTestNet: Boolean
   )(implicit executionContext: ExecutionContext,
-    timeout: Timeout,
-    isTest: Boolean) =
+    timeout: Timeout) =
     pf.fmap(pyr=> config.blockchainData.stellar.pharaohPubOpt
       .flatMap(
         pharaohPub =>
@@ -256,7 +254,9 @@ class Pyramid(val config: Config)
             .map(fee =>  register(value = upload.hash,
               privateKey = privKey,
               aSendTo = pharaohPub,
-              amount = fee).map(Some(_).map(s=>pyr)))))
+              amount = fee,
+              isTestNet
+            ).map(Some(_).map(s=>pyr)))))
     .map(_.flatten).toFutureOption()
 
       /*
