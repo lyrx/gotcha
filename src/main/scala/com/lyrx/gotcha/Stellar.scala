@@ -8,7 +8,7 @@ import slinky.web.html.{`type`, className, defaultValue, div, img, input, onChan
 
 @react class Stellar extends Component {
 
-  def passwordFieldValue() = props
+  def passwordFieldValueDefault() = props
     .pyramidOpt
     .map(p=>{
       val isTest  = p.config.blockchainData.stellar.testNet
@@ -17,7 +17,7 @@ import slinky.web.html.{`type`, className, defaultValue, div, img, input, onChan
         ""
     }).getOrElse("")
 
-  def docsFieldValue() = props
+  def docsFieldValueDefault() = props
     .pyramidOpt
     .map(p=>{
       val isTest  = p.config.blockchainData.stellar.testNet
@@ -26,7 +26,7 @@ import slinky.web.html.{`type`, className, defaultValue, div, img, input, onChan
         ""
     }).getOrElse("")
 
-  def idFieldValue() = props
+  def idFieldValueDefault() = props
     .pyramidOpt
     .map(p=>{
       val isTest  = p.config.blockchainData.stellar.testNet
@@ -52,7 +52,7 @@ import slinky.web.html.{`type`, className, defaultValue, div, img, input, onChan
       input(
         ref := MyComponents.passwordField,
         `type` := "password",
-        defaultValue := passwordFieldValue(),
+        defaultValue := passwordFieldValueDefault(),
         className := inputClasses,
         placeholder := "Private Key",
         onChange := (e => {
@@ -63,7 +63,8 @@ import slinky.web.html.{`type`, className, defaultValue, div, img, input, onChan
       span(className:="account")("Docs: "),
       input(
         className := inputClasses,
-        defaultValue := docsFieldValue(),
+        ref := MyComponents.docsField,
+        defaultValue := docsFieldValueDefault(),
         placeholder := "Public Key",
         onChange := (e => {
           e.preventDefault()
@@ -72,7 +73,8 @@ import slinky.web.html.{`type`, className, defaultValue, div, img, input, onChan
       span(className:="account")("IDs: "),
       input(
         className := inputClasses,
-        defaultValue := idFieldValue(),
+        ref := MyComponents.idsField,
+        defaultValue := idFieldValueDefault(),
         placeholder := "Public Key",
         onChange := (e => {
           e.preventDefault()
@@ -82,5 +84,5 @@ import slinky.web.html.{`type`, className, defaultValue, div, img, input, onChan
     )
   }
 
-  override def initialState: State = State(passwordFieldValue())
+  override def initialState: State = State(passwordFieldValueDefault())
 }

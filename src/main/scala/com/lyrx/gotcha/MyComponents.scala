@@ -14,6 +14,11 @@ import scala.concurrent.{ExecutionContext, Future}
 object MyComponents {
 
   val passwordField = React.createRef[dom.html.Input]
+  val docsField = React.createRef[dom.html.Input]
+  val idsField = React.createRef[dom.html.Input]
+
+
+
 
   def pageHeading(title: String) =
     div(

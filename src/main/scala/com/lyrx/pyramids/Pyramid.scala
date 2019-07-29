@@ -189,7 +189,7 @@ class Pyramid(val config: Config)
     balanceForPrivate(privateKey,config.blockchainData.stellar.testNet)
 
 
-  def balancePharaoh()(
+  def balanceDocs()(
     implicit executionContext: ExecutionContext) =
     config
       .blockchainData
@@ -199,7 +199,18 @@ class Pyramid(val config: Config)
         balanceForPublic(s,config.blockchainData.stellar.testNet)
         ).getOrElse(Future{None})
 
+  def balanceIds()(
+    implicit executionContext: ExecutionContext) =
+    config
+      .blockchainData
+      .stellar
+      .idPubObt
+      .map(s=>
+        balanceForPublic(s,config.blockchainData.stellar.testNet)
+      ).getOrElse(Future{None})
 
+def balanceForAccount(s:String)(
+  implicit executionContext: ExecutionContext) =  balanceForPublic(s,config.blockchainData.stellar.testNet)
 
 
 
