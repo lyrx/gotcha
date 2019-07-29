@@ -39,22 +39,7 @@ object MyComponents {
       )
 
   }
-  @react class Notary extends StatelessComponent {
-    case class Props(pyramidOpt: Option[Pyramid])
 
-    def render(): ReactElement =
-      div(className := "container-fluid", id := "pyramid-root")(
-        pageHeading("Notary"),
-        div(className := "row")(
-          PharaohBalance(
-            props.pyramidOpt,
-            retriever = (_.map(_.balancePharaoh()).getOrElse(Future { None })),
-            title = "Notary Documents",
-            currency = "XLM")
-        )
-      )
-
-  }
 
   @react class TopBar extends StatelessComponent {
     case class Props(pyramidOpt: Option[Pyramid])

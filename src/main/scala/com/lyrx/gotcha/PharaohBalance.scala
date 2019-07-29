@@ -37,7 +37,7 @@ import scala.concurrent.Future
                 s"${currency} ${amount}")
             ),
             div(className := "col-auto")(
-              i(className := "fas fa-calendar fa-2x text-gray-300")
+              i(className := "fas fa-coins fa-2x text-gray-300")
             )
           )
         )
