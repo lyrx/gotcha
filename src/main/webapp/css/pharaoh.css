@@ -12,7 +12,9 @@ a.my-btn{
   margin: 3px;
 }
 
-
+.my-hidden{
+    display: none;
+}
 input.account{
 
 }
