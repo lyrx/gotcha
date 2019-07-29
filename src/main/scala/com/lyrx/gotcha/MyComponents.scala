@@ -56,7 +56,7 @@ object MyComponents {
 
   }
 
-  @react class Navigation extends StatelessComponent {
+  @react class TopBar extends StatelessComponent {
     case class Props(pyramidOpt: Option[Pyramid])
 
     def render(): ReactElement =
@@ -66,12 +66,27 @@ object MyComponents {
                className := "btn btn-link d-md-none rounded-circle mr-3")(
           i(className := "fa fa-bars")),
         form(
-          className := "d-none d-sm-inline-block form-inline mr-auto ml-md-3 my-2 my-md-0 mw-100 navbar-search")(
+          className := "d-none d-sm-inline-block form-inline mr-auto ml-md-3 my-2 my-md-0 mw-100")(
           Stellar(props.pyramidOpt)
         )
       )
-
   }
+  @react class BottomBar extends StatelessComponent {
+    case class Props(pyramidOpt: Option[Pyramid])
+
+    def render(): ReactElement =
+      nav(
+        className := "navbar navbar-expand navbar-light bg-white topbar mb-4 static-top shadow")(
+        button(id := "sidebarToggleTop",
+          className := "btn btn-link d-md-none rounded-circle mr-3")(
+          i(className := "fa fa-bars")),
+        form(
+          className := "d-none d-sm-inline-block form-inline mr-auto ml-md-3 my-2 my-md-0 mw-100")(
+          Stellar(props.pyramidOpt)
+        )
+      )
+  }
+
 
   @react class Footer extends StatelessComponent {
     case class Props(pyramidOpt: Option[Pyramid])
@@ -96,10 +111,12 @@ object MyComponents {
     override def render(): ReactElement =
       div(id := "content-wrapper", className := "d-flex flex-column")(
         div(id := "content")(
-          Navigation(props.pyramidOpt),
-          props.renderer()
+          TopBar(props.pyramidOpt),
+          props.renderer() //,
+          //BottomBar(props.pyramidOpt)
         ),
         Footer(props.pyramidOpt)
+
       )
 
   }
@@ -161,18 +178,37 @@ object MyComponents {
     override def render(): ReactElement = {
       div(className := "input-group")(
         img(src := "img/stellar.png"),
+        span(className:="account")("Client: "),
         input(
           ref := passwordField,
           `type` := "password",
           defaultValue := pw,
-          className := "form-control bg-light border-0 small",
-          placeholder := "Stellar Private Key",
+          className := "form-control bg-light border-0 small account ",
+          placeholder := "Private Key",
           onChange := (e => {
             e.preventDefault()
             setState(state.copy(password = e.target.value))
           })
         ),
-        a(href := "#",
+        span(className:="account")("Docs: "),
+          input(
+            className := "form-control bg-light border-0 small account ",
+          placeholder := "Public Key",
+          onChange := (e => {
+            e.preventDefault()
+          })
+        ),
+        span(className:="account")("IDs: "),
+        input(
+          className := "form-control bg-light border-0 small account ",
+          placeholder := "Public Key",
+          onChange := (e => {
+            e.preventDefault()
+          })
+        )
+
+        /*
+        ,a(href := "#",
           className := "btn btn-secondary btn-icon-split",
           onClick := (e => {
             e.preventDefault()
@@ -181,6 +217,9 @@ object MyComponents {
             i(className := "fas fa-arrow-right")
           )
         )
+
+         */
+
       )
     }
 
