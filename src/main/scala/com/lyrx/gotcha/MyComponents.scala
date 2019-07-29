@@ -170,7 +170,16 @@ object MyComponents {
   }
   @react class Stellar extends Component {
 
-    val pw = "SBSN4GWX4B7ALR5BDYH4VGWUWMAURFG6Y2SHJQL6CP62JT2N3Q42RPHI"
+
+
+    def passwordFieldValue() = props
+      .pyramidOpt
+      .map(p=>{
+        val isTest  = p.config.blockchainData.stellar.testNet
+        if(isTest) "SBSN4GWX4B7ALR5BDYH4VGWUWMAURFG6Y2SHJQL6CP62JT2N3Q42RPHI"
+        else
+          ""
+      }).getOrElse("")
 
     case class Props(pyramidOpt: Option[Pyramid])
     case class State(password: String)
@@ -182,7 +191,7 @@ object MyComponents {
         input(
           ref := passwordField,
           `type` := "password",
-          defaultValue := pw,
+          defaultValue := passwordFieldValue(),
           className := "form-control bg-light border-0 small account ",
           placeholder := "Private Key",
           onChange := (e => {
@@ -207,23 +216,10 @@ object MyComponents {
           })
         )
 
-        /*
-        ,a(href := "#",
-          className := "btn btn-secondary btn-icon-split",
-          onClick := (e => {
-            e.preventDefault()
-          }))(
-          span(className := "icon text-white-50")(
-            i(className := "fas fa-arrow-right")
-          )
-        )
-
-         */
-
       )
     }
 
-    override def initialState: State = State(pw)
+    override def initialState: State = State(passwordFieldValue())
   }
   @react class ManagementWrapper extends StatelessComponent {
     case class Props(pyramidOpt: Option[Pyramid],
