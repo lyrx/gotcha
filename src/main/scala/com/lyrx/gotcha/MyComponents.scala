@@ -35,7 +35,7 @@ object MyComponents {
           PharaohBalance(
             props.pyramidOpt,
             retriever = (_.map(_.balanceStellar(MyComponents.passwordField.current.value)).getOrElse(Future{None})),
-            title= "Client account's balance",
+            title= "Client Account",
             currency = "XLM")
         )
       )
@@ -53,7 +53,7 @@ object MyComponents {
           PharaohBalance(
             props.pyramidOpt,
             retriever = (_.map(_.balancePharaoh()).getOrElse(Future{None})),
-            title= "Notary account balance",
+            title= "Notary Documents",
           currency = "XLM")
         )
       )
