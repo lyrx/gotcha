@@ -174,7 +174,7 @@ object MyComponents {
               .renderAll(
                 ManagementWrapper(
                   Some(new Pyramid(p.config
-                    .withMessage("Eternalize Your Documents In The Pyramid!"))),
+                    .withMessage("Eternalize Your Documents In A Blockchain!"))),
                   props.renderer)))
     }
   }

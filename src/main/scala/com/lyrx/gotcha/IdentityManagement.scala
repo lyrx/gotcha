@@ -18,7 +18,7 @@ import Main.ec
 
   def render(): ReactElement =
     div(className := "container-fluid", id := "pyramid-root")(
-      pageHeading("Identity Management"),
+      pageHeading("Your Trustless Blockchain Notary"),
       div(className := "row")(
         PharaohBalance(
           props.pyramidOpt,
