@@ -24,21 +24,25 @@ import scala.concurrent.Future
       readBalance()
   }
 
-  override def render(): ReactElement =
-    div(className := "col-xl-3 col-md-6 mb-4")(
-      div(className := "card shadow h-100 py-2")(
-        div(className := "card-body")(
-          div(className := "row no-gutters align-items-center")(
-            div(className := "col mr-2")(
-              div(className := "text-xs font-weight-bold text-primary text-uppercase mb-1")(
-                div(className := "h5 mb-0 font-weight-bold text-gray-800")(
-
-                  a(href := "#", className := "btn btn-success btn-icon-split")(
+  override def render(): ReactElement = div()(
+    div(
+    a(href := "#", className := "btn btn-light btn-icon-split my-btn")(
                     span(className := "icon text-white-50")(
                       i(className := "fas fa-save")
                     ),
-                    span(className := "text")("Save Credentials to Disk!")))
+                    span(className := "text")("Save Credentials"))
+  ),
+    div(
+      a(href := "#", className := "btn btn-light btn-icon-split my-btn")(
+        span(className := "icon text-white-50")(
+          i(className := "fas fa-upload")
+        ),
+        span(className := "text")("Upload Credentials"))
+    )
 
-              ))))))
+
+  )
+
+
 
 }
