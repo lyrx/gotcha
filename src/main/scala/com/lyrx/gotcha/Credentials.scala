@@ -26,12 +26,12 @@ import scala.concurrent.Future
 
   override def render(): ReactElement = div()(
     div(
-    a(href := "#", className := "btn btn-light btn-icon-split my-btn")(
-                    span(className := "icon text-white-50")(
-                      i(className := "fas fa-save")
-                    ),
-                    span(className := "text")("Save Credentials"))
-  ),
+      a(href := "#", className := "btn btn-light btn-icon-split my-btn")(
+        span(className := "icon text-white-50")(
+          i(className := "fas fa-save")
+        ),
+        span(className := "text")("Save Credentials"))
+    ),
     div(
       a(href := "#", className := "btn btn-light btn-icon-split my-btn")(
         span(className := "icon text-white-50")(
@@ -39,10 +39,6 @@ import scala.concurrent.Future
         ),
         span(className := "text")("Upload Credentials"))
     )
-
-
   )
-
-
 
 }
