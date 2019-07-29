@@ -178,7 +178,7 @@ object MyComponents {
     override def render(): ReactElement = {
       div(className := "input-group")(
         img(src := "img/stellar.png"),
-        span(className:="account")("Client: "),
+        span(className:="account")("Private: "),
         input(
           ref := passwordField,
           `type` := "password",
