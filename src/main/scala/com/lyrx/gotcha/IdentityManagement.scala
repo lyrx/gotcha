@@ -16,20 +16,21 @@ import Main.ec
 @react class IdentityManagement extends StatelessComponent {
   case class Props(pyramidOpt: Option[Pyramid])
 
+  def balance()= PharaohBalance(
+    props.pyramidOpt,
+    retriever =
+      (_.map(_.balanceStellar(MyComponents.passwordField.current.value))
+        .getOrElse(Future { None })),
+    title = "Client Account",
+    currency = "XLM"
+  )
+
   def render(): ReactElement =
     div(className := "container-fluid", id := "pyramid-root")(
       pageHeading("Your Trustless Blockchain Notary"),
       div(className := "row")(
-        PharaohBalance(
-          props.pyramidOpt,
-          retriever =
-            (_.map(_.balanceStellar(MyComponents.passwordField.current.value))
-              .getOrElse(Future { None })),
-          title = "Client Account",
-          currency = "XLM"
-        ),
+        balance(),
         Credentials(props.pyramidOpt)
-
       )
     )
 

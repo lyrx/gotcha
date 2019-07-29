@@ -53,7 +53,7 @@ import scala.concurrent.Future
     div(className := "card shadow mb-4")(
       div(className := "card-header py-3")(
         h6(className := "m-0 font-weight-bold text-primary")(
-          "Upload and save credentials"
+          "Load and save credentials"
         )
       ),
       div(className := "my-card-body")(
