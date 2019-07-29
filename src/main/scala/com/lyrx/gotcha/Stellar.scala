@@ -17,9 +17,34 @@ import slinky.web.html.{`type`, className, defaultValue, div, img, input, onChan
         ""
     }).getOrElse("")
 
+  def docsFieldValue() = props
+    .pyramidOpt
+    .map(p=>{
+      val isTest  = p.config.blockchainData.stellar.testNet
+      if(isTest)  p.config.blockchainData.stellar.docsPubObt.getOrElse("")
+      else
+        ""
+    }).getOrElse("")
+
+  def idFieldValue() = props
+    .pyramidOpt
+    .map(p=>{
+      val isTest  = p.config.blockchainData.stellar.testNet
+      if(isTest)  p.config.blockchainData.stellar.idPubObt.getOrElse("")
+      else
+        ""
+    }).getOrElse("")
+
+
+
+
+
+
   case class Props(pyramidOpt: Option[Pyramid])
   case class State(password: String)
 
+
+  val inputClasses="form-control bg-light border-0 small account "
   override def render(): ReactElement = {
     div(className := "input-group")(
       img(src := "img/stellar.png"),
@@ -28,7 +53,7 @@ import slinky.web.html.{`type`, className, defaultValue, div, img, input, onChan
         ref := MyComponents.passwordField,
         `type` := "password",
         defaultValue := passwordFieldValue(),
-        className := "form-control bg-light border-0 small account ",
+        className := inputClasses,
         placeholder := "Private Key",
         onChange := (e => {
           e.preventDefault()
@@ -37,7 +62,8 @@ import slinky.web.html.{`type`, className, defaultValue, div, img, input, onChan
       ),
       span(className:="account")("Docs: "),
       input(
-        className := "form-control bg-light border-0 small account ",
+        className := inputClasses,
+        defaultValue := docsFieldValue(),
         placeholder := "Public Key",
         onChange := (e => {
           e.preventDefault()
@@ -45,7 +71,8 @@ import slinky.web.html.{`type`, className, defaultValue, div, img, input, onChan
       ),
       span(className:="account")("IDs: "),
       input(
-        className := "form-control bg-light border-0 small account ",
+        className := inputClasses,
+        defaultValue := idFieldValue(),
         placeholder := "Public Key",
         onChange := (e => {
           e.preventDefault()
