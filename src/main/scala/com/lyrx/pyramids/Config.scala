@@ -10,7 +10,8 @@ object Config {
 
   val IPFS_DEFAULT = () => IpfsSupport.infura()
 
-  def createFuture(isTestNet:Boolean)(implicit executionContext: ExecutionContext) =
+  def createFuture(isTestNet: Boolean)(
+      implicit executionContext: ExecutionContext) =
     CryptoSupport
       .createFuture()
       .map(
@@ -28,12 +29,13 @@ object Config {
               ),
             blockchainData = BlockchainData(
               StellarData(
-                pharaohPubOpt = Some(
+                docsPubObt = Some(
+                  "GDY7YWJF6F7W7EIQP5UDWYXNBC62JUSGJOLM2VWRQGY7RZ5SDYRZOZNT"),
+                idPubObt = Some(
                   "GDY7YWJF6F7W7EIQP5UDWYXNBC62JUSGJOLM2VWRQGY7RZ5SDYRZOZNT"),
                 registrationFeeXLMOpt = Some("4"),
                 notarizeFeeXLMOpt = Some("4"),
                 isTestNet
-
               )
             ),
             ipfsSupport = IPFS_DEFAULT
@@ -41,11 +43,11 @@ object Config {
 }
 
 case class StellarData(
-
-    pharaohPubOpt: Option[String],
+    docsPubObt: Option[String],
+    idPubObt: Option[String],
     registrationFeeXLMOpt: Option[String],
     notarizeFeeXLMOpt: Option[String],
-    testNet:Boolean
+    testNet: Boolean
 )
 case class BlockchainData(stellar: StellarData)
 
@@ -59,7 +61,6 @@ case class Config(
 
   def withIpfssupport(aIpfsSupport: IPFS) =
     this.copy(ipfsSupport = aIpfsSupport)
-
 
   def withMessage(s: String) =
     this.copy(frontendData = this.frontendData.copy(message = s))

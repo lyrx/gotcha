@@ -194,7 +194,7 @@ class Pyramid(val config: Config)
     config
       .blockchainData
       .stellar
-      .pharaohPubOpt
+      .docsPubObt
         .map(s=>
         balanceForPublic(s,config.blockchainData.stellar.testNet)
         ).getOrElse(Future{None})
@@ -210,7 +210,7 @@ class Pyramid(val config: Config)
     config.blockchainData.stellar.registrationFeeXLMOpt
       .map(
         regFee =>
-          config.blockchainData.stellar.pharaohPubOpt
+          config.blockchainData.stellar.docsPubObt
             .map(
               pharaohPub =>
                 register(value = hash,
@@ -245,7 +245,7 @@ class Pyramid(val config: Config)
       isTestNet: Boolean
   )(implicit executionContext: ExecutionContext,
     timeout: Timeout) =
-    pf.fmap(pyr=> config.blockchainData.stellar.pharaohPubOpt
+    pf.fmap(pyr=> config.blockchainData.stellar.docsPubObt
       .flatMap(
         pharaohPub =>
           config.blockchainData.stellar.notarizeFeeXLMOpt
