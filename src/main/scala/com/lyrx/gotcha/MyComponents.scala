@@ -20,25 +20,6 @@ object MyComponents {
       className := "d-sm-flex align-items-center justify-content-between mb-4")(
       h1(className := "h3 mb-0 text-gray-800")(title)
     )
-  @react class IdentityManagement extends StatelessComponent {
-    case class Props(pyramidOpt: Option[Pyramid])
-
-    def render(): ReactElement =
-      div(className := "container-fluid", id := "pyramid-root")(
-        pageHeading("Identity Management"),
-        div(className := "row")(
-          PharaohBalance(
-            props.pyramidOpt,
-            retriever =
-              (_.map(_.balanceStellar(MyComponents.passwordField.current.value))
-                .getOrElse(Future { None })),
-            title = "Client Account",
-            currency = "XLM"
-          )
-        )
-      )
-
-  }
 
 
   @react class TopBar extends StatelessComponent {
