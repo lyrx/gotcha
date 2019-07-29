@@ -23,8 +23,11 @@ object Main {
     ReactDOM.render(p, document.getElementById("root"))
 
   def main(args: Array[String]): Unit =
-    initReactElements(
-      None,
+    initWithIdentityManagement(None)
+
+
+  def initWithIdentityManagement(po:Option[Pyramid]): Unit =
+    initReactElements(po,
       ((aPyramidOpt) =>IdentityManagement(aPyramidOpt) ))
 
 
