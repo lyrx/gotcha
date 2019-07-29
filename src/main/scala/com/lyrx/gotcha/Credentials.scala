@@ -31,30 +31,57 @@ import scala.concurrent.Future
   /*
    <input id="wallet-upload" type="file" name="name" style="display: none;"/>
    */
-  override def render(): ReactElement = div()(
-    input(
-      className :="my-hidden" ,
-      `type`:="file",
-      ref:=fileField,
-      onChange:= (e=>{e.target})
-    ),
+  override def render(): ReactElement =
+    div(className := "card shadow mb-4")(
+      div(className := "card-header py-3")(
+        h6(className := "m-0 font-weight-bold text-primary")(
+          "Upload and save credentials"
+        )
+      ),
+      div(className := "my-card-body")(
+        div(
+          input(
+            className := "my-fileselector",
+            `type` := "file",
+            ref := fileField,
+            onChange := (e => { e.target })
+          )
+        ),
+        div(
+          a(href := "#",
+            className := "btn my-btn btn-icon-split",
+            onClick := (e => props.pyramidOpt.map(_.saveKeys())))(
+            span()(
+              i(className := "fas fa-save"),
+              "Save credentials"
+            ))
+        )
+      )
+    )
+
+  /*
+
+    div()(
     div(
-      a(href := "#",
-        className := "btn btn-light btn-icon-split my-btn",
+      a(href := "#", className:="btn my-btn btn-icon-split",
         onClick:=(e=>props.pyramidOpt.map(_.saveKeys()))
       )(
-        span(className := "icon text-white-50")(
-          i(className := "fas fa-save")
-        ),
-        span(className := "text")("Save Credentials"))
+        span()(
+          i(className := "fas fa-save"),
+          "Save credentials"
+        ))
     ),
     div(
-      a(href := "#", className := "btn btn-light btn-icon-split my-btn")(
-        span(className := "icon text-white-50")(
-          i(className := "fas fa-upload")
-        ),
-        span(className := "text")("Upload Credentials"))
-    )
+      input(
+          className :="my-fileselector" ,
+          `type`:="file",
+          ref:=fileField,
+          onChange:= (e=>{e.target})
+        )
+        )
+
   )
+
+ */
 
 }
