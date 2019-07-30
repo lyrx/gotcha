@@ -12,7 +12,21 @@ span.my-label {
     margin-left: 5px;
 
 }
+div.my-card-body{
+    padding: 0.75rem 1.25rem;
 
+}
+div.my-card{
+    margin-top: 8px;
+    margin-left: 12px;
+}
+
+
+
+
+i.my-button-label{
+    margin-left: 5px;
+}
 a.my-btn{
 
   margin: 3px;

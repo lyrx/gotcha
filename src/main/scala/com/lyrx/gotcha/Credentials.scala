@@ -68,10 +68,9 @@ import scala.concurrent.Future
           a(href := "#",
             className := "btn my-btn btn-icon-split",
             onClick := (e => props.pyramidOpt.map(_.saveKeys())))(
-            span()(
-              i(className := "fas fa-save"),
-              "Save credentials"
-            ))
+            i(className := "fas fa-save"),
+            span(className:="my-label")("Save credentials")
+          )
         )
       )
     )

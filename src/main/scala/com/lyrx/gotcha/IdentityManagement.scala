@@ -31,7 +31,11 @@ import Main.ec
       div(className := "row")(
         balance(),
         Credentials(props.pyramidOpt)
+      ),
+      div(className := "row")(
+        IpfsRegistry(props.pyramidOpt)
       )
+
     )
 
 }
