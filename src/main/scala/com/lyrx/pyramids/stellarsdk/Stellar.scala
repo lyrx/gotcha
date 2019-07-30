@@ -46,7 +46,7 @@ trait Stellar {
         sendTo = aSendTo,
         aamount = amount
       )
-    .map(t=>s"Registration complete: ${value}")
+    .map(t=>value)
 
 
 

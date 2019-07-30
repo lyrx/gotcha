@@ -13,54 +13,43 @@ import slinky.web.html._
 @react class RegisterIdentity extends Component {
 
 
-  override def initialState: State = State( registrationOpt = None)
+  override def initialState: State = State( regMessage="(Unregistered)")
   case class Props(
       pyramidOpt: Option[Pyramid],
   )
 
-  case class State(registrationOpt: Option[Registration])
+  case class State(regMessage: String)
 
 
 
   override def componentDidMount(): Unit = {
-    setState(State(registrationOpt = registerHash()))
+
   }
 
   override def componentDidUpdate(prevProps: Props, prevState: State): Unit = {
-    val newRegOpt= registerHash();
-    if(prevState.registrationOpt != newRegOpt){
-      setState(State(registrationOpt = newRegOpt))
-    }
+
   }
 
 
-  def registerHash()=props.pyramidOpt
-    .flatMap(_.config
-        .ipfsData
-        .identityOpt
-      )
+
 
 
   def handleClick(e: SyntheticEvent[Anchor, Event])= props
     .pyramidOpt
-    .map(p=>{
-
-
-
-      ???
-
+    .flatMap(p=>{
+      val aPrivKey = MyComponents.passwordField.current.value
+      val aPubKey = MyComponents.idsField.current.value
+      p.config.ipfsData.regOpt.flatMap(s=>
+        p.stellarRegisterByTransaction
+        (aHash=s,
+          privKey=aPrivKey,
+          pubKey = aPubKey)(Main.ec,Main.timeout)
+        .map(_.map((s:String)=>setState(State(regMessage = "Registered in the stellar network"))))
+      )
     })
 
 
-  def renderIdentity() = state
-    .registrationOpt
-    .map(_.identity
-    .map(hash=>
-      a(href:=s"https://ipfs.infura.io/ipfs/${hash}"
-        ,target:="_blank")(
-        hash)).toOption)
-    .flatten
-    .getOrElse(span()("(Not Registered)"))
+  def renderIdentity() =span()(state.regMessage)
 
   override def render(): ReactElement =
     div(className := "card shadow mb-4 my-card" )(
