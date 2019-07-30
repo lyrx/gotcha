@@ -33,8 +33,12 @@ import Main.ec
         Credentials(props.pyramidOpt)
       ),
       div(className := "row")(
-        IpfsRegistry(props.pyramidOpt)
+        PublishIdentity(props.pyramidOpt)
+      ),
+        div(className := "row")(
+        RegisterIdentity(props.pyramidOpt)
       )
+
 
     )
 

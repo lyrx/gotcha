@@ -13,7 +13,7 @@ import slinky.web.html._
 import scala.concurrent.Future
 
 
-@react class IpfsRegistry extends Component {
+@react class PublishIdentity extends Component {
 
 
   override def initialState: State = State( regHash = "(Unregistered)")
