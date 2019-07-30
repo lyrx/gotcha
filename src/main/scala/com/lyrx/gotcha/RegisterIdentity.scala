@@ -44,7 +44,11 @@ import slinky.web.html._
         p.stellarRegisterByTransaction(aHash=s,
           privKey=aPrivKey,
           pubKey = aPubKey)(Main.ec,Main.timeout)
-        .map(_.map((s:String)=>setState(State(regMessage = "Registered in the stellar network"))))
+        .map(_.map((s:String)=>{
+          Main.initWithIdentityManagement(None)
+          setState(State(regMessage = "Registered in the stellar network"))
+          Main.initWithIdentityManagement(props.pyramidOpt)
+        }))
       })})
 
 
