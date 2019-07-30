@@ -25,7 +25,9 @@ import scala.concurrent.Future
 
 
 
-  override def componentDidMount(): Unit = {}
+  override def componentDidMount(): Unit = {
+    setState(State(regHash = registerHash()))
+  }
 
   override def componentDidUpdate(prevProps: Props, prevState: State): Unit = {
     val newHash= registerHash();
@@ -62,7 +64,13 @@ import scala.concurrent.Future
         )
       ),
       div(className := "my-card-body")(
-        div()(span(state.regHash)),
+        div()(
+          if(state.regHash.startsWith("Qm"))
+          a(href:=s"https://ipfs.infura.io/ipfs/${state.regHash}"
+            ,target:="_blank")(
+            state.regHash)
+        else
+         span(state.regHash)),
         div( )(
           a(href := "#",
             className := "btn my-btn btn-icon-split",
