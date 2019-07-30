@@ -71,9 +71,9 @@ case class Config(
         .map(
           s =>
             this.frontendData
-              .copy(message = s"Oh Humble Tokenizer, you are registered!"))
+              .copy(message = s"Your identity is registered."))
         .getOrElse(this.frontendData
-          .copy(message = "Oh Humble Tokenizer, I have no data about you!")),
+          .copy(message = "Registration failed, no data about you!")),
       ipfsData = this.ipfsData.copy(regOpt = so)
     )
 

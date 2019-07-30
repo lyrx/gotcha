@@ -4,40 +4,55 @@ import com.lyrx.gotcha.Main.ec
 import com.lyrx.pyramids.Pyramid
 import org.scalajs.dom
 import org.scalajs.dom.Event
-import org.scalajs.dom.html.Input
+import org.scalajs.dom.html.Anchor
 import slinky.core.annotations.react
 import slinky.core.facade.{React, ReactElement}
-import slinky.core.{StatelessComponent, SyntheticEvent}
+import slinky.core.{Component, StatelessComponent, SyntheticEvent}
 import slinky.web.html._
 
 import scala.concurrent.Future
 
 
-@react class IpfsRegistry extends StatelessComponent {
+@react class IpfsRegistry extends Component {
 
-  val fileField = React.createRef[dom.html.Input]
 
+  override def initialState: State = State( regHash = "(Unregistered)")
   case class Props(
       pyramidOpt: Option[Pyramid],
   )
 
+  case class State(regHash: String)
 
 
-  override def componentDidMount(): Unit = {
 
+  override def componentDidMount(): Unit = {}
 
-  }
   override def componentDidUpdate(prevProps: Props, prevState: State): Unit = {
-    if (prevProps.pyramidOpt.isEmpty){
-
+    val newHash= registerHash();
+    if(prevState.regHash != newHash){
+      setState(State(regHash = newHash))
     }
-
   }
 
-  def handleChange(e: SyntheticEvent[Input, Event])= {
 
+  def registerHash()=props.pyramidOpt
+    .flatMap(p=>
+      p.config
+        .ipfsData
+        .regOpt
+      )
+    .getOrElse("(Unknown)")
 
-  }
+  def handleClick(e: SyntheticEvent[Anchor, Event])= props
+    .pyramidOpt
+    .map(p=>{
+      setState(State(regHash="Publishing ..."))
+      p.ipfsRegister()
+        .map(p2=>Main
+          .initWithIdentityManagement(
+            Some(p2))
+        )
+    })
 
   override def render(): ReactElement =
     div(className := "card shadow mb-4 my-card" )(
@@ -47,10 +62,11 @@ import scala.concurrent.Future
         )
       ),
       div(className := "my-card-body")(
+        div()(span(state.regHash)),
         div( )(
           a(href := "#",
             className := "btn my-btn btn-icon-split",
-            onClick := (e =>{}))(
+            onClick := (handleClick(_)))(
             i(className := "fas fa-upload m-button-label"),
             span(className:="my-label")("Publish Identity")
           )

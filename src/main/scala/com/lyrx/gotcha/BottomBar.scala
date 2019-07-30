@@ -41,9 +41,10 @@ import slinky.web.html._
       span(className := "my-label")("Gateway: "),
       select(
         name := "IPFS Gateway"
+        ,defaultValue:="infura"
         ,onChange:= (handleChange(_))
       )(
-        option(value := "infura", selected := true)("Infura"),
+        option(value := "infura")("Infura"),
         option(value := "local")("Pyramids!")
       )
     ),
