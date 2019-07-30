@@ -25,6 +25,15 @@ import Main.ec
     currency = "XLM"
   )
 
+
+  def renderRegistry():ReactElement= props
+    .pyramidOpt
+    .flatMap(_.config.ipfsData.regOpt.map(s=>
+      div(className := "row")(
+        RegisterIdentity(props.pyramidOpt)
+      )))
+    .getOrElse(div(className:="row"))
+
   def render(): ReactElement =
     div(className := "container-fluid", id := "pyramid-root")(
       pageHeading("Your Trustless Blockchain Notary"),
@@ -35,11 +44,7 @@ import Main.ec
       div(className := "row")(
         PublishIdentity(props.pyramidOpt)
       ),
-        div(className := "row")(
-        RegisterIdentity(props.pyramidOpt)
-      )
-
-
+      renderRegistry()
     )
 
 }

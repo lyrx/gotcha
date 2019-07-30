@@ -39,14 +39,13 @@ import slinky.web.html._
     .flatMap(p=>{
       val aPrivKey = MyComponents.passwordField.current.value
       val aPubKey = MyComponents.idsField.current.value
-      p.config.ipfsData.regOpt.flatMap(s=>
-        p.stellarRegisterByTransaction
-        (aHash=s,
+      p.config.ipfsData.regOpt.flatMap(s=> {
+        setState(State(regMessage="Registration ongoing"))
+        p.stellarRegisterByTransaction(aHash=s,
           privKey=aPrivKey,
           pubKey = aPubKey)(Main.ec,Main.timeout)
         .map(_.map((s:String)=>setState(State(regMessage = "Registered in the stellar network"))))
-      )
-    })
+      })})
 
 
   def renderIdentity() =span()(state.regMessage)
