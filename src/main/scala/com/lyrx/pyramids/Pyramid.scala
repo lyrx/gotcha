@@ -232,41 +232,29 @@ class Pyramid(val config: Config)
 
   def notarizeStellar(privateKey: String)(
       implicit executionContext: ExecutionContext,
-      timeout: Timeout) = {
-    def registerUploadByTransaction(upload: Upload,
-                                    privKey: String,
-                                    pubKey: String) =
-      stellarRegisterByTransaction(upload.hash, privKey, pubKey)
-
-    def registerUpload(
-        pf: Future[Option[Pyramid]],
-        upload: Upload,
-        privKey: String
-    ) =
-      pf.fmap(
-          pyr =>
-            config.blockchainData.stellar.docsPubObt
-              .flatMap(pharaohPub =>
-                registerUploadByTransaction(upload, privKey, pharaohPub)
-                  .flatMap(Some(_).map(s => pyr))))
-        .map(_.flatten)
-
+      timeout: Timeout) =
     config.ipfsData.uploads
       .foldLeft(Future {
         Some(this)
       }: Future[Option[Pyramid]])(
         (pf: Future[Option[Pyramid]], upload: Upload) => {
-
-
-
-
-          registerUpload(pf, upload, privateKey)}
+          pf.fmap(
+              pyr =>
+                config.blockchainData.stellar.docsPubObt
+                  .flatMap(
+                    pharaohPub =>
+                      stellarRegisterByTransaction(upload.hash,
+                                                   privateKey,
+                                                   pharaohPub)
+                        .flatMap(Some(_).map(s => pyr))))
+            .map(_.flatten)
+        }
       )
-
       .fmap(p =>
         new Pyramid(p.config.withMessage("All uploads are now notarized!")))
 
-  }
+
+
 
   def stellarRegisterByTransaction(aHash: String,
                                    privKey: String,
