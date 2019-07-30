@@ -13,7 +13,7 @@ import slinky.web.html._
 @react class RegisterIdentity extends Component {
 
 
-  override def initialState: State = State( regMessage="(Unregistered)")
+  override def initialState: State = State( regMessage="")
   case class Props(
       pyramidOpt: Option[Pyramid],
   )
@@ -45,9 +45,8 @@ import slinky.web.html._
           privKey=aPrivKey,
           pubKey = aPubKey)(Main.ec,Main.timeout)
         .map(_.map((s:String)=>{
-          Main.initWithIdentityManagement(None)
-          Main.initWithIdentityManagement(props.pyramidOpt)
           setState(State(regMessage = "Registered in the stellar network"))
+          Main.initWithIdentityManagement(props.pyramidOpt)
         }))
       })})
 
