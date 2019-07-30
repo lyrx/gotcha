@@ -27,36 +27,8 @@ object MyComponents {
     )
 
 
-  @react class TopBar extends StatelessComponent {
-    case class Props(pyramidOpt: Option[Pyramid])
 
-    def render(): ReactElement =
-      nav(
-        className := "navbar navbar-expand navbar-light bg-white topbar mb-4 static-top shadow")(
-        button(id := "sidebarToggleTop",
-               className := "btn btn-link d-md-none rounded-circle mr-3")(
-          i(className := "fa fa-bars")),
-        form(
-          className := "d-none d-sm-inline-block form-inline mr-auto ml-md-3 my-2 my-md-0 mw-100")(
-          Stellar(props.pyramidOpt)
-        )
-      )
-  }
-  @react class BottomBar extends StatelessComponent {
-    case class Props(pyramidOpt: Option[Pyramid])
 
-    def render(): ReactElement =
-      nav(
-        className := "navbar navbar-expand navbar-light bg-white topbar mb-4 static-top shadow")(
-        button(id := "sidebarToggleTop",
-          className := "btn btn-link d-md-none rounded-circle mr-3")(
-          i(className := "fa fa-bars")),
-        form(
-          className := "d-none d-sm-inline-block form-inline mr-auto ml-md-3 my-2 my-md-0 mw-100")(
-          Stellar(props.pyramidOpt)
-        )
-      )
-  }
 
 
   @react class Footer extends StatelessComponent {
@@ -83,8 +55,8 @@ object MyComponents {
       div(id := "content-wrapper", className := "d-flex flex-column")(
         div(id := "content")(
           TopBar(props.pyramidOpt),
-          props.renderer() //,
-          //BottomBar(props.pyramidOpt)
+          props.renderer() ,
+          BottomBar(props.pyramidOpt)
         ),
         Footer(props.pyramidOpt)
 
