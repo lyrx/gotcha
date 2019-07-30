@@ -23,7 +23,15 @@ import slinky.web.html._
 
 
   override def componentDidMount(): Unit = {
-
+ val fee: String = props
+   .pyramidOpt
+   .flatMap(
+     _.config
+       .blockchainData
+       .stellar
+       .registrationFeeXLMOpt
+       .map(fee=>s"Registration fee: XLM ${fee}")).getOrElse("")
+    setState( State(regMessage =fee))
   }
 
   override def componentDidUpdate(prevProps: Props, prevState: State): Unit = {
