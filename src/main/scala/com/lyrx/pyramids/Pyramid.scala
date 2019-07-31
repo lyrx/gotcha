@@ -32,6 +32,8 @@ class Pyramid(val config: Config)
     with ZipSupport {
 
 
+  def clearIdentity() = new Pyramid(config.clearIdentity())
+
   def hasIdentity()=config.ipfsData.regOpt.isDefined
 
   private def ipfsSupport() = config.ipfsSupport()

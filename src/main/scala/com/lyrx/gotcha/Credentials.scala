@@ -44,7 +44,7 @@ import scala.concurrent.Future
     ).map(_.map(p2=>
       Main.initWithIdentityManagement(
         Some(new Pyramid(
-          p2.config.withMessage("Loaded Credentials"))))
+          p2.config.clearIdentity().withMessage("Loaded Identity"))))
     ))
 
   }
@@ -53,7 +53,7 @@ import scala.concurrent.Future
     div(className := "card shadow mb-4")(
       div(className := "card-header py-3")(
         h6(className := "m-0 font-weight-bold text-primary")(
-          "Load and save credentials"
+          "Load and Save Your Identity"
         )
       ),
       div(className := "my-card-body")(
@@ -69,7 +69,7 @@ import scala.concurrent.Future
             className := "btn my-btn btn-icon-split",
             onClick := (e => props.pyramidOpt.map(_.saveKeys())))(
             i(className := "fas fa-save"),
-            span(className:="my-label")("Save credentials")
+            span(className:="my-label")("Save Identity")
           )
         )
       )

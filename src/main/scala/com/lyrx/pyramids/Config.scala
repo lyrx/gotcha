@@ -59,6 +59,11 @@ case class Config(
     ipfsSupport: IPFS
 ) {
 
+
+  def clearIdentity() = this.copy(
+    ipfsData=this.ipfsData.copy(regOpt = None,identityOpt = None)
+  )
+
   def withIpfssupport(aIpfsSupport: IPFS) =
     this.copy(ipfsSupport = aIpfsSupport)
 
