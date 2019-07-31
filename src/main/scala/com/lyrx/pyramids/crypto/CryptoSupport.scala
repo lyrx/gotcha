@@ -13,7 +13,9 @@ object CryptoSupport {
     CryptoConfig(symKeyOpt = None,
                  asymKeyOpt = None,
                  signKeyOpt = None,
-                 pharaohKeyOpt = None).
+                 pharaohKeyOpt = None,
+      nameOpt = None
+    ).
       generateAllKeys().
       map(new CryptoSupport(_))
 

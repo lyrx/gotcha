@@ -8,6 +8,7 @@ case class CryptoConfig(
                           asymKeyOpt:Option[PyramidCryptoKeyPair],
                           signKeyOpt:Option[PyramidCryptoKeyPair],
                          pharaohKeyOpt:Option[PyramidCryptoKey],
+                         nameOpt:Option[String]
                         ) extends Crypto {
   def importSymKey(walletNative: WalletNative)
                   (implicit ctx:ExecutionContext)=
@@ -19,11 +20,17 @@ case class CryptoConfig(
   def importSignKey(walletNative: WalletNative)(implicit  executionContext: ExecutionContext) =
     walletNative.importSignKey().map(o=>this.copy(signKeyOpt=o))
 
+  def importName(walletNative: WalletNative)(implicit  executionContext: ExecutionContext):Future[CryptoConfig] =
+    Future{walletNative.name.map(n=>this.copy(nameOpt=Some(n)))
+    .getOrElse(this)}
+
+
 
   def importAllKeys(walletNative: WalletNative)(implicit  executionContext: ExecutionContext) =
     importSymKey(walletNative).
       flatMap(_.importAsymKey(walletNative)).
   flatMap(_.importSignKey(walletNative))
+    .flatMap(_.importName(walletNative))
 
 
   def generateSignKeyPair()(implicit ctx: ExecutionContext) =
@@ -40,9 +47,6 @@ case class CryptoConfig(
     flatMap(_.generateAsymKeyPair()).
     flatMap(_.generateSymKey())
 
-
-
-
   def exportSymKey()(implicit ctx:ExecutionContext)=
     symKeyOpt.
     map(exportCryptoKey(_).
@@ -58,10 +62,10 @@ case class CryptoConfig(
     flatMap(symKeyOpt=>exportASymKeys().map(keysOpt=>(symKeyOpt,keysOpt))).
     flatMap(keysOpt=>exportSignKeys().map(keysOpt2=>(keysOpt._1,keysOpt._2,keysOpt2))).
     map( (ko:AllJSKeysOpt)=>l(
+      "name" -> nameOpt.getOrElse(null),
       "sym"->ko._1.getOrElse(null),
       "asym" -> ko._2.map((kp:JsonKeyPair)=>l("private" -> kp._1,"public" -> kp._2)).getOrElse(null),
       "sign" -> ko._3.map((kp:JsonKeyPair)=>l("private" -> kp._1,"public" -> kp._2)).getOrElse(null),
-
     ).asInstanceOf[WalletNative])
 
 

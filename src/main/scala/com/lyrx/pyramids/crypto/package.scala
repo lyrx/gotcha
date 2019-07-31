@@ -290,7 +290,7 @@ package object crypto {
 
 
     def importAllKeys()(implicit  executionContext: ExecutionContext) = CryptoConfig(
-      None,None,None,None).importAllKeys(walletNative)
+      None,None,None,None, None).importAllKeys(walletNative)
 
 
 
