@@ -36,7 +36,7 @@ import Main.ec
 
   def render(): ReactElement =
     div(className := "container-fluid", id := "pyramid-root")(
-      pageHeading("Your Trustless Blockchain Notary"),
+      pageHeading("Your Trustless Blockchain Notary and Identity Management"),
       div(className := "row")(
         balance(),
         Credentials(props.pyramidOpt)

@@ -15,44 +15,55 @@ import scala.concurrent.Future
 
 @react class PublishIdentity extends Component {
 
+  val READY="ready"
+  val ONGOING = "ongoing"
+  val DONE = "done"
 
-  override def initialState: State = State( regHash = "(Unregistered)")
+  override def initialState: State = State( regHash = "(Unregistered)",status=READY)
   case class Props(
       pyramidOpt: Option[Pyramid],
   )
 
-  case class State(regHash: String)
+  case class State(regHash: String,status:String)
 
 
 
   override def componentDidMount(): Unit = {
-    setState(State(regHash = registerHash()))
+    setState(State(regHash = registerHash(),status = READY))
   }
 
   override def componentDidUpdate(prevProps: Props, prevState: State): Unit = {
     val newHash= registerHash();
     if(prevState.regHash != newHash){
-      setState(State(regHash = newHash))
+      setState(State(regHash = newHash,status = DONE))
     }
   }
 
+  def isOnGoing():Boolean = (state.status==ONGOING)
 
-  def registerHash()=props.pyramidOpt
+  def registerHash()= registerHashOpt()
+    .getOrElse("(Unknown)")
+
+
+  def registerHashOpt()=props.pyramidOpt
     .flatMap(p=>
       p.config
         .ipfsData
         .regOpt
-      )
-    .getOrElse("(Unknown)")
+    )
 
-  def handleClick(e: SyntheticEvent[Anchor, Event])= props
+
+  def handleClick(e: SyntheticEvent[Anchor, Event])=
+    if(!isOnGoing())props
     .pyramidOpt
     .map(p=>{
-      setState(State(regHash="Publishing ..."))
+      setState(State(regHash="Publishing ...",status=ONGOING))
       p.ipfsRegister()
-        .map(p2=>Main
-          .initWithIdentityManagement(
-            Some(p2))
+        .map(p2=>{
+          Main
+            .initWithIdentityManagement(
+              Some(p2))
+        }
         )
     })
 
