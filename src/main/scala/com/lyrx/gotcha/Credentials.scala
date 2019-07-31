@@ -20,7 +20,7 @@ import scala.concurrent.Future
 
 
 
-@react class Credentials extends StatelessComponent {
+@react class Credentials extends Component {
 
   val fileField = React.createRef[dom.html.Input]
   val nameField = React.createRef[dom.html.Input]
@@ -29,7 +29,11 @@ import scala.concurrent.Future
       pyramidOpt: Option[Pyramid],
   )
 
+  case class State(
+                    name:String,
+                  )
 
+  override def initialState: State = State(name = "NOT SPECIFIED")
 
   override def componentDidMount(): Unit = {
 
@@ -43,14 +47,12 @@ import scala.concurrent.Future
       e.target
         .fileOpt()
         .map(p.uploadWallet(_)).getOrElse(Future{p})
-    ).map(_.map(p2=>
+    ).map(_.map(p2=> {
+      val newP = new Pyramid(p2.config.clearIdentity())
+      setState(state.copy(name=pyrName(newP)))
       Main.initWithIdentityManagement(
-        Some(new Pyramid(
-          p2.config
-            .clearIdentity()
-            //.withIdentityName(p2.config.cryptoSupport.config.nameOpt.getOrElse("NO NAME!!"))
-            .withMessage(s"Loaded Identity: ${pyrName(new Pyramid(p2.config.clearIdentity))}"))))
-    ))
+        Some(new Pyramid(newP.config.withMessage(s"Loaded Identity: ${pyrName(newP)}"))))
+    }))
 
   }
 
@@ -95,7 +97,13 @@ import scala.concurrent.Future
           input(
             `type` := "text",
             ref := nameField,
-            defaultValue := name())
+            value := state.name,
+            onChange:= (e=>{
+              e.preventDefault()
+              setState(state.copy(name = e.target.value))
+
+            })
+          )
         ),
         div(
           a(href := "#",
