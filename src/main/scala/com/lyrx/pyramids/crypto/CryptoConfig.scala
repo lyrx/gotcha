@@ -3,13 +3,28 @@ package com.lyrx.pyramids.crypto
 import scala.concurrent.{ExecutionContext, Future}
 import scala.scalajs.js.Dynamic.{literal => l}
 
+
+case class Identity(name:String){
+  def withName(n:String)=this.copy(name=n)
+}
+
+
 case class CryptoConfig(
                          symKeyOpt:Option[PyramidCryptoKey],
                           asymKeyOpt:Option[PyramidCryptoKeyPair],
                           signKeyOpt:Option[PyramidCryptoKeyPair],
                          pharaohKeyOpt:Option[PyramidCryptoKey],
-                         nameOpt:Option[String]
+                         identityOpt:Option[Identity]
                         ) extends Crypto {
+  private def withName(n:String):Option[Identity] = identityOpt.map(
+    _.copy(name=n)
+  )
+
+
+  def withIDName(n:String)=this.copy(identityOpt=withName(n))
+
+
+
   def importSymKey(walletNative: WalletNative)
                   (implicit ctx:ExecutionContext)=
     walletNative.importSymKey().map(o=>this.copy(symKeyOpt=o))
@@ -20,9 +35,13 @@ case class CryptoConfig(
   def importSignKey(walletNative: WalletNative)(implicit  executionContext: ExecutionContext) =
     walletNative.importSignKey().map(o=>this.copy(signKeyOpt=o))
 
-  def importName(walletNative: WalletNative)(implicit  executionContext: ExecutionContext):Future[CryptoConfig] =
-    Future{walletNative.name.map(n=>this.copy(nameOpt=Some(n)))
-    .getOrElse(this)}
+  def importName(walletNative: WalletNative)(implicit  executionContext: ExecutionContext): Future[CryptoConfig] =
+    Future{
+      walletNative.identity.flatMap(_.name.map(s=>this.copy(identityOpt=withName(s))))
+        .getOrElse(this)}
+
+
+
 
 
 
@@ -62,7 +81,7 @@ case class CryptoConfig(
     flatMap(symKeyOpt=>exportASymKeys().map(keysOpt=>(symKeyOpt,keysOpt))).
     flatMap(keysOpt=>exportSignKeys().map(keysOpt2=>(keysOpt._1,keysOpt._2,keysOpt2))).
     map( (ko:AllJSKeysOpt)=>l(
-      "name" -> nameOpt.getOrElse(null),
+      "name" -> identityOpt.map(_.name).getOrElse(null),
       "sym"->ko._1.getOrElse(null),
       "asym" -> ko._2.map((kp:JsonKeyPair)=>l("private" -> kp._1,"public" -> kp._2)).getOrElse(null),
       "sign" -> ko._3.map((kp:JsonKeyPair)=>l("private" -> kp._1,"public" -> kp._2)).getOrElse(null),

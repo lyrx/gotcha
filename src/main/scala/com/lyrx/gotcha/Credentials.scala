@@ -75,7 +75,13 @@ import scala.concurrent.Future
 
 
 
-  def pyrName(p:Pyramid):String = p.config.cryptoSupport.config.nameOpt.getOrElse("No name")
+  def pyrName(p:Pyramid):String = p.
+    config.
+    cryptoSupport.
+    config.
+    identityOpt.
+    map(_.name)
+    .getOrElse("No name")
 
 
   override def render(): ReactElement =
