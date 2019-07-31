@@ -39,7 +39,11 @@ import slinky.web.html._
       ),
       div(className := "my-card-body")(
         div()(
-          a(href:=s"https://ipfs.infura.io/ipfs/${identHash()}")(s"${identHash()}")
+          a(
+            href := s"https://ipfs.infura.io/ipfs/${identHash()}"
+            , target :="_blank"
+          )
+          (s"${identHash()}")
         )
       )
     )
