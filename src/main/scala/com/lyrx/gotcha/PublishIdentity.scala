@@ -88,7 +88,7 @@ import com.lyrx.pyramids.util.Implicits._
             className := "btn my-btn btn-icon-split",
             onClick := (handleClick(_)))(
             i(className := "fas fa-upload m-button-label"),
-            span(className:="my-label")("Publish Identity")
+            span(className:="my-label")("Publish Identity In The IPFS Network")
           )
         )
       )

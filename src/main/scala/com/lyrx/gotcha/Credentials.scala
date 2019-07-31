@@ -36,7 +36,7 @@ import scala.concurrent.Future
   override def initialState: State = State(name = "NOT SPECIFIED")
 
   override def componentDidMount(): Unit = {
-
+    setState(state.copy(name=name()))
   }
   override def componentDidUpdate(prevProps: Props, prevState: State): Unit = {
 
@@ -82,7 +82,7 @@ import scala.concurrent.Future
     div(className := "card shadow mb-4")(
       div(className := "card-header py-3")(
         h6(className := "m-0 font-weight-bold text-primary")(
-          "Load and Save Your Identity"
+          "Load and Save Identity (Local Disc)"
         )
       ),
       div(className := "my-card-body")(

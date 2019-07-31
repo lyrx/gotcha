@@ -53,7 +53,7 @@ import slinky.web.html._
           privKey=aPrivKey,
           pubKey = aPubKey)(Main.ec,Main.timeout)
         .map(_.map((s:String)=>{
-          setState(State(regMessage = "Registered in the stellar network"))
+          setState(State(regMessage = "Registered identity"))
           Main.initWithIdentityManagement(props.pyramidOpt)
         }))
       })})

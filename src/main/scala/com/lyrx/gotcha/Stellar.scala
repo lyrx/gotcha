@@ -12,7 +12,7 @@ import slinky.web.html.{`type`, className, defaultValue, div, img, input, onChan
     .pyramidOpt
     .map(p=>{
       val isTest  = p.config.blockchainData.stellar.testNet
-      if(isTest) "SBSN4GWX4B7ALR5BDYH4VGWUWMAURFG6Y2SHJQL6CP62JT2N3Q42RPHI"
+      if(isTest) "SBNW75AAHCQVQLDAAEIZIBMRO3RETCN43FSZRCLU57OJKGUU5ML2F2Y2"
       else
         ""
     }).getOrElse("")
@@ -21,7 +21,7 @@ import slinky.web.html.{`type`, className, defaultValue, div, img, input, onChan
     .pyramidOpt
     .map(p=>{
       val isTest  = p.config.blockchainData.stellar.testNet
-      if(isTest)  p.config.blockchainData.stellar.docsPubObt.getOrElse("")
+      if(isTest)  "GDUWBX2K7PZT5C4YP3QVGF55VSD2HACINWFCAL45UYOD73PS6ICDJTO3"
       else
         ""
     }).getOrElse("")
@@ -30,7 +30,7 @@ import slinky.web.html.{`type`, className, defaultValue, div, img, input, onChan
     .pyramidOpt
     .map(p=>{
       val isTest  = p.config.blockchainData.stellar.testNet
-      if(isTest)  p.config.blockchainData.stellar.idPubObt.getOrElse("")
+      if(isTest)  "GB6JWG7HLUQH3O5S35WK6A7Q2S26IRB2XGV24SQ2K53MCOFTSATDINEY"
       else
         ""
     }).getOrElse("")
