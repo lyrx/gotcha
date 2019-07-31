@@ -102,7 +102,7 @@ object MyComponents {
         brand(),
         hr(className := "sidebar-divider my-0"),
         navItem(((aPyramidOpt) => IdentityManagement(aPyramidOpt)),
-                "Indentity"),
+                "Identity"),
         navItem(((aPyramidOpt) => Notary(aPyramidOpt)), "Notary"),
         hr(className := "sidebar-divider d-none d-md-block"),
         div(className := "text-center d-none d-md-inline")(
