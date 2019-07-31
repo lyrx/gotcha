@@ -71,8 +71,8 @@ trait Cryptography extends WalletHandling with PyramidJSON with Crypto {
         t =>
           stringify(
             l(
-              "asym" -> t._1.getOrElse(null),
-              "sign" -> t._2.getOrElse(null)
+              "asym" -> l("public"  -> t._1.getOrElse(null)),
+              "sign" -> l("public" -> t._2.getOrElse(null))
             )))
 
 
