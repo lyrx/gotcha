@@ -52,14 +52,29 @@ import slinky.web.html._
         p.stellarRegisterByTransaction(aHash=s,
           privKey=aPrivKey,
           pubKey = aPubKey)(Main.ec,Main.timeout)
-        .map(_.map((s:String)=>{
-          setState(State(regMessage = "Registered identity"))
+        .map(_.map((so)=>{
+          setState(State(so.getOrElse("")))
           Main.initWithIdentityManagement(props.pyramidOpt)
         }))
       })})
 
 
-  def renderIdentity() =span()(state.regMessage)
+  def isTestNet() = props.pyramidOpt.map(_.config.blockchainData.stellar.testNet).getOrElse(false)
+
+  def steepx()= if(isTestNet())
+    "testnet.steexp.com"
+  else
+    "steexp.com"
+
+  def renderIdentity() = a(
+    href:=s"https://${steepx}/tx/${state.regMessage}",
+    target:="_blank")(
+    state.regMessage)
+
+
+
+
+  //span()(state.regMessage)
 
   override def render(): ReactElement =
     div(className := "card shadow mb-4 my-card" )(

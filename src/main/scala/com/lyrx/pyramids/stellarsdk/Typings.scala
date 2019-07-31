@@ -40,6 +40,16 @@ trait Operation extends js.Object {
 }
 
 @js.native
+trait TransactionResult extends js.Object {
+
+  val hash:js.UndefOr[String] = js.native
+
+
+}
+
+
+
+@js.native
 trait Memo extends js.Object
    {
 
@@ -123,7 +133,7 @@ class Server extends js.Object {
 
   def accounts():Accounts = js.native
 
-  def submitTransaction(t:Transaction):js.Promise[Operation]=js.native
+  def submitTransaction(t:Transaction):js.Promise[TransactionResult]=js.native
 
 }
 

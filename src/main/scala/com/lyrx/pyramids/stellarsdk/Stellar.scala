@@ -46,7 +46,7 @@ trait Stellar {
         sendTo = aSendTo,
         aamount = amount
       )
-    .map(t=>value)
+    .map(t=>t._1.hash)
 
 
 

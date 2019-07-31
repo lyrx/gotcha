@@ -240,7 +240,7 @@ class Pyramid(val config: Config)
       .map(registrationHash =>
         internalRegister(registrationHash, privateKey, isTestNet))
       .flip()
-      .fmap(s => new Pyramid(config.withMessage(s)))
+      .fmap(s => new Pyramid(config.withMessage(s.getOrElse(""))))
 
   def notarizeStellar(privateKey: String)(
       implicit executionContext: ExecutionContext,
