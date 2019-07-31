@@ -168,7 +168,14 @@ class Pyramid(val config: Config)
         s"Oh Humble Tokenizer, I could not upload ${f.name}"))))
 
   def uploadWallet(f: File)(implicit executionContext: ExecutionContext) =
-    if (f.`type` == "application/json")
+    if (f.`type` == "application/json") {
+      val pharaohKeyOpt = config.cryptoSupport.config.pharaohKeyOpt
+
+      def fillPharaoh(p:Pyramid) = if(pharaohKeyOpt.isDefined)
+        p.withPharaoh(pharaohKeyOpt.get)
+      else
+      p
+
       new FileReader()
         .futureReadArrayBuffer(f)
         .map(
@@ -178,8 +185,8 @@ class Pyramid(val config: Config)
               .asInstanceOf[WalletNative])
         .flatMap(
           _.importAllKeys().map(config.cryptoSupport.withCryptoConfig(_)))
-        .map(c => Pyramid(config.copy(cryptoSupport = c)))
-    else
+        .map(c => fillPharaoh(Pyramid(config.copy(cryptoSupport = c) )    ))
+    } else
       Future {
         Pyramid(config.withMessage("No keys imported (wrong file type)!"))
       }

@@ -51,7 +51,7 @@ import scala.concurrent.Future
       val newP = new Pyramid(p2.config.clearIdentity())
       setState(state.copy(name=pyrName(newP)))
       Main.initWithIdentityManagement(
-        Some(new Pyramid(newP.config.withMessage(s"Loaded Identity: ${pyrName(newP)}"))))
+        Some(new Pyramid(newP.config.withMessage(s"Loaded Identity"))))
     }))
 
   }
