@@ -11,16 +11,11 @@ trait KeypairNative extends js.Object {
   val `public` : js.UndefOr[JsonWebKey] = js.native
 }
 
-@js.native
-trait IdentityNative extends js.Object {
-  val name: js.UndefOr[String] = js.native
-}
-
 
 
 @js.native
 trait WalletNative extends js.Object {
-  val identity:js.UndefOr[IdentityNative] = js.native
+  val name:js.UndefOr[String] = js.native
   val sym:js.UndefOr[JsonWebKey] = js.native
   val asym:js.UndefOr[KeypairNative] = js.native
   val sign:js.UndefOr[KeypairNative] = js.native

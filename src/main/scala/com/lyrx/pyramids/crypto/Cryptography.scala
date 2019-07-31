@@ -36,7 +36,7 @@ trait Cryptography extends WalletHandling with PyramidJSON with Crypto {
   }
 
 
-  def withName(n:String) = new CryptoSupport(config.withIDName(n))
+  def withName(n:String) = new CryptoSupport(config.copy(nameOpt = Some(n)))
 
   def importPublicKey(s: String)(implicit executionContext: ExecutionContext) =
     JSON
