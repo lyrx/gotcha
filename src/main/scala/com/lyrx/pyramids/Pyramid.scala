@@ -31,11 +31,14 @@ class Pyramid(val config: Config)
     with Stellar
     with ZipSupport {
 
+
+  def hasIdentity()=config.ipfsData.regOpt.isDefined
+
   private def ipfsSupport() = config.ipfsSupport()
 
   def crypto() = config.cryptoSupport
 
-  def hasIdentity() = config.ipfsData.identityOpt.isDefined
+
 
   def onIdentity(h: (Registration) => Unit) =
     config.ipfsData.identityOpt

@@ -26,6 +26,32 @@ import Main.ec
   )
 
 
+  def renderShowIdentity():ReactElement= if(
+    props.pyramidOpt.map(_.hasIdentity()).getOrElse(false))
+    ShowIdentity(props.pyramidOpt)
+  else
+    div()
+
+  /*
+  {
+    val reactElement:ReactElement =
+    ShowIdentity(props.pyramidOpt)
+    reactElement
+  }
+
+
+   */
+
+
+  /*
+  props
+  .pyramidOpt
+  .flatMap(_.config
+  .ipfsData
+  .regOpt
+  .map(s=> ShowIdentity(props.pyramidOpt))).getOrElse(div())
+*/
+
   def renderRegistry():ReactElement= props
     .pyramidOpt
     .flatMap(_.config.ipfsData.regOpt.map(s=>
@@ -42,7 +68,8 @@ import Main.ec
         Credentials(props.pyramidOpt)
       ),
       div(className := "row")(
-        PublishIdentity(props.pyramidOpt)
+        PublishIdentity(props.pyramidOpt),
+          renderShowIdentity()
       ),
       renderRegistry()
     )

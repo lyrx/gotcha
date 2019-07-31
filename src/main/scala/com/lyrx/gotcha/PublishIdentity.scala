@@ -3,14 +3,14 @@ package com.lyrx.gotcha
 import com.lyrx.gotcha.Main.ec
 import com.lyrx.pyramids.Pyramid
 import org.scalajs.dom
-import org.scalajs.dom.Event
-import org.scalajs.dom.html.Anchor
+import dom.Event
+import dom.html.Anchor
 import slinky.core.annotations.react
-import slinky.core.facade.{React, ReactElement}
-import slinky.core.{Component, StatelessComponent, SyntheticEvent}
+import slinky.core.facade.{ReactElement}
+import slinky.core.{Component, SyntheticEvent}
 import slinky.web.html._
+import com.lyrx.pyramids.util.Implicits._
 
-import scala.concurrent.Future
 
 
 @react class PublishIdentity extends Component {
@@ -59,11 +59,12 @@ import scala.concurrent.Future
     .map(p=>{
       setState(State(regHash="Publishing ...",status=ONGOING))
       p.ipfsRegister()
-        .map(p2=>{
-          Main
-            .initWithIdentityManagement(
-              Some(p2))
-        }
+        .map(_.loadIdentity()
+              .fmap(p3=>{
+                Main
+                  .initWithIdentityManagement(
+                    Some(p3))
+              })
         )
     })
 
