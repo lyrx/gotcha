@@ -4,6 +4,8 @@ import com.lyrx.gotcha.Main.ec
 import com.lyrx.pyramids.Pyramid
 import org.scalajs.dom
 import org.scalajs.dom.html.Input
+import org.scalajs.dom.html.Anchor
+
 import org.scalajs.dom.{Event, File}
 import org.scalajs.dom.raw.{Blob, EventTarget}
 import slinky.core.{Component, StatelessComponent, SyntheticEvent}
@@ -21,19 +23,19 @@ import scala.concurrent.Future
 @react class Credentials extends StatelessComponent {
 
   val fileField = React.createRef[dom.html.Input]
+  val nameField = React.createRef[dom.html.Input]
 
   case class Props(
       pyramidOpt: Option[Pyramid],
   )
 
-  def readBalance(): Unit = {}
+
 
   override def componentDidMount(): Unit = {
-    readBalance()
+
   }
   override def componentDidUpdate(prevProps: Props, prevState: State): Unit = {
-    if (prevProps.pyramidOpt.isEmpty)
-      readBalance()
+
   }
 
   def handleChange(e: SyntheticEvent[Input, Event])= {
@@ -44,10 +46,35 @@ import scala.concurrent.Future
     ).map(_.map(p2=>
       Main.initWithIdentityManagement(
         Some(new Pyramid(
-          p2.config.clearIdentity().withMessage("Loaded Identity"))))
+          p2.config
+            .clearIdentity()
+            //.withIdentityName(p2.config.cryptoSupport.config.nameOpt.getOrElse("NO NAME!!"))
+            .withMessage(s"Loaded Identity: ${pyrName(new Pyramid(p2.config.clearIdentity))}"))))
     ))
 
   }
+
+
+  def handleClick(e: SyntheticEvent[Anchor, Event])= {
+    props
+      .pyramidOpt
+      .map(
+        p=>
+          new Pyramid(p.config.withIdentityName(nameField.current.value))
+            .saveKeys()
+          .map(p3=>Main.initWithIdentityManagement(Some(p3)))
+
+      )
+
+  }
+
+  def name():String = props.pyramidOpt.
+    map(pyrName(_)).getOrElse("NO NAME")
+
+
+
+  def pyrName(p:Pyramid):String = p.config.cryptoSupport.config.nameOpt.getOrElse("No name")
+
 
   override def render(): ReactElement =
     div(className := "card shadow mb-4")(
@@ -65,9 +92,15 @@ import scala.concurrent.Future
             onChange := (handleChange(_)))
         ),
         div(
+          input(
+            `type` := "text",
+            ref := nameField,
+            defaultValue := name())
+        ),
+        div(
           a(href := "#",
             className := "btn my-btn btn-icon-split",
-            onClick := (e => props.pyramidOpt.map(_.saveKeys())))(
+            onClick := (handleClick(_)))(
             i(className := "fas fa-save"),
             span(className:="my-label")("Save Identity")
           )

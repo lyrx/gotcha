@@ -21,6 +21,9 @@ trait Cryptography extends WalletHandling with PyramidJSON with Crypto {
 
   def withCryptoConfig(c: CryptoConfig) = new CryptoSupport(c)
 
+
+
+
   implicit class PimpedKeyOpt(o: Option[PyramidCryptoKey]) {
 
     def exportKeyJ()(implicit executionContext: ExecutionContext) =
@@ -31,6 +34,9 @@ trait Cryptography extends WalletHandling with PyramidJSON with Crypto {
       exportKeyJ()
         .fmap(stringify(_))
   }
+
+
+  def withName(n:String) = new CryptoSupport(config.copy(nameOpt = Some(n)))
 
   def importPublicKey(s: String)(implicit executionContext: ExecutionContext) =
     JSON

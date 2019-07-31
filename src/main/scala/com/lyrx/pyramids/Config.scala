@@ -59,6 +59,7 @@ case class Config(
     ipfsSupport: IPFS
 ) {
 
+  def withIdentityName(n:String) = this.copy(cryptoSupport = this.cryptoSupport.withName(n))
 
   def clearIdentity() = this.copy(
     ipfsData=this.ipfsData.copy(regOpt = None,identityOpt = None)
