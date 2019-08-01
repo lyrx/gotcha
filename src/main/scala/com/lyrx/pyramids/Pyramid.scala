@@ -213,9 +213,19 @@ class Pyramid(val config: Config)
       implicit executionContext: ExecutionContext) =
     balanceForPublic(s, config.blockchainData.stellar.testNet)
 
+  def stellarFromSecret(privateKey: String)(
+    implicit executionContext: ExecutionContext) =if ("".equals(privateKey))
+    ""
+    else
+    fromSecret(privateKey, config.blockchainData.stellar.testNet)
+
+
+
   def stellarAccountInfo(s: String)(
     implicit executionContext: ExecutionContext):Future[AccountData] =
     accountData(s, config.blockchainData.stellar.testNet)
+
+
 
 
 

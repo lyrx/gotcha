@@ -6,6 +6,10 @@ import slinky.core.annotations.react
 import slinky.core.facade.ReactElement
 import slinky.web.html.{`type`, className, defaultValue, div, img, input, onChange, placeholder, ref, span, src}
 
+
+
+
+
 @react class Stellar extends Component {
 
   def passwordFieldValueDefault() = props

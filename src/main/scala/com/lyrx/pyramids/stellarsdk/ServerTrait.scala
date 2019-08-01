@@ -98,9 +98,12 @@ trait ServerTrait {
 }
    */
 
+
+  def fromSecret(privateKey: String) = Keypair.fromSecret(privateKey).publicKey()
+
   def balanceForPrivate(privateKey: String)(
       implicit executionContext: concurrent.ExecutionContext) =
-    balanceForPublic(Keypair.fromSecret(privateKey).publicKey())
+    balanceForPublic(fromSecret(privateKey))
 
 
   def balanceForPublic(pubKey: String)(

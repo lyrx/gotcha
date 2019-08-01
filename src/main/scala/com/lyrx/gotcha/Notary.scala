@@ -22,14 +22,17 @@ import Main.ec
       div(className := "row")(
         PharaohBalance(
           props.pyramidOpt,
-          retriever = (_.map(_.balanceForAccount(MyComponents.docsField.current.value)).getOrElse(Future { None })),
           title = "Notary Docs",
-          currency = "XLM"),
+          currency = "XLM",
+          pubKey = MyComponents.docsField.current.value
+        ),
         PharaohBalance(
           props.pyramidOpt,
-          retriever = (_.map(_.balanceForAccount(MyComponents.idsField.current.value)).getOrElse(Future { None })),
           title = "Notary Ids",
-          currency = "XLM")
+          currency = "XLM",
+          pubKey = MyComponents.idsField.current.value
+
+        )
 
 
 

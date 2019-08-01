@@ -62,6 +62,9 @@ trait Stellar {
   def  accountData(pubKey:String,isTestNet:Boolean)(implicit executionContext: ExecutionContext)=
     initStellar(isTestNet).accountData(pubKey)
 
+  def fromSecret(privateKey: String,isTestNet:Boolean)(implicit executionContext: ExecutionContext)
+  =  initStellar(isTestNet).fromSecret(privateKey)
+
 
 
 }

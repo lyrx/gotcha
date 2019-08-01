@@ -6,18 +6,18 @@ import slinky.core.Component
 import slinky.core.annotations.react
 import slinky.core.facade.ReactElement
 import slinky.web.html.{className, div, i, s}
-
+import com.lyrx.pyramids.util.Implicits._
 import scala.concurrent.Future
 
 @react class PharaohBalance extends Component {
   case class Props(pyramidOpt: Option[Pyramid],
-                   retriever: (Option[Pyramid] => Future[Option[String]]),
                    title: String,
-                   currency: String)
+                   currency: String,
+                   pubKey: String)
 
-  case class State(amount: String)
+  case class State(balance: String, accountId: String)
 
-  override def initialState: State = State(amount = "")
+  override def initialState: State = State(balance = "", accountId = "")
 
   def simpleCard(description: String,
                  amount: String,
@@ -42,29 +42,31 @@ import scala.concurrent.Future
       )
     )
 
-  def readBalance() =
-    props
-      .retriever(props.pyramidOpt)
-      .map(
-        _.map(
-          balance =>
-            if (state.amount != balance)
-              setState(
-                state
-                  .copy(amount = balance)
-            )))
-      .onComplete(t => t.failed.map(e => println(s"${e}")))
+  def updateAccountInfo() =if(props.pubKey!="")
+    props.pyramidOpt
+      .map(p => p.stellarAccountInfo(props.pubKey))
+      .flip()
+      .map(_.map(accountData => {
+        val newBalance = accountData.balanceOpt.getOrElse("")
+        val newId = accountData.idOpt.getOrElse("")
+        if (state.accountId != newId || state.balance != newBalance)
+          setState(
+            State(
+              balance = newBalance,
+              accountId = newId
+            ))
+      }))
 
   override def componentDidMount(): Unit = {
-    readBalance()
+    updateAccountInfo()
   }
   override def componentDidUpdate(prevProps: Props, prevState: State): Unit = {
-    readBalance()
+    updateAccountInfo()
   }
 
   override def render(): ReactElement = {
     simpleCard(description = props.title,
-               amount = state.amount,
+               amount = state.balance,
                currency = props.currency)
   }
 }

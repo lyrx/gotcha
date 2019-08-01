@@ -18,11 +18,11 @@ import Main.ec
 
   def balance()= PharaohBalance(
     props.pyramidOpt,
-    retriever =
-      (_.map(_.balanceStellar(MyComponents.passwordField.current.value))
-        .getOrElse(Future { None })),
     title = "Client Account",
-    currency = "XLM"
+    currency = "XLM",
+    pubKey = props.pyramidOpt.map(p=>
+       p.stellarFromSecret(MyComponents.passwordField.current.value)
+    ).getOrElse("")
   )
 
 
@@ -32,25 +32,7 @@ import Main.ec
   else
     div()
 
-  /*
-  {
-    val reactElement:ReactElement =
-    ShowIdentity(props.pyramidOpt)
-    reactElement
-  }
 
-
-   */
-
-
-  /*
-  props
-  .pyramidOpt
-  .flatMap(_.config
-  .ipfsData
-  .regOpt
-  .map(s=> ShowIdentity(props.pyramidOpt))).getOrElse(div())
-*/
 
   def renderRegistry():ReactElement= props
     .pyramidOpt
