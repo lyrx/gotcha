@@ -67,10 +67,6 @@ Secret Key	SCSIPIXZ4Y7X7IX4ZTTHVGDCXFJMFL62TRT4DFS3NSK3G3KMKJPKNYSY
               ),
             blockchainData = BlockchainData(
               StellarData(
-                docsPubObt = Some(
-                  "GDY7YWJF6F7W7EIQP5UDWYXNBC62JUSGJOLM2VWRQGY7RZ5SDYRZOZNT"),
-                idPubObt = Some(
-                  "GDY7YWJF6F7W7EIQP5UDWYXNBC62JUSGJOLM2VWRQGY7RZ5SDYRZOZNT"),
                 registrationFeeXLMOpt = Some("4"),
                 notarizeFeeXLMOpt = Some("4"),
                 isTestNet
@@ -81,8 +77,6 @@ Secret Key	SCSIPIXZ4Y7X7IX4ZTTHVGDCXFJMFL62TRT4DFS3NSK3G3KMKJPKNYSY
 }
 
 case class StellarData(
-    docsPubObt: Option[String],
-    idPubObt: Option[String],
     registrationFeeXLMOpt: Option[String],
     notarizeFeeXLMOpt: Option[String],
     testNet: Boolean

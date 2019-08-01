@@ -199,15 +199,8 @@ class Pyramid(val config: Config)
       implicit executionContext: ExecutionContext) =
     balanceForPrivate(privateKey, config.blockchainData.stellar.testNet)
 
-  def balanceDocs()(implicit executionContext: ExecutionContext) =
-    config.blockchainData.stellar.docsPubObt
-      .map(s => balanceForPublic(s, config.blockchainData.stellar.testNet))
-      .getOrElse(Future { None })
 
-  def balanceIds()(implicit executionContext: ExecutionContext) =
-    config.blockchainData.stellar.idPubObt
-      .map(s => balanceForPublic(s, config.blockchainData.stellar.testNet))
-      .getOrElse(Future { None })
+
 
   def balanceForAccount(s: String)(
       implicit executionContext: ExecutionContext) =
@@ -228,58 +221,6 @@ class Pyramid(val config: Config)
 
 
 
-
-  private def internalRegister(hash: String,
-                               aPrivateKey: String,
-                               isTestNet: Boolean)(
-      implicit executionContext: ExecutionContext,
-      timeout: Timeout) =
-    config.blockchainData.stellar.registrationFeeXLMOpt
-      .map(
-        regFee =>
-          config.blockchainData.stellar.docsPubObt
-            .map(
-              pharaohPub =>
-                register(value = hash,
-                         privateKey = aPrivateKey,
-                         aSendTo = pharaohPub,
-                         amount = regFee,
-                         isTestNet)))
-      .flatten
-      .get
-
-  def registerStellar(privateKey: String, isTestNet: Boolean)(
-      implicit executionContext: ExecutionContext,
-      timeout: Timeout,
-      isTest: Boolean) =
-    config.ipfsData.regOpt
-      .map(registrationHash =>
-        internalRegister(registrationHash, privateKey, isTestNet))
-      .flip()
-      .fmap(s => new Pyramid(config.withMessage(s.getOrElse(""))))
-
-  def notarizeStellar(privateKey: String)(
-      implicit executionContext: ExecutionContext,
-      timeout: Timeout) =
-    config.ipfsData.uploads
-      .foldLeft(Future {
-        Some(this)
-      }: Future[Option[Pyramid]])(
-        (pf: Future[Option[Pyramid]], upload: Upload) => {
-          pf.fmap(
-              pyr =>
-                config.blockchainData.stellar.docsPubObt
-                  .flatMap(
-                    pharaohPub =>
-                      stellarRegisterByTransaction(upload.hash,
-                                                   privateKey,
-                                                   pharaohPub)
-                        .flatMap(Some(_).map(s => pyr))))
-            .map(_.flatten)
-        }
-      )
-      .fmap(p =>
-        new Pyramid(p.config.withMessage("All uploads are now notarized!")))
 
 
 
