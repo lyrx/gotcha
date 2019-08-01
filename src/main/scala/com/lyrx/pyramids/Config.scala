@@ -86,7 +86,35 @@ case class StellarData(
     registrationFeeXLMOpt: Option[String],
     notarizeFeeXLMOpt: Option[String],
     testNet: Boolean
-)
+){
+
+  def passwordFieldValueDefault() =
+      if(testNet) "SBNW75AAHCQVQLDAAEIZIBMRO3RETCN43FSZRCLU57OJKGUU5ML2F2Y2"
+      else
+        ""
+
+
+  def docsFieldValueDefault() =
+      if(testNet)  "GDUWBX2K7PZT5C4YP3QVGF55VSD2HACINWFCAL45UYOD73PS6ICDJTO3"
+      else
+        ""
+
+
+  def idFieldValueDefault() =
+      if(testNet)  "GB6JWG7HLUQH3O5S35WK6A7Q2S26IRB2XGV24SQ2K53MCOFTSATDINEY"
+      else
+        ""
+   
+
+
+}
+
+
+
+
+
+
+
 case class BlockchainData(stellar: StellarData)
 
 case class Config(

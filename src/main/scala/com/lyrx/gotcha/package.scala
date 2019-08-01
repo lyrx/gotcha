@@ -1,5 +1,6 @@
 package com.lyrx
 
+import com.lyrx.gotcha.Main.ec
 import com.lyrx.pyramids.{AccountData, Pyramid}
 import org.scalajs.dom.File
 import org.scalajs.dom.raw.EventTarget
@@ -34,6 +35,15 @@ package object gotcha {
         "testnet.steexp.com"
       else
         "steexp.com"
+
+    def stellarData()=po.map(_.config.blockchainData.stellar)
+
+    def stellarPassword() = stellarData().map(_.passwordFieldValueDefault()).getOrElse("")
+
+
+    def clientAccount() =  po.map(_.stellarFromSecret(po.stellarPassword())).getOrElse("")
+
+
 
   }
 

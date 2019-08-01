@@ -12,33 +12,6 @@ import slinky.web.html.{`type`, className, defaultValue, div, img, input, onChan
 
 @react class Stellar extends Component {
 
-  def passwordFieldValueDefault() = props
-    .pyramidOpt
-    .map(p=>{
-      val isTest  = p.config.blockchainData.stellar.testNet
-      if(isTest) "SBNW75AAHCQVQLDAAEIZIBMRO3RETCN43FSZRCLU57OJKGUU5ML2F2Y2"
-      else
-        ""
-    }).getOrElse("")
-
-  def docsFieldValueDefault() = props
-    .pyramidOpt
-    .map(p=>{
-      val isTest  = p.config.blockchainData.stellar.testNet
-      if(isTest)  "GDUWBX2K7PZT5C4YP3QVGF55VSD2HACINWFCAL45UYOD73PS6ICDJTO3"
-      else
-        ""
-    }).getOrElse("")
-
-  def idFieldValueDefault() = props
-    .pyramidOpt
-    .map(p=>{
-      val isTest  = p.config.blockchainData.stellar.testNet
-      if(isTest)  "GB6JWG7HLUQH3O5S35WK6A7Q2S26IRB2XGV24SQ2K53MCOFTSATDINEY"
-      else
-        ""
-    }).getOrElse("")
-
 
 
 
@@ -56,7 +29,7 @@ import slinky.web.html.{`type`, className, defaultValue, div, img, input, onChan
       input(
         ref := MyComponents.passwordField,
         `type` := "password",
-        defaultValue := passwordFieldValueDefault(),
+        defaultValue :=   props.pyramidOpt.stellarPassword(),
         className := inputClasses,
         placeholder := "Private Key",
         onChange := (e => {
@@ -68,7 +41,7 @@ import slinky.web.html.{`type`, className, defaultValue, div, img, input, onChan
       input(
         className := inputClasses,
         ref := MyComponents.docsField,
-        defaultValue := docsFieldValueDefault(),
+        defaultValue := props.pyramidOpt.stellarData().map(_.docsFieldValueDefault()).getOrElse("") ,
         placeholder := "Public Key",
         onChange := (e => {
           e.preventDefault()
@@ -78,7 +51,7 @@ import slinky.web.html.{`type`, className, defaultValue, div, img, input, onChan
       input(
         className := inputClasses,
         ref := MyComponents.idsField,
-        defaultValue := idFieldValueDefault(),
+        defaultValue := props.pyramidOpt.stellarData().map(_.idFieldValueDefault()).getOrElse("") ,
         placeholder := "Public Key",
         onChange := (e => {
           e.preventDefault()
@@ -88,5 +61,5 @@ import slinky.web.html.{`type`, className, defaultValue, div, img, input, onChan
     )
   }
 
-  override def initialState: State = State(passwordFieldValueDefault())
+  override def initialState: State = State(  props.pyramidOpt.stellarPassword() )
 }

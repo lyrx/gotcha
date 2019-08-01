@@ -20,9 +20,8 @@ import Main.ec
     props.pyramidOpt,
     title = "Client Account",
     currency = "XLM",
-    pubKey = props.pyramidOpt.map(p=>
-       p.stellarFromSecret(MyComponents.passwordField.current.value)
-    ).getOrElse("")
+    pubKey = props.pyramidOpt.clientAccount()
+
   )
 
 
