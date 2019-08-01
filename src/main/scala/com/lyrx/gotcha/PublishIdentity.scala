@@ -15,11 +15,8 @@ import com.lyrx.pyramids.util.Implicits._
 
 @react class PublishIdentity extends Component {
 
-  val READY="ready"
-  val ONGOING = "ongoing"
-  val DONE = "done"
 
-  override def initialState: State = State( regHash = "(Unregistered)",status=READY)
+  override def initialState: State = State( regHash = "(Unregistered)",status=MyComponents.READY)
   case class Props(
       pyramidOpt: Option[Pyramid],
   )
@@ -29,17 +26,17 @@ import com.lyrx.pyramids.util.Implicits._
 
 
   override def componentDidMount(): Unit = {
-    setState(State(regHash = registerHash(),status = READY))
+    setState(State(regHash = registerHash(),status = MyComponents.READY))
   }
 
   override def componentDidUpdate(prevProps: Props, prevState: State): Unit = {
     val newHash= registerHash();
     if(prevState.regHash != newHash){
-      setState(State(regHash = newHash,status = DONE))
+      setState(State(regHash = newHash,status = MyComponents.DONE))
     }
   }
 
-  def isOnGoing():Boolean = (state.status==ONGOING)
+  def isOnGoing():Boolean = (state.status==MyComponents.ONGOING)
 
   def registerHash()= registerHashOpt()
     .getOrElse("(Unknown)")
@@ -57,7 +54,7 @@ import com.lyrx.pyramids.util.Implicits._
     if(!isOnGoing())props
     .pyramidOpt
     .map(p=>{
-      setState(State(regHash="Publishing ...",status=ONGOING))
+      setState(State(regHash="Publishing ...",status=MyComponents.ONGOING))
       p.ipfsRegister()
         .map(_.loadIdentity()
               .fmap(p3=>{

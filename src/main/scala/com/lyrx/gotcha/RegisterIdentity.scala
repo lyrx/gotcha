@@ -13,12 +13,12 @@ import slinky.web.html._
 @react class RegisterIdentity extends Component {
 
 
-  override def initialState: State = State( regMessage="")
+  override def initialState: State = State( regMessage="",status=MyComponents.READY)
   case class Props(
       pyramidOpt: Option[Pyramid],
   )
 
-  case class State(regMessage: String)
+  case class State(regMessage: String,status:String)
 
 
 
@@ -31,7 +31,7 @@ import slinky.web.html._
        .stellar
        .registrationFeeXLMOpt
        .map(fee=>s"Registration fee: XLM ${fee}")).getOrElse("")
-    setState( State(regMessage =fee))
+    setState( State(regMessage =fee,status = MyComponents.READY))
   }
 
   override def componentDidUpdate(prevProps: Props, prevState: State): Unit = {
@@ -39,21 +39,24 @@ import slinky.web.html._
   }
 
 
+  def isOnGoing():Boolean = (state.status==MyComponents.ONGOING)
+  def isReady():Boolean = (state.status==MyComponents.READY)
+  def isDone():Boolean = (state.status==MyComponents.DONE)
 
-
-
-  def handleClick(e: SyntheticEvent[Anchor, Event])= props
+  def handleClick(e: SyntheticEvent[Anchor, Event])=
+    if(!isOnGoing())
+    props
     .pyramidOpt
     .flatMap(p=>{
       val aPrivKey = MyComponents.passwordField.current.value
       val aPubKey = MyComponents.idsField.current.value
       p.config.ipfsData.regOpt.flatMap(s=> {
-        setState(State(regMessage="Registration ongoing"))
+        setState(State(regMessage="Registration ongoing",status = MyComponents.ONGOING))
         p.stellarRegisterByTransaction(aHash=s,
           privKey=aPrivKey,
           pubKey = aPubKey)(Main.ec,Main.timeout)
         .map(_.map((so)=>{
-          setState(State(so.getOrElse("")))
+          setState(State(so.getOrElse(""),status = MyComponents.DONE))
           Main.initWithIdentityManagement(props.pyramidOpt)
         }))
       })})
@@ -66,10 +69,12 @@ import slinky.web.html._
   else
     "steexp.com"
 
-  def renderIdentity() = a(
+  def renderIdentity() = if(isDone())a(
     href:=s"https://${steepx}/tx/${state.regMessage}",
     target:="_blank")(
     state.regMessage)
+  else
+    span()(state.regMessage)
 
 
 

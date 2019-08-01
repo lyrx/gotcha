@@ -18,6 +18,10 @@ object MyComponents {
   val idsField = React.createRef[dom.html.Input]
 
 
+  val READY="ready"
+  val ONGOING = "ongoing"
+  val DONE = "done"
+
 
 
   def pageHeading(title: String) =
