@@ -5,7 +5,7 @@ import com.lyrx.pyramids.Pyramid
 import slinky.core.Component
 import slinky.core.annotations.react
 import slinky.core.facade.ReactElement
-import slinky.web.html.{className, div, i, s}
+import slinky.web.html._
 import com.lyrx.pyramids.util.Implicits._
 import scala.concurrent.Future
 
@@ -32,7 +32,12 @@ import scala.concurrent.Future
               /* div(className := "text-xs font-weight-bold text-primary text-uppercase mb-1")(
                 state.account), */
               div(className := "h5 mb-0 font-weight-bold text-gray-800")(
-                s"${currency} ${amount}")
+                s"${currency} ${amount}"),
+              div(className := "")(
+                a(
+                  href :=s"https://${props.pyramidOpt.steepx()}/account/${state.accountId}#payments"
+                  , target :="_blank"
+                )(s"Account Details"))
             ),
             div(className := "col-auto")(
               i(className := "fas fa-coins fa-2x text-gray-300")
