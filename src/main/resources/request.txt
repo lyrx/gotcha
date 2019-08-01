@@ -1,0 +1,9 @@
+Feature request: Provide a URL that has an IPFS hash as parameter.
+It opens directly your upload page ("Pin by Hash") and prefills
+the text field for the hash with the value from the hash.
+So any application using IPFS hashes could directly link
+to your page for pinning. Wouldn't that be a nice way to
+get new customers? (It would help me, of course, because I could use that link)
+  Of course, any application could also use your
+API to trigger the upload, but that would be more integration work
+that needed to be done. A link would be so much easier to use.

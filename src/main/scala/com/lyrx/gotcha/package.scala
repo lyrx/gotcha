@@ -7,19 +7,30 @@ import slinky.core.facade.ReactElement
 
 package object gotcha {
 
+  type GotchaRenderer = () => ReactElement
+  type GotchaPyramidRenderer = (Option[Pyramid]) => ReactElement
 
-  type GotchaRenderer = ()=>ReactElement
-  type GotchaPyramidRenderer = (Option[Pyramid])=>ReactElement
+  implicit class PimpedEvent(target: EventTarget) {
 
-  implicit class PimpedEvent(target:EventTarget){
-
-    def fileOpt() = target
-      .asInstanceOf[Typings.DataTransferTarget]
-      .files.map(
-      _.headOption.map(_.asInstanceOf[File])).getOrElse(None)
+    def fileOpt() =
+      target
+        .asInstanceOf[Typings.DataTransferTarget]
+        .files
+        .map(_.headOption.map(_.asInstanceOf[File]))
+        .getOrElse(None)
   }
 
+  implicit class PimpedPyramidOpt(po: Option[Pyramid]) {
 
+    def isStellarTestNet() =
+      po.map(_.config.blockchainData.stellar.testNet).getOrElse(false)
 
+    def steepx() =
+      if (isStellarTestNet())
+        "testnet.steexp.com"
+      else
+        "steexp.com"
+
+  }
 
 }

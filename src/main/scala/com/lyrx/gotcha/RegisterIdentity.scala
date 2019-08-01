@@ -62,12 +62,9 @@ import slinky.web.html._
       })})
 
 
-  def isTestNet() = props.pyramidOpt.map(_.config.blockchainData.stellar.testNet).getOrElse(false)
+  def isTestNet() = props.pyramidOpt.isStellarTestNet()
 
-  def steepx()= if(isTestNet())
-    "testnet.steexp.com"
-  else
-    "steexp.com"
+  def steepx()= props.pyramidOpt.steepx()
 
   def renderIdentity() = if(isDone())a(
     href:=s"https://${steepx}/tx/${state.regMessage}",
