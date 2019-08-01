@@ -13,7 +13,7 @@ import slinky.web.html._
   def render(): ReactElement =
     div(className := "container-fluid", id := "pyramid-root")(
       pageHeading("Pyramids! "),
-      h2()("A Decentralized Notary And Office"),
+      h2()("A Decentralized Notary And Passport Office"),
       p(className := "my-par")(
         "This application demonstrates, how P2P Techology" ,
           i(" (especially blockchain technology) ") ,
