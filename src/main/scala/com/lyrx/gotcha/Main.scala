@@ -25,7 +25,11 @@ object Main {
 
   def main(args: Array[String]): Unit = {
     if(dom.window.location.hash == "#landing")
-      initWithLanding(None)
+      initReactElements(None,
+        ((aPyramidOpt) =>Landing(aPyramidOpt) ))
+    else if(dom.window.location.hash == "#start")
+      initReactElements(None,
+        ((aPyramidOpt) =>LandingEN(aPyramidOpt) ))
       else
     initWithIdentityManagement(None)
   }
@@ -36,9 +40,6 @@ object Main {
       ((aPyramidOpt) =>IdentityManagement(aPyramidOpt) ))
 
 
-  def initWithLanding(po:Option[Pyramid]): Unit =
-    initReactElements(po,
-      ((aPyramidOpt) =>Landing(aPyramidOpt) ))
 
 
 
