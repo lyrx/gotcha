@@ -1,15 +1,29 @@
 package com.lyrx
 
 import com.lyrx.pyramids.Ipfs.Ipfs
+import com.lyrx.pyramids.stellarsdk.AccountDetail
 import org.scalajs.dom.raw.{Blob, FileReader, ProgressEvent}
 
-import scala.concurrent.Promise
+import scala.concurrent.{ExecutionContext, Future, Promise}
 import scala.language.implicitConversions
 import scala.scalajs.js
 
 
 package object pyramids {
   type  IPFS = () => Ipfs
+
+
+  implicit def convertStellarAccount(input:AccountDetail):AccountData=AccountData(
+    balanceOpt = input.balances.headOption.map(_.balance),
+    idOpt = input.id.toOption)
+
+
+  implicit def convertStellarAccount(finput:Future[AccountDetail])(
+    implicit executionContext: ExecutionContext):Future[AccountData]=
+    finput.map(convertStellarAccount(_))
+
+
+
 
   implicit class PimpedArrayBuffer(b:js.typedarray.ArrayBuffer){
 

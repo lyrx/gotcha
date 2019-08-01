@@ -59,6 +59,9 @@ trait Stellar {
     implicit executionContext: ExecutionContext)=
     initStellar(isTestNet).balanceForPublic(pubKey)
 
+  def  accountData(pubKey:String,isTestNet:Boolean)(implicit executionContext: ExecutionContext)=
+    initStellar(isTestNet).accountData(pubKey)
+
 
 
 }

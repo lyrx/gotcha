@@ -213,6 +213,12 @@ class Pyramid(val config: Config)
       implicit executionContext: ExecutionContext) =
     balanceForPublic(s, config.blockchainData.stellar.testNet)
 
+  def stellarAccountInfo(s: String)(
+    implicit executionContext: ExecutionContext):Future[AccountData] =
+    accountData(s, config.blockchainData.stellar.testNet)
+
+
+
   private def internalRegister(hash: String,
                                aPrivateKey: String,
                                isTestNet: Boolean)(

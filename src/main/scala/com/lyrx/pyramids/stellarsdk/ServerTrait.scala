@@ -104,13 +104,19 @@ trait ServerTrait {
 
 
   def balanceForPublic(pubKey: String)(
+    implicit executionContext: concurrent.ExecutionContext) =accountData(pubKey)
+    .map(_.balances.headOption)
+    .fmap(_.balance)
+
+
+  def accountData(pubKey: String)(
     implicit executionContext: concurrent.ExecutionContext) =server
     .accounts()
     .accountId(pubKey)
     .call()
     .toFuture
-    .map(_.balances.headOption)
-    .fmap(_.balance)
+
+
 
 
 

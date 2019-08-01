@@ -117,6 +117,7 @@ trait AccountDetail extends js.Object {
 
   def balances:js.Array[Balance] = js.native
 
+  val id:js.UndefOr[String] = js.native
 
 }
 
