@@ -21,7 +21,14 @@ div.my-card{
     margin-left: 12px;
 }
 
+p.my-par{
+    max-width: 500px;
+    color:black;
+}
 
+ul.my-list{
+    color:black;
+}
 
 
 i.my-button-label{
