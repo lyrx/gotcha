@@ -26,8 +26,8 @@ object IpfsSupport{
     "protocol" -> "http"
   )))
 
-  def temporal(token:String):Ipfs = new IpfsSupport(genClient(l(
-    "host" -> "dev.api.ipfs.temporal.cloud",
+  def temporal(token:String,host:String):Ipfs = new IpfsSupport(genClient(l(
+    "host" -> host,
     "port" -> 443,
     "protocol" -> "https",
     "api-path" -> "/api/v0/",
