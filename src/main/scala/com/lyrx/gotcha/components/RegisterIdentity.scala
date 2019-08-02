@@ -40,6 +40,12 @@ import com.lyrx.gotcha._
   }
 
 
+  def blinkMe()=if(state.status == MyComponents.ONGOING)
+    "blink_me"
+  else
+    ""
+
+
   def isOnGoing():Boolean = (state.status==MyComponents.ONGOING)
   def isReady():Boolean = (state.status==MyComponents.READY)
   def isDone():Boolean = (state.status==MyComponents.DONE)
@@ -80,7 +86,7 @@ import com.lyrx.gotcha._
   //span()(state.regMessage)
 
   override def render(): ReactElement =
-    div(className := "card shadow mb-4 my-card" )(
+    div(className := s"card shadow mb-4 my-card ${blinkMe()}" )(
       div(className := "card-header py-3")(
         h6(className := "m-0 font-weight-bold text-primary")(
           "Register Your Identity In The Stellar Network"
