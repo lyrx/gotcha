@@ -19,6 +19,8 @@ object Main {
     ManagementWrapper(pyramidOpt,renderer))
 
 
+  def locale()= dom.window.navigator.language
+
 
   def renderAll(p: ReactElement) =
     ReactDOM.render(p, document.getElementById("root"))
