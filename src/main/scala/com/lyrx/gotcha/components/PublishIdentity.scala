@@ -66,14 +66,19 @@ import slinky.web.html._
         )
     })
 
+  def blinkMe()=if(state.status == MyComponents.ONGOING)
+    "blink_me"
+  else
+    ""
+
   override def render(): ReactElement =
-    div(className := "card shadow mb-4 my-card" )(
+    div(className := s"card shadow mb-4 my-card  ${blinkMe()} " )(
       div(className := "card-header py-3")(
         h6(className := "m-0 font-weight-bold text-primary")(
           "Publish Your Identity"
         )
       ),
-      div(className := "my-card-body")(
+      div(className := s"my-card-body")(
         div()(
           if(state.regHash.startsWith("Qm"))
           a(href:=s"https://ipfs.infura.io/ipfs/${state.regHash}"
