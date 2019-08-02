@@ -76,7 +76,8 @@ import com.lyrx.gotcha._
   def renderIdentity() = if(isDone())a(
     href:=s"https://${steepx}/tx/${state.regMessage}",
     target:="_blank")(
-    state.regMessage)
+    img(src:="img/registration.png")
+  )
   else
     span()(state.regMessage)
 

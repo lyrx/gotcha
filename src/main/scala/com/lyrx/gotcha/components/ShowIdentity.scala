@@ -38,7 +38,10 @@ import slinky.web.html._
             href := s"https://ipfs.infura.io/ipfs/${identHash()}"
             , target :="_blank"
           )
-          (s"${identHash()}")
+          (
+          //  s"${identHash()}"
+            img(src:="img/fingerprint.png")
+          )
         )
       )
     )

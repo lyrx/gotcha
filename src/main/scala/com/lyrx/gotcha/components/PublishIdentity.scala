@@ -83,7 +83,10 @@ import slinky.web.html._
           if(state.regHash.startsWith("Qm"))
           a(href:=s"https://ipfs.infura.io/ipfs/${state.regHash}"
             ,target:="_blank")(
-            state.regHash)
+            //state.regHash
+           img(src:="img/published.png")
+
+          )
         else
          span(state.regHash)),
         div( )(
