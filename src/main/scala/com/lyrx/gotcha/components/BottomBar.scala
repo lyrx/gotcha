@@ -1,12 +1,13 @@
-package com.lyrx.gotcha
+package com.lyrx.gotcha.components
 
+import com.lyrx.gotcha.Main
 import com.lyrx.pyramids.Ipfs.IpfsSupport
 import com.lyrx.pyramids.{IPFS, Pyramid}
 import org.scalajs.dom.Event
 import org.scalajs.dom.html.Select
-import slinky.core.{StatelessComponent, SyntheticEvent}
 import slinky.core.annotations.react
 import slinky.core.facade.ReactElement
+import slinky.core.{StatelessComponent, SyntheticEvent}
 import slinky.web.html._
 
 @react class BottomBar extends StatelessComponent {

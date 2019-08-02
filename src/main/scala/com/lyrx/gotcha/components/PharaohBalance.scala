@@ -1,13 +1,14 @@
-package com.lyrx.gotcha
+package com.lyrx.gotcha.components
 
 import com.lyrx.gotcha.Main.ec
 import com.lyrx.pyramids.Pyramid
+import com.lyrx.pyramids.util.Implicits._
 import slinky.core.Component
 import slinky.core.annotations.react
 import slinky.core.facade.ReactElement
 import slinky.web.html._
-import com.lyrx.pyramids.util.Implicits._
-import scala.concurrent.Future
+import com.lyrx.gotcha._
+
 
 @react class PharaohBalance extends Component {
   case class Props(pyramidOpt: Option[Pyramid],

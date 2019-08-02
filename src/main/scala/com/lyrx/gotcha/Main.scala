@@ -5,6 +5,8 @@ import org.scalajs.dom.document
 import slinky.core.facade.ReactElement
 import slinky.web.ReactDOM
 
+import com.lyrx.gotcha.components._
+import com.lyrx.gotcha.docs._
 import scala.concurrent.ExecutionContext
 import org.scalajs.dom
 import MyComponents._

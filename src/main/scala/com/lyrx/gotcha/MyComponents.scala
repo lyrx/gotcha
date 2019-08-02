@@ -10,7 +10,8 @@ import slinky.web.html._
 import Main.ec
 
 import scala.concurrent.{ExecutionContext, Future}
-
+import com.lyrx.gotcha.components._
+import com.lyrx.gotcha.docs._
 object MyComponents {
 
   val passwordField = React.createRef[dom.html.Input]

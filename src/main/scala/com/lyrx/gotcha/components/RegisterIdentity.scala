@@ -1,14 +1,15 @@
-package com.lyrx.gotcha
+package com.lyrx.gotcha.components
 
 import com.lyrx.gotcha.Main.ec
-import com.lyrx.pyramids.{Pyramid, Registration}
+import com.lyrx.gotcha.{Main, MyComponents}
+import com.lyrx.pyramids.Pyramid
 import org.scalajs.dom.Event
 import org.scalajs.dom.html.Anchor
 import slinky.core.annotations.react
 import slinky.core.facade.ReactElement
 import slinky.core.{Component, SyntheticEvent}
 import slinky.web.html._
-
+import com.lyrx.gotcha._
 
 @react class RegisterIdentity extends Component {
 

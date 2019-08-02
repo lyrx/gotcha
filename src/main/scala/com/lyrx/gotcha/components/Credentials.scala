@@ -1,17 +1,16 @@
-package com.lyrx.gotcha
+package com.lyrx.gotcha.components
 
+import com.lyrx.gotcha.Main
 import com.lyrx.gotcha.Main.ec
 import com.lyrx.pyramids.Pyramid
 import org.scalajs.dom
-import org.scalajs.dom.html.Input
-import org.scalajs.dom.html.Anchor
-
-import org.scalajs.dom.{Event, File}
-import org.scalajs.dom.raw.{Blob, EventTarget}
-import slinky.core.{Component, StatelessComponent, SyntheticEvent}
+import org.scalajs.dom.Event
+import org.scalajs.dom.html.{Anchor, Input}
 import slinky.core.annotations.react
 import slinky.core.facade.{React, ReactElement}
+import slinky.core.{Component, SyntheticEvent}
 import slinky.web.html._
+import com.lyrx.gotcha._
 
 import scala.concurrent.Future
 

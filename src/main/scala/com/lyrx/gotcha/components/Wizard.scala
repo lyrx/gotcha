@@ -1,8 +1,7 @@
-package com.lyrx.gotcha
+package com.lyrx.gotcha.components
 
-import com.lyrx.gotcha.MyComponents.pageHeading
 import com.lyrx.pyramids.Pyramid
-import slinky.core.{Component, StatelessComponent}
+import slinky.core.Component
 import slinky.core.annotations.react
 import slinky.core.facade.ReactElement
 import slinky.web.html._

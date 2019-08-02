@@ -1,10 +1,10 @@
-package com.lyrx.gotcha
+package com.lyrx.gotcha.components
 
 import com.lyrx.pyramids.Pyramid
 import slinky.core.StatelessComponent
 import slinky.core.annotations.react
 import slinky.core.facade.ReactElement
-import slinky.web.html.{button, className, form, i, id, nav}
+import slinky.web.html._
 
 @react class TopBar extends StatelessComponent {
   case class Props(pyramidOpt: Option[Pyramid])

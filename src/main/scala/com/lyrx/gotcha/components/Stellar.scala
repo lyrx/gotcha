@@ -1,12 +1,13 @@
-package com.lyrx.gotcha
+package com.lyrx.gotcha.components
 
+import com.lyrx.gotcha.MyComponents
 import com.lyrx.pyramids.Pyramid
 import slinky.core.Component
 import slinky.core.annotations.react
 import slinky.core.facade.ReactElement
 import slinky.web.html.{`type`, className, defaultValue, div, img, input, onChange, placeholder, ref, span, src}
 
-
+import com.lyrx.gotcha._
 
 
 

@@ -1,16 +1,12 @@
-package com.lyrx.gotcha
+package com.lyrx.gotcha.components
 
+import com.lyrx.gotcha.MyComponents
 import com.lyrx.gotcha.MyComponents.pageHeading
 import com.lyrx.pyramids.Pyramid
 import slinky.core.StatelessComponent
 import slinky.core.annotations.react
 import slinky.core.facade.ReactElement
 import slinky.web.html.{className, div, id}
-
-import scala.concurrent.Future
-import Main.ec
-
-
 
 
 @react class Notary extends StatelessComponent {
