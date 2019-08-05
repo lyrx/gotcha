@@ -16,15 +16,19 @@ import com.lyrx.gotcha._
                    currency: String,
                    pubKey: String)
 
-  case class State(balance: String, accountId: String)
+  case class State(balance: String, accountId: String,runtimeStatus: RuntimeStatus)
 
-  override def initialState: State = State(balance = "", accountId = "")
+  override def initialState: State = State(
+    balance = "",
+    accountId = "",
+    runtimeStatus = RuntimeStatus(msg="",status = RuntimeStatus.READY)
+  )
 
   def simpleCard(description: String,
                  amount: String,
                  currency: String): ReactElement =
     div(className := "col-xl-3 col-md-6 mb-4")(
-      div(className := "card shadow h-100 py-2")(
+      div(className := s"card shadow h-100 py-2 ${state.runtimeStatus.blinkMe()}")(
         div(className := "card-body")(
           div(className := "row no-gutters align-items-center")(
             div(className := "col mr-2")(
@@ -33,7 +37,12 @@ import com.lyrx.gotcha._
               /* div(className := "text-xs font-weight-bold text-primary text-uppercase mb-1")(
                 state.account), */
               div(className := "h5 mb-0 font-weight-bold text-gray-800")(
-                s"${currency} ${amount}"),
+                if(state.runtimeStatus.isOnGoing()) {
+                  "(Updating ...)"
+                }
+              else{
+                  s"${currency} ${amount}"
+                }),
               div(className := "")(
                 a(
                   href :=s"https://${props.pyramidOpt.steepx()}/account/${state.accountId}#payments"
@@ -48,7 +57,15 @@ import com.lyrx.gotcha._
       )
     )
 
-  def updateAccountInfo() =if(props.pubKey!="")
+  def updateAccountInfo() =if(
+    props.pubKey!="" &&
+   ! state.runtimeStatus.isOnGoing()
+  ){
+
+    setState(state.copy(runtimeStatus = RuntimeStatus(
+      msg=""
+      ,status=RuntimeStatus.ONGOING)))
+
     props.pyramidOpt
       .map(p => p.stellarAccountInfo(props.pubKey))
       .flip()
@@ -59,9 +76,10 @@ import com.lyrx.gotcha._
           setState(
             State(
               balance = newBalance,
-              accountId = newId
+              accountId = newId,
+              runtimeStatus = RuntimeStatus(msg="",status = RuntimeStatus.DONE)
             ))
-      }))
+      }))}
 
   override def componentDidMount(): Unit = {
     updateAccountInfo()
