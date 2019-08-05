@@ -57,29 +57,26 @@ import com.lyrx.gotcha._
       )
     )
 
-  def updateAccountInfo() =if(
-    props.pubKey!="" &&
-   ! state.runtimeStatus.isOnGoing()
-  ){
+  def updateAccountInfo() = props.pyramidOpt
+      .map(p => {
+        if(!state.runtimeStatus.isOnGoing() && state.balance == "") {
+          setState(state.copy(runtimeStatus = RuntimeStatus(
+            msg = ""
+            , status = RuntimeStatus.ONGOING)))
+          p.stellarAccountInfo(props.pubKey)
+            .map(accountData => {
+              val newBalance = accountData.balanceOpt.getOrElse("")
+              val newId = accountData.idOpt.getOrElse("")
+                setState(
+                  State(
+                    balance = newBalance,
+                    accountId = newId,
+                    runtimeStatus = RuntimeStatus(msg="",status = RuntimeStatus.DONE)
+                  ))
+            })
+        }}
+      )
 
-    setState(state.copy(runtimeStatus = RuntimeStatus(
-      msg=""
-      ,status=RuntimeStatus.ONGOING)))
-
-    props.pyramidOpt
-      .map(p => p.stellarAccountInfo(props.pubKey))
-      .flip()
-      .map(_.map(accountData => {
-        val newBalance = accountData.balanceOpt.getOrElse("")
-        val newId = accountData.idOpt.getOrElse("")
-        if (state.accountId != newId || state.balance != newBalance)
-          setState(
-            State(
-              balance = newBalance,
-              accountId = newId,
-              runtimeStatus = RuntimeStatus(msg="",status = RuntimeStatus.DONE)
-            ))
-      }))}
 
   override def componentDidMount(): Unit = {
     updateAccountInfo()

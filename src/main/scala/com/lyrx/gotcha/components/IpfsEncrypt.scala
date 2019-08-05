@@ -67,7 +67,7 @@ import slinky.web.html._
     div(className := s"card shadow mb-4 my-card  ${state.blinkMe()} " )(
       div(className := "card-header py-3")(
         h6(className := "m-0 font-weight-bold text-primary")(
-          "Publish Your Identity"
+          "Encrypt And Upload Your"
         )
       ),
       div(className := s"my-card-body")(
@@ -86,7 +86,7 @@ import slinky.web.html._
             className := "btn my-btn btn-icon-split",
             onClick := (handleClick(_)))(
             i(className := "fas fa-upload m-button-label"),
-            span(className:="my-label")("Publish Identity In The IPFS Network")
+            span(className:="my-label")("Upload File To IPFS")
           )
         )
       )
