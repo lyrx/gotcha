@@ -39,18 +39,11 @@ import com.lyrx.gotcha._
   }
 
 
-  def blinkMe()=if(state.status == RuntimeStatus.ONGOING)
-    "blink_me"
-  else
-    ""
 
 
-  def isOnGoing():Boolean = (state.status==RuntimeStatus.ONGOING)
-  def isReady():Boolean = (state.status==RuntimeStatus.READY)
-  def isDone():Boolean = (state.status==RuntimeStatus.DONE)
 
   def handleClick(e: SyntheticEvent[Anchor, Event])=
-    if(!isOnGoing())
+    if(!state.isOnGoing())
     props
     .pyramidOpt
     .flatMap(p=>{
@@ -68,12 +61,10 @@ import com.lyrx.gotcha._
       })})
 
 
-  def isTestNet() = props.pyramidOpt.isStellarTestNet()
 
-  def steepx()= props.pyramidOpt.steepx()
 
-  def renderIdentity() = if(isDone())a(
-    href:=s"https://${steepx}/tx/${state.msg}",
+  def renderIdentity() = if(state.isDone())a(
+    href:=s"https://${props.pyramidOpt.steepx}/tx/${state.msg}",
     target:="_blank")(
     img(src:="img/registration.png")
   )
@@ -81,12 +72,8 @@ import com.lyrx.gotcha._
     span()(state.msg)
 
 
-
-
-  //span()(state.regMessage)
-
   override def render(): ReactElement =
-    div(className := s"card shadow mb-4 my-card ${blinkMe()}" )(
+    div(className := s"card shadow mb-4 my-card ${state.blinkMe()}" )(
       div(className := "card-header py-3")(
         h6(className := "m-0 font-weight-bold text-primary")(
           "Register Your Identity In The Stellar Network"

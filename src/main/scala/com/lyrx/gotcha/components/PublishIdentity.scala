@@ -37,7 +37,6 @@ import slinky.web.html._
     }
   }
 
-  def isOnGoing():Boolean = (state.status==RuntimeStatus.ONGOING)
 
   def registerHash()= registerHashOpt()
     .getOrElse("(Unknown)")
@@ -52,7 +51,7 @@ import slinky.web.html._
 
 
   def handleClick(e: SyntheticEvent[Anchor, Event])=
-    if(!isOnGoing())props
+    if(!state.isOnGoing())props
     .pyramidOpt
     .map(p=>{
       setState(RuntimeStatus(msg="Publishing ...",status=RuntimeStatus.ONGOING))
@@ -66,13 +65,11 @@ import slinky.web.html._
         )
     })
 
-  def blinkMe()=if(state.status == RuntimeStatus.ONGOING)
-    "blink_me"
-  else
-    ""
+
+
 
   override def render(): ReactElement =
-    div(className := s"card shadow mb-4 my-card  ${blinkMe()} " )(
+    div(className := s"card shadow mb-4 my-card  ${state.blinkMe()} " )(
       div(className := "card-header py-3")(
         h6(className := "m-0 font-weight-bold text-primary")(
           "Publish Your Identity"
