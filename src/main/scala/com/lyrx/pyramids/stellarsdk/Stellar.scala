@@ -23,11 +23,9 @@ trait Stellar {
     // sure to also change the horizon hostname.
     // StellarSdk.Network.usePublicNetwork();
     if(isTest){
-      Network.useTestNetwork()
       new Server(StellarObject.TESTNET)
     }
     else{
-      Network.usePublicNetwork();
       new Server(StellarObject.MAINNET)
     }
 
@@ -44,7 +42,8 @@ trait Stellar {
       .register(aaHash = value,
         aPrivateKey = privateKey,
         sendTo = aSendTo,
-        aamount = amount
+        aamount = amount,
+        aTest = isTestNet
       )
     .map(t=>t._1.hash)
 

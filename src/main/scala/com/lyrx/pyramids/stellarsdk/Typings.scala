@@ -14,6 +14,17 @@ object Network extends js.Object {
   def useTestNetwork(): Unit = js.native
 }
 
+
+@JSImport("stellar-base", "Networks")
+@js.native
+object Networks extends js.Object {
+  val TESTNET:String = js.native
+  val MAINNET:String = js.native
+}
+
+
+
+
 @JSImport("stellar-sdk", "Operation")
 @js.native
 object Operation extends js.Object {

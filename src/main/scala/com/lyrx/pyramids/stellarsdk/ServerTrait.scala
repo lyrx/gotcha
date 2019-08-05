@@ -123,29 +123,12 @@ trait ServerTrait {
 
 
 
-  def registrationTransaction(aHash: String,
-                              name: String,
-                              privateKey: String)()(
-      implicit executionContext: concurrent.ExecutionContext,
-      timeoutSeconds: Timeout) =
-    server
-      .fetchBaseFee()
-      .toFuture
-      .flatMap(aFee =>
-        loadPrivateAcount(privateKey).map((t: (String, Account)) => {
-          val transaction =
-            new TransactionBuilder(t._2, l("fee" -> aFee))
-              .addOperation(
-                Operation.manageData(l("name" -> name, "value" -> aHash)))
-              .setTimeout(timeoutSeconds.seconds)
-              .build()
-          transaction.sign(Keypair.fromSecret(t._1))
-          (transaction, t._2)
-        }))
+
   def registrationSendTransaction(privateKey: String,
                                   sendTo: String,
                                   aHash: String,
-                                  amount:String
+                                  amount:String,
+                                  isTest:Boolean
                                  )()(
                                implicit executionContext: concurrent.ExecutionContext,
                                timeoutSeconds: Timeout) =
@@ -155,7 +138,10 @@ trait ServerTrait {
       .flatMap(aFee =>
         loadPrivateAcount(privateKey).map((t: (String, Account)) => {
           val transaction =
-            new TransactionBuilder(t._2, l("fee" -> aFee))
+            new TransactionBuilder(t._2, l(
+              "fee" -> aFee,
+              "networkPassphrase" -> (if(isTest) Networks.TESTNET else Networks.MAINNET)
+            ))
               .addOperation(
                 Operation.payment(l(
                   "destination" -> sendTo,
@@ -172,14 +158,15 @@ trait ServerTrait {
 
 
 
-  def register(aaHash: String, aPrivateKey: String,sendTo:String,aamount:String)(
+  def register(aaHash: String, aPrivateKey: String,sendTo:String,aamount:String,aTest:Boolean)(
       implicit executionContext: concurrent.ExecutionContext,
       timeoutSeconds: Timeout) =
     registrationSendTransaction(
       privateKey= aPrivateKey,
       sendTo=sendTo,
       aHash = aaHash,
-      amount = aamount
+      amount = aamount,
+      isTest=aTest
     )
       .flatMap((t) => {
         val account: Account = t._2;
