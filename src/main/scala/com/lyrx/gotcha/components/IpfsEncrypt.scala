@@ -4,7 +4,6 @@ import com.lyrx.gotcha.Main.ec
 import com.lyrx.gotcha.{Main, MyComponents}
 import com.lyrx.pyramids.Pyramid
 import com.lyrx.pyramids.util.Implicits._
-import org.scalajs.dom
 import org.scalajs.dom.Event
 import org.scalajs.dom.html.Anchor
 import slinky.core.annotations.react
@@ -13,16 +12,15 @@ import slinky.core.{Component, SyntheticEvent}
 import slinky.web.html._
 
 
+@react class IpfsEncrypt extends Component {
 
-@react class PublishIdentity extends Component {
 
-
-  override def initialState: RuntimeStatus = RuntimeStatus( msg = "(Unregistered)",status=RuntimeStatus.READY)
+  override def initialState: RuntimeStatus= RuntimeStatus(msg= "(Unregistered)",status=RuntimeStatus.READY)
   case class Props(
       pyramidOpt: Option[Pyramid],
   )
 
-  type  State = RuntimeStatus
+ type State = RuntimeStatus
 
 
 

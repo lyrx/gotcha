@@ -14,13 +14,12 @@ import com.lyrx.gotcha._
 @react class RegisterIdentity extends Component {
 
 
-  override def initialState: State = State( regMessage="",status=MyComponents.READY)
+  override def initialState: State = RuntimeStatus( msg="",status=RuntimeStatus.READY)
   case class Props(
       pyramidOpt: Option[Pyramid],
   )
 
-  case class State(regMessage: String,status:String)
-
+ type State = RuntimeStatus
 
 
   override def componentDidMount(): Unit = {
@@ -32,7 +31,7 @@ import com.lyrx.gotcha._
        .stellar
        .registrationFeeXLMOpt
        .map(fee=>s"Registration fee: XLM ${fee}")).getOrElse("")
-    setState( State(regMessage =fee,status = MyComponents.READY))
+    setState( RuntimeStatus(msg =fee,status = RuntimeStatus.READY))
   }
 
   override def componentDidUpdate(prevProps: Props, prevState: State): Unit = {
@@ -40,15 +39,15 @@ import com.lyrx.gotcha._
   }
 
 
-  def blinkMe()=if(state.status == MyComponents.ONGOING)
+  def blinkMe()=if(state.status == RuntimeStatus.ONGOING)
     "blink_me"
   else
     ""
 
 
-  def isOnGoing():Boolean = (state.status==MyComponents.ONGOING)
-  def isReady():Boolean = (state.status==MyComponents.READY)
-  def isDone():Boolean = (state.status==MyComponents.DONE)
+  def isOnGoing():Boolean = (state.status==RuntimeStatus.ONGOING)
+  def isReady():Boolean = (state.status==RuntimeStatus.READY)
+  def isDone():Boolean = (state.status==RuntimeStatus.DONE)
 
   def handleClick(e: SyntheticEvent[Anchor, Event])=
     if(!isOnGoing())
@@ -58,12 +57,12 @@ import com.lyrx.gotcha._
       val aPrivKey = MyComponents.passwordField.current.value
       val aPubKey = MyComponents.idsField.current.value
       p.config.ipfsData.regOpt.flatMap(s=> {
-        setState(State(regMessage="Registration ongoing",status = MyComponents.ONGOING))
+        setState(RuntimeStatus(msg="Registration ongoing",status = RuntimeStatus.ONGOING))
         p.stellarRegisterByTransaction(aHash=s,
           privKey=aPrivKey,
           pubKey = aPubKey)(Main.ec,Main.timeout)
         .map(_.map((so)=>{
-          setState(State(so.getOrElse(""),status = MyComponents.DONE))
+          setState(RuntimeStatus(msg = so.getOrElse(""),status = RuntimeStatus.DONE))
           Main.initWithIdentityManagement(props.pyramidOpt)
         }))
       })})
@@ -74,12 +73,12 @@ import com.lyrx.gotcha._
   def steepx()= props.pyramidOpt.steepx()
 
   def renderIdentity() = if(isDone())a(
-    href:=s"https://${steepx}/tx/${state.regMessage}",
+    href:=s"https://${steepx}/tx/${state.msg}",
     target:="_blank")(
     img(src:="img/registration.png")
   )
   else
-    span()(state.regMessage)
+    span()(state.msg)
 
 
 
