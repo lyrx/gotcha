@@ -148,6 +148,10 @@ class Pyramid(val config: Config)
       })
       .toFutureOption()
 
+
+
+
+
   def saveHash(hash: String, f: File)(
       implicit executionContext: ExecutionContext) =
     downloadDecrypt(hash)
@@ -158,6 +162,9 @@ class Pyramid(val config: Config)
           f.name)
         new Pyramid(config.withMessage(s"Downloaded ${f.name}"))
       })
+
+
+
 
   def encryptedUpload(f: File)(implicit executionContext: ExecutionContext) =
     zipEncrypt(f)

@@ -65,8 +65,18 @@ import com.lyrx.gotcha._
               )
           }))
 
-  def onRegister(e: SyntheticEvent[Anchor, Event]) = {}
-  def onDownload(e: SyntheticEvent[Anchor, Event]) = {}
+  def onDownload(e: SyntheticEvent[Anchor, Event]) =  if (!state.runtimeStatus.isOnGoing())
+    state.hashOpt.map(h=>getFileOpt().map(f=>
+      props.pyramidOpt.map(p=>p.saveHash(h, f))
+    ))
+
+
+
+
+
+
+  def onRegister(e: SyntheticEvent[Anchor, Event]) =  if (!state.runtimeStatus.isOnGoing()){}
+
 
   override def render(): ReactElement =
     div(
