@@ -4417,7 +4417,7 @@ input[type="button"].btn-block {
 }
 
 #pyramid-root{
-  height: 756px;
+  min-height: 756px;
   background-image: url('../img/ETER-header.jpg');
 }
 
