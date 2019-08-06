@@ -38,11 +38,19 @@ import com.lyrx.gotcha._
                 state.account), */
               div(className := "h5 mb-0 font-weight-bold text-gray-800")(
                 if(state.runtimeStatus.isOnGoing()) {
-                  "(Updating ...)"
+                  "Updating ..."
                 }
               else{
-                  s"${currency} ${amount}"
+                  s"${currency} ${if(amount == "") "??? " else amount}"
+
                 }),
+              div()(
+                a(
+                  href:="#",
+                  onClick := (e=>{updateAccountInfo()})
+                )("Update")
+              ),
+
               div(className := "")(
                 a(
                   href :=s"https://${props.pyramidOpt.steepx()}/account/${state.accountId}#payments"
@@ -59,7 +67,7 @@ import com.lyrx.gotcha._
 
   def updateAccountInfo() = props.pyramidOpt
       .map(p => {
-        if(!state.runtimeStatus.isOnGoing() && state.balance == "") {
+        if(!state.runtimeStatus.isOnGoing()) {
           setState(state.copy(runtimeStatus = RuntimeStatus(
             msg = ""
             , status = RuntimeStatus.ONGOING)))
@@ -82,7 +90,7 @@ import com.lyrx.gotcha._
     updateAccountInfo()
   }
   override def componentDidUpdate(prevProps: Props, prevState: State): Unit = {
-    updateAccountInfo()
+
   }
 
   override def render(): ReactElement = {
