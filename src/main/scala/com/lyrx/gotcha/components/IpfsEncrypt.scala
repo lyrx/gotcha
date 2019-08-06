@@ -67,7 +67,18 @@ import com.lyrx.gotcha._
 
   def onDownload(e: SyntheticEvent[Anchor, Event]) =  if (!state.runtimeStatus.isOnGoing())
     state.hashOpt.map(h=>getFileOpt().map(f=>
-      props.pyramidOpt.map(p=>p.saveHash(h, f))
+      props.pyramidOpt.map(p=>{
+        setState(
+          state.copy(
+            runtimeStatus = RuntimeStatus(msg = "Downloading ...",
+              status = RuntimeStatus.ONGOING)))
+        p.saveHash(h, f).map(p2=>{
+          setState(
+            state.copy(
+              runtimeStatus = RuntimeStatus(msg = "Finished Download",
+                status = RuntimeStatus.DONE)))
+        })
+      })
     ))
 
 
@@ -75,7 +86,28 @@ import com.lyrx.gotcha._
 
 
 
-  def onRegister(e: SyntheticEvent[Anchor, Event]) =  if (!state.runtimeStatus.isOnGoing()){}
+  def onRegister(e: SyntheticEvent[Anchor, Event]) =  if (!state.runtimeStatus.isOnGoing()){
+    val aPubKey = MyComponents.docsField.current.value
+    val aPrivKey = MyComponents.passwordField.current.value
+
+    state.hashOpt.map(h=> props.pyramidOpt.map(p=>{
+        setState(
+          state.copy(
+            runtimeStatus = RuntimeStatus(msg = "Downloading ...",
+              status = RuntimeStatus.ONGOING)))
+
+      p.stellarRegisterByTransaction(aHash=h,
+        privKey=aPrivKey,
+        pubKey = aPubKey)(Main.ec,Main.timeout)
+        .map(_.map((so)=>{
+
+
+        }))
+
+
+
+  }))}
+
 
 
   override def render(): ReactElement =
