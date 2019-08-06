@@ -1,7 +1,7 @@
 package com.lyrx.gotcha.components
 
 import com.lyrx.gotcha.Main.ec
-import com.lyrx.pyramids.Pyramid
+import com.lyrx.pyramids.{AccountData, Pyramid}
 import com.lyrx.pyramids.util.Implicits._
 import org.scalajs.dom
 import org.scalajs.dom.{Event, File}
@@ -11,14 +11,13 @@ import slinky.core.facade.{React, ReactElement}
 import slinky.core.{Component, SyntheticEvent}
 import slinky.web.html._
 import com.lyrx.gotcha._
-
-
 @react class IpfsEncrypt extends Component {
 
   val fileSelector = React.createRef[dom.html.Input]
 
   override def initialState: State =
-    State(hashOpt = None,
+    State(accountData = AccountData(None, None),
+          hashOpt = None,
           fileOpt = None,
           runtimeStatus =
             RuntimeStatus(msg = "(Unregistered)", status = RuntimeStatus.READY))
@@ -27,6 +26,7 @@ import com.lyrx.gotcha._
   )
 
   case class State(
+      accountData: AccountData,
       hashOpt: Option[String],
       fileOpt: Option[File],
       runtimeStatus: RuntimeStatus
@@ -44,7 +44,7 @@ import com.lyrx.gotcha._
       Some(maybeFile)
   }
 
-  def handleClick(e: SyntheticEvent[Anchor, Event]) =
+  def onUpload(e: SyntheticEvent[Anchor, Event]) =
     if (!state.runtimeStatus.isOnGoing())
       props.pyramidOpt
         .map(p =>
@@ -57,12 +57,16 @@ import com.lyrx.gotcha._
               .fmap(
                 s => {
                   setState(state.copy(
+                    hashOpt=Some(s),
                     runtimeStatus = RuntimeStatus(msg = "Done uploading ...",
                                                   status = RuntimeStatus.DONE)))
-                  println(s"Uploaded: ${s}")
+
                 }
               )
           }))
+
+  def onRegister(e: SyntheticEvent[Anchor, Event]) = {}
+  def onDownload(e: SyntheticEvent[Anchor, Event]) = {}
 
   override def render(): ReactElement =
     div(
@@ -81,14 +85,38 @@ import com.lyrx.gotcha._
               setState(state.copy(fileOpt = e.target.fileOpt()))
             })
           ),
-          div()(
-            a(href := "#",
-              className := "btn my-btn btn-icon-split",
-              onClick := (handleClick(_)))(
-              i(className := "fas fa-upload m-button-label"),
-              span(className := "my-label")("Upload File To IPFS")
+          (if (state.fileOpt.isDefined)
+             div()(
+               a(href := "#",
+                 className := "btn my-btn btn-icon-split",
+                 onClick := (onUpload(_)))(
+                 i(className := "fas fa-upload m-button-label"),
+                 span(className := "my-label")("Upload File To IPFS")
+               )
+             )
+           else div()),
+          if (state.hashOpt.isDefined)
+            div()(
+              a(href := "#",
+                className := "btn my-btn btn-icon-split",
+                onClick := (onDownload(_)))(
+                i(className := "fas fa-download m-button-label"),
+                span(className := "my-label")("Download File")
+              )
             )
-          )
+          else
+            div(),
+          if (state.hashOpt.isDefined)
+            div()(
+              a(href := "#",
+                className := "btn my-btn btn-icon-split",
+                onClick := (onRegister(_)))(
+                i(className := "fas fa-registered m-button-label"),
+                span(className := "my-label")("Register File")
+              )
+            )
+          else
+            div()
         ))
     )
 
