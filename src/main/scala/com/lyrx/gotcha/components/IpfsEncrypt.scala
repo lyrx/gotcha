@@ -10,6 +10,9 @@ import slinky.core.annotations.react
 import slinky.core.facade.{React, ReactElement}
 import slinky.core.{Component, SyntheticEvent}
 import slinky.web.html._
+import com.lyrx.gotcha._
+
+
 @react class IpfsEncrypt extends Component {
 
   val fileSelector = React.createRef[dom.html.Input]
@@ -45,7 +48,7 @@ import slinky.web.html._
     if (!state.runtimeStatus.isOnGoing())
       props.pyramidOpt
         .map(p =>
-          getFileOpt().map(f => {
+          state.fileOpt.map(f => {
             setState(
               state.copy(
                 runtimeStatus = RuntimeStatus(msg = "Uploading ...",
@@ -74,7 +77,9 @@ import slinky.web.html._
           input(
             `type` := "file",
             ref := fileSelector,
-            onChange := (e => {})
+            onChange := (e => {
+              setState(state.copy(fileOpt = e.target.fileOpt()))
+            })
           ),
           div()(
             a(href := "#",
