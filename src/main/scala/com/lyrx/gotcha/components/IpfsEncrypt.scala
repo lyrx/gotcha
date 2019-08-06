@@ -4,15 +4,19 @@ import com.lyrx.gotcha.Main.ec
 import com.lyrx.gotcha.{Main, MyComponents}
 import com.lyrx.pyramids.Pyramid
 import com.lyrx.pyramids.util.Implicits._
+import org.scalajs.dom
 import org.scalajs.dom.Event
 import org.scalajs.dom.html.Anchor
+import org.scalajs.dom.raw.DataTransfer
 import slinky.core.annotations.react
-import slinky.core.facade.ReactElement
+import slinky.core.facade.{React, ReactElement}
 import slinky.core.{Component, SyntheticEvent}
 import slinky.web.html._
 
 
 @react class IpfsEncrypt extends Component {
+
+  val fileSelector = React.createRef[dom.html.Input]
 
 
   override def initialState: RuntimeStatus= RuntimeStatus(msg= "(Unregistered)",status=RuntimeStatus.READY)
@@ -50,7 +54,20 @@ import slinky.web.html._
     if(!state.isOnGoing())props
     .pyramidOpt
     .map(p=>{
-      setState(RuntimeStatus(msg="Publishing ...",status=RuntimeStatus.ONGOING))
+
+      def fileOpt()= {
+        val  maybeFile =fileSelector.current.files.item(0)
+        if ( maybeFile == null)
+          None
+        else
+          Some(maybeFile)
+      }
+
+
+          println(s"Value: ${fileOpt()}")
+
+      /*
+      setState(RuntimeStatus(msg="Uploading ...",status=RuntimeStatus.ONGOING))
       p.ipfsRegister()
         .map(_.loadIdentity()
               .fmap(p3=>{
@@ -59,6 +76,7 @@ import slinky.web.html._
                     Some(p3))
               })
         )
+       */
     })
 
 
@@ -67,20 +85,18 @@ import slinky.web.html._
     div(className := s"card shadow mb-4 my-card  ${state.blinkMe()} " )(
       div(className := "card-header py-3")(
         h6(className := "m-0 font-weight-bold text-primary")(
-          "Encrypt And Upload Your"
+          "Encrypt And Upload A File"
         )
       ),
       div(className := s"my-card-body")(
-        div()(
-          if(state.msg.startsWith("Qm"))
-          a(href:=s"https://ipfs.infura.io/ipfs/${state.msg}"
-            ,target:="_blank")(
-            //state.regHash
-           img(src:="img/published.png")
+        div(
+          input(
+            `type` := "file",
+            ref := fileSelector,
+            onChange:= (e=>{
 
-          )
-        else
-         span(state.msg)),
+            })
+          ),
         div( )(
           a(href := "#",
             className := "btn my-btn btn-icon-split",
@@ -89,8 +105,8 @@ import slinky.web.html._
             span(className:="my-label")("Upload File To IPFS")
           )
         )
-      )
-    )
+      )))
+
 
 
 

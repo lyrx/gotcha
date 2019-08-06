@@ -27,11 +27,10 @@ import slinky.web.html.{className, div, id}
           title = "Notary Ids",
           currency = "XLM",
           pubKey = MyComponents.idsField.current.value
-
         )
-
-
-
+      ),
+      div(className := "row")(
+        IpfsEncrypt(props.pyramidOpt)
       )
     )
 }
