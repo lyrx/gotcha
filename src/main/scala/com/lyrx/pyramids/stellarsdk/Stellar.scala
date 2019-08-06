@@ -23,9 +23,11 @@ trait Stellar {
     // sure to also change the horizon hostname.
     // StellarSdk.Network.usePublicNetwork();
     if(isTest){
+      Network.useTestNetwork()
       new Server(StellarObject.TESTNET)
     }
     else{
+      Network.usePublicNetwork();
       new Server(StellarObject.MAINNET)
     }
 

@@ -43,6 +43,11 @@ object Main {
     initReactElements(po,
       ((aPyramidOpt) =>IdentityManagement(aPyramidOpt) ))
 
+  def initWithNotary(po:Option[Pyramid]): Unit =
+    initReactElements(po,
+      ((aPyramidOpt) =>Notary(aPyramidOpt) ))
+
+
 
 
 

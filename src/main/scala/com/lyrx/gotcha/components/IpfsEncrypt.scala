@@ -1,6 +1,10 @@
 package com.lyrx.gotcha.components
 
-import com.lyrx.gotcha.Main.ec
+
+import com.lyrx.gotcha.Main
+
+import Main.ec
+
 import com.lyrx.pyramids.{AccountData, Pyramid}
 import com.lyrx.pyramids.util.Implicits._
 import org.scalajs.dom
@@ -10,27 +14,29 @@ import slinky.core.annotations.react
 import slinky.core.facade.{React, ReactElement}
 import slinky.core.{Component, SyntheticEvent}
 import slinky.web.html._
-import com.lyrx.gotcha._
+import com.lyrx.gotcha.{Main, _}
+
 @react class IpfsEncrypt extends Component {
 
   val fileSelector = React.createRef[dom.html.Input]
 
   override def initialState: State =
     State(accountData = AccountData(None, None),
-          hashOpt = None,
-          fileOpt = None,
-          runtimeStatus =
-            RuntimeStatus(msg = "(Unregistered)", status = RuntimeStatus.READY))
+      hashOpt = None,
+      fileOpt = None,
+      runtimeStatus =
+        RuntimeStatus(msg = "(Unregistered)", status = RuntimeStatus.READY))
+
   case class Props(
-      pyramidOpt: Option[Pyramid],
-  )
+                    pyramidOpt: Option[Pyramid],
+                  )
 
   case class State(
-      accountData: AccountData,
-      hashOpt: Option[String],
-      fileOpt: Option[File],
-      runtimeStatus: RuntimeStatus
-  )
+                    accountData: AccountData,
+                    hashOpt: Option[String],
+                    fileOpt: Option[File],
+                    runtimeStatus: RuntimeStatus
+                  )
 
   override def componentDidMount(): Unit = {}
 
@@ -52,27 +58,27 @@ import com.lyrx.gotcha._
             setState(
               state.copy(
                 runtimeStatus = RuntimeStatus(msg = "Uploading ...",
-                                              status = RuntimeStatus.ONGOING)))
+                  status = RuntimeStatus.ONGOING)))
             p.encryptedUpload(f)
               .fmap(
                 s => {
                   setState(state.copy(
-                    hashOpt=Some(s),
+                    hashOpt = Some(s),
                     runtimeStatus = RuntimeStatus(msg = "Done uploading ...",
-                                                  status = RuntimeStatus.DONE)))
+                      status = RuntimeStatus.DONE)))
 
                 }
               )
           }))
 
-  def onDownload(e: SyntheticEvent[Anchor, Event]) =  if (!state.runtimeStatus.isOnGoing())
-    state.hashOpt.map(h=>getFileOpt().map(f=>
-      props.pyramidOpt.map(p=>{
+  def onDownload(e: SyntheticEvent[Anchor, Event]) = if (!state.runtimeStatus.isOnGoing())
+    state.hashOpt.map(h => getFileOpt().map(f =>
+      props.pyramidOpt.map(p => {
         setState(
           state.copy(
             runtimeStatus = RuntimeStatus(msg = "Downloading ...",
               status = RuntimeStatus.ONGOING)))
-        p.saveHash(h, f).map(p2=>{
+        p.saveHash(h, f).map(p2 => {
           setState(
             state.copy(
               runtimeStatus = RuntimeStatus(msg = "Finished Download",
@@ -82,32 +88,31 @@ import com.lyrx.gotcha._
     ))
 
 
-
-
-
-
-  def onRegister(e: SyntheticEvent[Anchor, Event]) =  if (!state.runtimeStatus.isOnGoing()){
+  def onRegister(e: SyntheticEvent[Anchor, Event]) = if (!state.runtimeStatus.isOnGoing()) {
     val aPubKey = MyComponents.docsField.current.value
     val aPrivKey = MyComponents.passwordField.current.value
 
-    state.hashOpt.map(h=> props.pyramidOpt.map(p=>{
-        setState(
-          state.copy(
-            runtimeStatus = RuntimeStatus(msg = "Downloading ...",
-              status = RuntimeStatus.ONGOING)))
+    state.hashOpt.map(h => props.pyramidOpt.map(p => {
+      setState(
+        state.copy(
+          runtimeStatus = RuntimeStatus(msg = "Registration ongoing ...",
+            status = RuntimeStatus.ONGOING)))
 
-      p.stellarRegisterByTransaction(aHash=h,
-        privKey=aPrivKey,
-        pubKey = aPubKey)(Main.ec,Main.timeout)
-        .map(_.map((so)=>{
+      p.stellarRegisterByTransaction(aHash = h,
+        privKey = aPrivKey,
+        pubKey = aPubKey)(Main.ec, Main.timeout)
+        .map(_.map(result => {
+          setState(
+            state.copy(
+              runtimeStatus = RuntimeStatus(msg = "Registration done",
+                status = RuntimeStatus.DONE)))
+          Main.initWithNotary(props.pyramidOpt)
 
-
-        }))
-
-
-
-  }))}
-
+        }).onComplete(t => t.failed.map(println))
+        )
+    }
+    ))
+  }
 
 
   override def render(): ReactElement =
@@ -128,15 +133,15 @@ import com.lyrx.gotcha._
             })
           ),
           (if (state.fileOpt.isDefined)
-             div()(
-               a(href := "#",
-                 className := "btn my-btn btn-icon-split",
-                 onClick := (onUpload(_)))(
-                 i(className := "fas fa-upload m-button-label"),
-                 span(className := "my-label")("Upload File To IPFS")
-               )
-             )
-           else div()),
+            div()(
+              a(href := "#",
+                className := "btn my-btn btn-icon-split",
+                onClick := (onUpload(_)))(
+                i(className := "fas fa-upload m-button-label"),
+                span(className := "my-label")("Upload File To IPFS")
+              )
+            )
+          else div()),
           if (state.hashOpt.isDefined)
             div()(
               a(href := "#",
@@ -148,7 +153,7 @@ import com.lyrx.gotcha._
             )
           else
             div(),
-          if (state.hashOpt.isDefined)
+          (if (state.hashOpt.isDefined)
             div()(
               a(href := "#",
                 className := "btn my-btn btn-icon-split",
@@ -158,7 +163,10 @@ import com.lyrx.gotcha._
               )
             )
           else
-            div()
+            div()),
+          div()(
+            span(state.runtimeStatus.msg)
+          )
         ))
     )
 
