@@ -53,14 +53,15 @@ import scala.scalajs.js
   }
 
 
-  def renderTransaction()=
+  def renderTransaction():ReactElement=
   if(state.transactionOpt.isDefined)a(
     href:=s"https://${props.pyramidOpt.steepx}/tx/${state.transactionOpt.get}",
     target:="_blank")(
-    img(src:="img/registration.png")
+    img(src:="img/registration.png"),
+    span(state.runtimeStatus.msg)
   )
   else
-    span()()
+    span(state.runtimeStatus.msg)
 
 
 
@@ -181,10 +182,8 @@ import scala.scalajs.js
             )
           else
             div()),
-          renderTransaction(),
           div()(
-            span(state.runtimeStatus.msg)
-          )
+            renderTransaction())
         ))
     )
 
