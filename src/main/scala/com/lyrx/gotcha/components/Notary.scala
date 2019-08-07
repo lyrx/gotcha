@@ -14,7 +14,11 @@ import slinky.web.html.{className, div, id}
 
   def render(): ReactElement =
     div(className := "container-fluid", id := "pyramid-root")(
-      pageHeading("Notary"),
+      pageHeading("Notary")
+      ,
+      div(className := "row")(
+        IpfsEncrypt(props.pyramidOpt)
+      ),
       div(className := "row")(
         PharaohBalance(
           props.pyramidOpt,
@@ -28,9 +32,6 @@ import slinky.web.html.{className, div, id}
           currency = "XLM",
           pubKey = MyComponents.idsField.current.value
         )
-      ),
-      div(className := "row")(
-        IpfsEncrypt(props.pyramidOpt)
       )
     )
 }
