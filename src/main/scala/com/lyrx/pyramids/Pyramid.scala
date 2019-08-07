@@ -170,6 +170,18 @@ class Pyramid(val config: Config)
             "application/zip")
           ,"data.zip"))
 
+  def saveHashWithFile(hash: String, f: File)(
+    implicit executionContext: ExecutionContext) =
+    ipfsSupport().readIpfs(hash)
+      .fmap((b:nodeLib.Buffer)=>
+        filesaver
+          .saveAs(
+            b.toBlob(
+              f.`type`)
+            ,f.name))
+
+
+
 
 
 
@@ -182,7 +194,7 @@ class Pyramid(val config: Config)
 
   def unencryptedUpload(f: File)(implicit executionContext: ExecutionContext) = new FileReader()
       .futureReadArrayBuffer(f)
-      .map(  (b:ArrayBuffer)=>ipfsSaveBuffer(b.toNodeLib8uffer()))
+      .map(  (b:ArrayBuffer)=>ipfsSaveBuffer(b.toNodeLib8uffer())).flatten
 
 
 
