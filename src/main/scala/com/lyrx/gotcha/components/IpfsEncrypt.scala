@@ -90,16 +90,30 @@ import scala.scalajs.js
       props.pyramidOpt.map(p => {
         setState(
           state.copy(
-            runtimeStatus = RuntimeStatus(msg = "Downloading ...",
+            runtimeStatus = RuntimeStatus(msg = "Download and decrypt...",
               status = RuntimeStatus.ONGOING)))
         p.saveDecryptHash(h, f).map(p2 => {
           setState(
             state.copy(
-              runtimeStatus = RuntimeStatus(msg = "Finished Download",
-                status = RuntimeStatus.DONE)))
-        })
-      })
-    ))
+              runtimeStatus = RuntimeStatus(msg = "Finished download and decryption",
+                status = RuntimeStatus.DONE)))})})))
+
+  def onDownloadEncrypted(e: SyntheticEvent[Anchor, Event]) = if (!state.runtimeStatus.isOnGoing())
+    state.hashOpt.map(h =>
+      props.pyramidOpt.map(p => {
+        setState(
+          state.copy(
+            runtimeStatus = RuntimeStatus(msg = "Downloading ...",
+              status = RuntimeStatus.ONGOING)))
+        p.saveHash(h).map(p2 => {
+          setState(
+            state.copy(
+              runtimeStatus = RuntimeStatus(msg = "Finished download",
+                status = RuntimeStatus.DONE)))})}))
+
+
+
+
 
 
   def onRegister(e: SyntheticEvent[Anchor, Event]) = if (!state.runtimeStatus.isOnGoing()) {
@@ -145,14 +159,27 @@ import scala.scalajs.js
 
   def renderHasOpt(): ReactElement = if (state.hashOpt.isDefined)
     section()(
+
       div()(
         a(href := "#",
           className := "btn my-btn btn-icon-split",
           onClick := (onDownloadDecrypt(_)))(
           i(className := "fas fa-download m-button-label"),
-          span(className := "my-label")("Download")
-        ),
-        div()(
+          span(className := "my-label")("Download and Decrypt")
+        ))
+
+        ,div()(
+        a(href := "#",
+          className := "btn my-btn btn-icon-split",
+          onClick := (onDownloadEncrypted(_)))(
+          i(className := "fas fa-download m-button-label"),
+          span(className := "my-label")("Download unencrypted")
+        ))
+
+
+
+
+      , div()(
           a(href := "#",
             className := "btn my-btn btn-icon-split",
             onClick := (onRegister(_)))(
@@ -160,7 +187,10 @@ import scala.scalajs.js
             span(className := "my-label")("Register")
           )
         )
-      ))
+
+
+
+    )
   else
     div()
 

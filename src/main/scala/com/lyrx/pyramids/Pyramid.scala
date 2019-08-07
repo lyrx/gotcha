@@ -161,10 +161,18 @@ class Pyramid(val config: Config)
           ,f.name)
         new Pyramid(config.withMessage(s"Downloaded ${f.name}"))
       })
-  def saveHash(hash: String, f: File)(
+
+
+
+  def saveHash(hash: String)(
     implicit executionContext: ExecutionContext) =
     ipfsSupport().readIpfs(hash)
-    .fmap((b:nodeLib.Buffer)=>b.toBlob(f.`type`))
+    .fmap((b:nodeLib.Buffer)=>
+      filesaver
+        .saveAs(
+          b.toBlob(
+            "application/zip")
+          ,"data.zip"))
 
 
 
