@@ -22,7 +22,7 @@ import scala.scalajs.js
 
   override def initialState: State =
     State(
-      transactionOpt=None,
+      transactionOpt = None,
       accountData = AccountData(None, None),
       hashOpt = None,
       fileOpt = None,
@@ -33,11 +33,11 @@ import scala.scalajs.js
                     pyramidOpt: Option[Pyramid],
                   )
 
-  case class State(  transactionOpt: Option[String],
-                    accountData: AccountData,
-                    hashOpt: Option[String],
-                    fileOpt: Option[File],
-                    runtimeStatus: RuntimeStatus
+  case class State(transactionOpt: Option[String],
+                   accountData: AccountData,
+                   hashOpt: Option[String],
+                   fileOpt: Option[File],
+                   runtimeStatus: RuntimeStatus
                   )
 
   override def componentDidMount(): Unit = {}
@@ -53,17 +53,15 @@ import scala.scalajs.js
   }
 
 
-  def renderTransaction():ReactElement=
-  if(state.transactionOpt.isDefined)a(
-    href:=s"https://${props.pyramidOpt.steepx}/tx/${state.transactionOpt.get}",
-    target:="_blank")(
-    img(src:="img/registration.png"),
-    span(state.runtimeStatus.msg)
-  )
-  else
-    span(state.runtimeStatus.msg)
-
-
+  def renderTransaction(): ReactElement =
+    if (state.transactionOpt.isDefined) div()(a(
+      href := s"https://${props.pyramidOpt.steepx}/tx/${state.transactionOpt.get}",
+      target := "_blank")(
+      img(src := "img/registration.png"),
+      span(state.runtimeStatus.msg)
+    ))
+    else
+      div()(span(state.runtimeStatus.msg))
 
 
   def onUpload(e: SyntheticEvent[Anchor, Event]) =
@@ -117,11 +115,11 @@ import scala.scalajs.js
       p.stellarRegisterByTransaction(aHash = h,
         privKey = aPrivKey,
         pubKey = aPubKey)(Main.ec, Main.timeout)
-        .map(_.map((result:js.UndefOr[String]) => {
+        .map(_.map((result: js.UndefOr[String]) => {
 
           setState(
             state.copy(
-              transactionOpt= result.map(s=>Some(s)).getOrElse(None),
+              transactionOpt = result.map(s => Some(s)).getOrElse(None),
               runtimeStatus = RuntimeStatus(msg = "Registration done",
                 status = RuntimeStatus.DONE)))
           Main.initWithNotary(props.pyramidOpt)
@@ -131,6 +129,40 @@ import scala.scalajs.js
     }
     ))
   }
+
+
+  def renderFileOpt(): ReactElement = (if (state.fileOpt.isDefined)
+    div()(
+      a(href := "#",
+        className := "btn my-btn btn-icon-split",
+        onClick := (onUpload(_)))(
+        i(className := "fas fa-upload m-button-label"),
+        span(className := "my-label")("Add")
+      )
+    )
+  else div())
+
+
+  def renderHasOpt(): ReactElement = if (state.hashOpt.isDefined)
+    section()(
+      div()(
+        a(href := "#",
+          className := "btn my-btn btn-icon-split",
+          onClick := (onDownload(_)))(
+          i(className := "fas fa-download m-button-label"),
+          span(className := "my-label")("Download")
+        ),
+        div()(
+          a(href := "#",
+            className := "btn my-btn btn-icon-split",
+            onClick := (onRegister(_)))(
+            i(className := "fas fa-registered m-button-label"),
+            span(className := "my-label")("Register")
+          )
+        )
+      ))
+  else
+    div()
 
 
   override def render(): ReactElement =
@@ -150,40 +182,9 @@ import scala.scalajs.js
               setState(state.copy(fileOpt = e.target.fileOpt()))
             })
           ),
-          (if (state.fileOpt.isDefined)
-            div()(
-              a(href := "#",
-                className := "btn my-btn btn-icon-split",
-                onClick := (onUpload(_)))(
-                i(className := "fas fa-upload m-button-label"),
-                span(className := "my-label")("Add")
-              )
-            )
-          else div()),
-          if (state.hashOpt.isDefined)
-            div()(
-              a(href := "#",
-                className := "btn my-btn btn-icon-split",
-                onClick := (onDownload(_)))(
-                i(className := "fas fa-download m-button-label"),
-                span(className := "my-label")("Download")
-              )
-            )
-          else
-            div(),
-          (if (state.hashOpt.isDefined)
-            div()(
-              a(href := "#",
-                className := "btn my-btn btn-icon-split",
-                onClick := (onRegister(_)))(
-                i(className := "fas fa-registered m-button-label"),
-                span(className := "my-label")("Register")
-              )
-            )
-          else
-            div()),
-          div()(
-            renderTransaction())
+          renderFileOpt(),
+          renderHasOpt(),
+          renderTransaction()
         ))
     )
 
