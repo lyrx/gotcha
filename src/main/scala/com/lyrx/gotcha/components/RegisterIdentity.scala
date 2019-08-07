@@ -67,6 +67,7 @@ import com.lyrx.gotcha._
     href:=s"https://${props.pyramidOpt.steepx}/tx/${state.msg}",
     target:="_blank")(
     img(src:="img/registration.png")
+    , span()("Registration done")
   )
   else
     span()(state.msg)
