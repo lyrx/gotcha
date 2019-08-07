@@ -89,9 +89,11 @@ import com.lyrx.gotcha._
   override def componentDidMount(): Unit = {
     updateAccountInfo()
   }
-  override def componentDidUpdate(prevProps: Props, prevState: State): Unit = {
-
-  }
+  override def componentDidUpdate(prevProps: Props, prevState: State): Unit = if(
+    (prevProps.pyramidOpt.isEmpty && props.pyramidOpt.isDefined)
+    ||
+      (prevState.balance != state.balance)
+  ) updateAccountInfo()
 
   override def render(): ReactElement = {
     simpleCard(description = props.title,
