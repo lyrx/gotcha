@@ -34,8 +34,15 @@ import slinky.web.html._
 
   override def componentDidUpdate(prevProps: Props, prevState: State): Unit = {
 
+
+
+
     val newOpt = registerHashOpt()
-    if(!prevState.aHashOpt.equals(newOpt)){
+
+    val aa = prevState.aHashOpt.getOrElse("")
+    val nn = newOpt.getOrElse("")
+
+    if(aa != nn){
       setState(state.copy(aHashOpt = newOpt,
         runtimeStatus=RuntimeStatus(msg = "Publish complete!",status = RuntimeStatus.READY)))
     }

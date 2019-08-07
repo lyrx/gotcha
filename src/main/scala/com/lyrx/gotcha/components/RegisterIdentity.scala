@@ -34,8 +34,13 @@ import com.lyrx.gotcha._
   }
 
   override def componentDidUpdate(prevProps: Props, prevState: State): Unit = {
-    println("Prev state: " + prevState)
-    println("state: " + prevState)
+    val n  = props.pyramidOpt.map(_.config.blockchainData.stellar.transactionIdOpt).getOrElse(None)
+    val nn = n.getOrElse("")
+    val aa = prevState.aIdOpt.getOrElse("")
+   if( aa != nn){
+     val n  = props.pyramidOpt.map(_.config.blockchainData.stellar.transactionIdOpt).getOrElse(None)
+     setState(state.copy(aIdOpt = n))
+   }
   }
 
   def handleClick(e: SyntheticEvent[Anchor, Event]) =
@@ -54,7 +59,7 @@ import com.lyrx.gotcha._
                                             pubKey = aPubKey)(Main.ec,
                                                               Main.timeout)
               .map(_.map((so) => {
-                Main.initWithIdentityManagement(props.pyramidOpt)
+                Main.initWithIdentityManagement(props.pyramidOpt.map(_.withTID(so.toOption)))
                 setState(
                   state.copy(aIdOpt = so.toOption,
                              runtimeStatus =

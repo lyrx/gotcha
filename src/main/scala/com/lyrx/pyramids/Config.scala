@@ -67,6 +67,7 @@ Secret Key	SCSIPIXZ4Y7X7IX4ZTTHVGDCXFJMFL62TRT4DFS3NSK3G3KMKJPKNYSY
               ),
             blockchainData = BlockchainData(
               StellarData(
+                transactionIdOpt=None,
                 registrationFeeXLMOpt = Some("4"),
                 notarizeFeeXLMOpt = Some("4"),
                 isTestNet
@@ -77,10 +78,13 @@ Secret Key	SCSIPIXZ4Y7X7IX4ZTTHVGDCXFJMFL62TRT4DFS3NSK3G3KMKJPKNYSY
 }
 
 case class StellarData(
+                        transactionIdOpt: Option[String],
     registrationFeeXLMOpt: Option[String],
     notarizeFeeXLMOpt: Option[String],
     testNet: Boolean
 ){
+
+  def withTID(id:Option[String])=this.copy(transactionIdOpt=id)
 
   def passwordFieldValueDefault() =
       if(testNet) "SBNW75AAHCQVQLDAAEIZIBMRO3RETCN43FSZRCLU57OJKGUU5ML2F2Y2"
@@ -109,7 +113,9 @@ case class StellarData(
 
 
 
-case class BlockchainData(stellar: StellarData)
+case class BlockchainData(stellar: StellarData){
+  def withTID(id:Option[String])=this.copy(stellar=this.stellar.withTID(id))
+}
 
 case class Config(
     cryptoSupport: Cryptography,
@@ -119,7 +125,15 @@ case class Config(
     ipfsSupport: IPFS
 ) {
 
+
+  def withTID(id:Option[String])=this.copy(blockchainData=this.blockchainData.withTID(id))
+
+
   def withIdentityName(n:String) = this.copy(cryptoSupport = this.cryptoSupport.withName(n))
+
+
+
+
 
   def clearIdentity() = this.copy(
     ipfsData=this.ipfsData.copy(regOpt = None,identityOpt = None)
