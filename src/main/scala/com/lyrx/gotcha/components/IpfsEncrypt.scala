@@ -80,7 +80,7 @@ import scala.scalajs.js
                 s => {
                   setState(state.copy(
                     hashOpt = Some(s),
-                    runtimeStatus = RuntimeStatus(msg = "Done uploading ...",
+                    runtimeStatus = RuntimeStatus(msg = "Done uploading",
                       status = RuntimeStatus.DONE)))
 
                 }
@@ -138,7 +138,7 @@ import scala.scalajs.js
       className := s"card shadow mb-4 my-card  ${state.runtimeStatus.blinkMe()} ")(
       div(className := "card-header py-3")(
         h6(className := "m-0 font-weight-bold text-primary")(
-          "Encrypt And Upload A File"
+          "Encrypt, Add, Register"
         )
       ),
       div(className := s"my-card-body")(
@@ -156,7 +156,7 @@ import scala.scalajs.js
                 className := "btn my-btn btn-icon-split",
                 onClick := (onUpload(_)))(
                 i(className := "fas fa-upload m-button-label"),
-                span(className := "my-label")("Upload File To IPFS")
+                span(className := "my-label")("Add")
               )
             )
           else div()),
@@ -166,7 +166,7 @@ import scala.scalajs.js
                 className := "btn my-btn btn-icon-split",
                 onClick := (onDownload(_)))(
                 i(className := "fas fa-download m-button-label"),
-                span(className := "my-label")("Download File")
+                span(className := "my-label")("Download")
               )
             )
           else
@@ -177,7 +177,7 @@ import scala.scalajs.js
                 className := "btn my-btn btn-icon-split",
                 onClick := (onRegister(_)))(
                 i(className := "fas fa-registered m-button-label"),
-                span(className := "my-label")("Register File")
+                span(className := "my-label")("Register")
               )
             )
           else

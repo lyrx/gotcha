@@ -67,7 +67,7 @@ import com.lyrx.gotcha._
 
   def updateAccountInfo() = props.pyramidOpt
       .map(p => {
-        if(!state.runtimeStatus.isOnGoing()) {
+        if(!state.runtimeStatus.isOnGoing() && props.pyramidOpt.isDefined) {
           setState(state.copy(runtimeStatus = RuntimeStatus(
             msg = ""
             , status = RuntimeStatus.ONGOING)))
