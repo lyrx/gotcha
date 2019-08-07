@@ -5,7 +5,7 @@ import com.lyrx.pyramids.stellarsdk.AccountDetail
 import org.scalajs.dom.raw
 import org.scalajs.dom.raw.{Blob, FileReader, ProgressEvent}
 import typings.{nodeLib, stdLib}
-
+import nodeLib.{bufferMod}
 import scala.concurrent.{ExecutionContext, Future, Promise}
 import scala.language.implicitConversions
 import scala.scalajs.js
@@ -38,6 +38,12 @@ package object pyramids {
 
     def toBlob(aType:String): stdLib.Blob = new raw.Blob(js.Array(b, raw.BlobPropertyBag(aType)))
       .asInstanceOf[stdLib.Blob]
+
+    def toNodeLib8uffer() = bufferMod.Buffer.from(b.asInstanceOf[stdLib.ArrayBuffer])
+
+
+
+
 
   }
 

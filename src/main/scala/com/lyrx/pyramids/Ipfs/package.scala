@@ -10,9 +10,7 @@ import nodeLib.bufferMod
 
 import scala.language.implicitConversions
 
-
 package object Ipfs {
-
 
   type ClientConfig = () => Option[IpfsClient]
 
@@ -25,12 +23,11 @@ package object Ipfs {
   type PubSubHandler = js.Function1[PubSubMessage, Unit]
 
   implicit def typedArrayArrayBufferToStdlib(
-                                              b: js.typedarray.ArrayBuffer): stdLib.ArrayBuffer =
+      b: js.typedarray.ArrayBuffer): stdLib.ArrayBuffer =
     b.asInstanceOf[stdLib.ArrayBuffer]
   implicit def jstdLibArrayBufferToTypedArrayArrayBuffer(
-                                                          b: js.typedarray.ArrayBuffer): js.typedarray.ArrayBuffer =
+      b: js.typedarray.ArrayBuffer): js.typedarray.ArrayBuffer =
     b.asInstanceOf[js.typedarray.ArrayBuffer]
-
 
   implicit class PimpedString(b: js.typedarray.ArrayBuffer) {
 
@@ -38,7 +35,7 @@ package object Ipfs {
   }
 
   implicit class PimpedIpfsClient(val ipfsClient: IpfsClient)
-    extends PubSubSupport
+      extends PubSubSupport
       with PinSupport {
 
     def futureCat(s: String): concurrent.Future[nodeLib.Buffer] =
@@ -48,7 +45,8 @@ package object Ipfs {
 
     def futureAddString(s: String) = futureAdd(bufferMod.Buffer.from(s))
 
-    def futurePin(s: String)(implicit executionContext: concurrent.ExecutionContext) =
+    def futurePin(s: String)(
+        implicit executionContext: concurrent.ExecutionContext) =
       futureAddString(s).flatMap(
         _.headOption
           .map(r => pinAdd(r.hash).map(r2 => Some(r2)))
@@ -58,12 +56,12 @@ package object Ipfs {
       val promise = concurrent.Promise[js.Array[IPFSSFile]]
 
       ipfsClient.add(content,
-        l(),
-        (e, r) =>
-          if (e != null)
-            promise.failure(new Throwable(e.toString))
-          else
-            promise.success(r))
+                     l(),
+                     (e, r) =>
+                       if (e != null)
+                         promise.failure(new Throwable(e.toString))
+                       else
+                         promise.success(r))
       promise.future
     }
 

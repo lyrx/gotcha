@@ -180,6 +180,11 @@ class Pyramid(val config: Config)
       .toFutureOption()
 
 
+  def unencryptedUpload(f: File)(implicit executionContext: ExecutionContext) = new FileReader()
+      .futureReadArrayBuffer(f)
+      .map(  (b:ArrayBuffer)=>ipfsSaveBuffer(b.toNodeLib8uffer()))
+
+
 
   def uploadWallet(f: File)(implicit executionContext: ExecutionContext) =
     if (f.`type` == "application/json") {

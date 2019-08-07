@@ -7,6 +7,7 @@ import scala.concurrent.{ExecutionContext, Future}
 import scala.scalajs.js
 import scala.scalajs.js.typedarray.ArrayBuffer
 import com.lyrx.pyramids.util.Implicits._
+import org.scalajs.dom.File
 
 trait Ipfs {
 
@@ -18,9 +19,16 @@ trait Ipfs {
           .map(_.futureAdd(b).map(Some(_)))
           .getOrElse(Future { None }).fmap(_.head.hash)
 
+
+
+
   def saveArrayBufferToIpfs(b: ArrayBuffer)(
       implicit ctx: ExecutionContext)=
     saveBufferToIpfs(bufferMod.Buffer.from(b))             //.fmap(_.headOption)
+
+
+
+
 
   def saveStringToIpfs(s: String)(implicit ctx: ExecutionContext) =
     saveBufferToIpfs(
