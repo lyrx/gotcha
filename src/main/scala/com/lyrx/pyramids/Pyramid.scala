@@ -43,10 +43,6 @@ class Pyramid(val config: Config)
 
 
 
-  def onIdentity(h: (Registration) => Unit) =
-    config.ipfsData.identityOpt
-      .map(h(_))
-
   def msg(s: String) = new Pyramid(config.withMessage(s))
 
   private def zipEncrypt(f: File)(implicit executionContext: ExecutionContext) =
@@ -183,11 +179,7 @@ class Pyramid(val config: Config)
       .fmap((ipfsSaveBuffer(_)))
       .toFutureOption()
 
-      /*
-      .fmap(s => new Pyramid(config.withUpload(f, s)))
-      .map(_.getOrElse(new Pyramid(config.withMessage(
-        s"Oh Humble Tokenizer, I could not upload ${f.name}"))))
-       */
+
 
   def uploadWallet(f: File)(implicit executionContext: ExecutionContext) =
     if (f.`type` == "application/json") {
