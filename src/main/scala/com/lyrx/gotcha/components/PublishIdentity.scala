@@ -91,7 +91,7 @@ import slinky.web.html._
         else
          span(state.runtimeStatus.msg)),
 
-        if(!state.runtimeStatus.isDone())
+        if(!state.aHashOpt.isDefined)
         div( )(
           a(href := "#",
             className := "btn my-btn btn-icon-split",
