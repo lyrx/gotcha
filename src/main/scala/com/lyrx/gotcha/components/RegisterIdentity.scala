@@ -81,6 +81,8 @@ import com.lyrx.gotcha._
       ),
       div(className := "my-card-body")(
         div()(renderIdentity(),
+
+          if(!state.isDone())
         div( )(
           a(href := "#",
             className := "btn my-btn btn-icon-split",
@@ -89,6 +91,11 @@ import com.lyrx.gotcha._
             span(className:="my-label")("Register Identity")
           )
         )
+          else
+            div()()
+
+
+
       )
     ))
 
