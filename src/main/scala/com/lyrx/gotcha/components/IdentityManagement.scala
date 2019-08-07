@@ -11,43 +11,35 @@ import com.lyrx.gotcha._
 @react class IdentityManagement extends StatelessComponent {
   case class Props(pyramidOpt: Option[Pyramid])
 
-  def balance()= PharaohBalance(
-    props.pyramidOpt,
-    title = "Client Account",
-    currency = "XLM",
-    pubKey = props.pyramidOpt.clientAccount()
-
-  )
-
-
-  def renderShowIdentity():ReactElement= if(
-    props.pyramidOpt.map(_.hasIdentity()).getOrElse(false))
-    ShowIdentity(props.pyramidOpt)
-  else
-    div()
-
-
-
-  def renderRegistry():ReactElement= props
-    .pyramidOpt
-    .flatMap(_.config.ipfsData.regOpt.map(s=>
-      div(className := "row")(
-        RegisterIdentity(props.pyramidOpt)
-      )))
-    .getOrElse(div(className:="row"))
-
   def render(): ReactElement =
     div(className := "container-fluid", id := "pyramid-root")(
       pageHeading("Your Trustless Blockchain Identity Management"),
       div(className := "row")(
-        balance(),
+
+        PublishIdentity(props.pyramidOpt)
+
+        ,(if (props.pyramidOpt.map(_.hasIdentity()).getOrElse(false))
+          ShowIdentity(props.pyramidOpt)
+        else
+          div())
+
+        ,(if (props.pyramidOpt
+               .map(p => p.config.ipfsData.regOpt.isDefined)
+               .getOrElse(false)) {
+           RegisterIdentity(props.pyramidOpt)
+         } else div())
+      ),
+      div(className := "row")(
         Credentials(props.pyramidOpt)
       ),
       div(className := "row")(
-        PublishIdentity(props.pyramidOpt),
-          renderShowIdentity()
-      ),
-      renderRegistry()
+        PharaohBalance(
+          props.pyramidOpt,
+          title = "Client Account",
+          currency = "XLM",
+          pubKey = props.pyramidOpt.clientAccount()
+        )
+      )
     )
 
 }
