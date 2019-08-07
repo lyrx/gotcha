@@ -17,6 +17,7 @@ import scala.scalajs.js
 import js.Dynamic.{literal => l}
 import typings.fileDashSaverLib.fileDashSaverMod.{^ => filesaver}
 
+
 import scala.scalajs.js.JSON
 import scala.scalajs.js.typedarray.ArrayBuffer
 
@@ -152,16 +153,19 @@ class Pyramid(val config: Config)
 
 
 
-  def saveHash(hash: String, f: File)(
+  def saveDecryptHash(hash: String, f: File)(
       implicit executionContext: ExecutionContext) =
     downloadDecrypt(hash)
-      .fmap(b => {
-        filesaver.saveAs(
-          new raw.Blob(js.Array(b, raw.BlobPropertyBag(f.`type`)))
-            .asInstanceOf[stdLib.Blob],
-          f.name)
+      .fmap((b:ArrayBuffer)=> {
+        filesaver.saveAs(b.toBlob(f.`type`)
+          ,f.name)
         new Pyramid(config.withMessage(s"Downloaded ${f.name}"))
       })
+  def saveHash(hash: String, f: File)(
+    implicit executionContext: ExecutionContext) =
+    ipfsSupport().readIpfs(hash)
+    .fmap((b:nodeLib.Buffer)=>b.toBlob(f.`type`))
+
 
 
 

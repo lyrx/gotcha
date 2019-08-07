@@ -2,7 +2,9 @@ package com.lyrx
 
 import com.lyrx.pyramids.Ipfs.Ipfs
 import com.lyrx.pyramids.stellarsdk.AccountDetail
+import org.scalajs.dom.raw
 import org.scalajs.dom.raw.{Blob, FileReader, ProgressEvent}
+import typings.{nodeLib, stdLib}
 
 import scala.concurrent.{ExecutionContext, Future, Promise}
 import scala.language.implicitConversions
@@ -32,8 +34,19 @@ package object pyramids {
 
     def toNormalString()=new js.typedarray.Uint8Array(b).
       map((c:Short)=>c.toChar).foldLeft(s"":String)((a:String,b:Char)=>a + b)
+
+
+    def toBlob(aType:String): stdLib.Blob = new raw.Blob(js.Array(b, raw.BlobPropertyBag(aType)))
+      .asInstanceOf[stdLib.Blob]
+
   }
 
+  implicit class PimpedNodeLibBuffer(b: nodeLib.Buffer){
+
+    def toBlob(aType:String): stdLib.Blob = new raw.Blob(js.Array(b, raw.BlobPropertyBag(aType)))
+      .asInstanceOf[stdLib.Blob]
+
+  }
 
 
 

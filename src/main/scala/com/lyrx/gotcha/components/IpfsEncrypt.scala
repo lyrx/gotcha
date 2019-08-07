@@ -85,14 +85,14 @@ import scala.scalajs.js
               )
           }))
 
-  def onDownload(e: SyntheticEvent[Anchor, Event]) = if (!state.runtimeStatus.isOnGoing())
+  def onDownloadDecrypt(e: SyntheticEvent[Anchor, Event]) = if (!state.runtimeStatus.isOnGoing())
     state.hashOpt.map(h => getFileOpt().map(f =>
       props.pyramidOpt.map(p => {
         setState(
           state.copy(
             runtimeStatus = RuntimeStatus(msg = "Downloading ...",
               status = RuntimeStatus.ONGOING)))
-        p.saveHash(h, f).map(p2 => {
+        p.saveDecryptHash(h, f).map(p2 => {
           setState(
             state.copy(
               runtimeStatus = RuntimeStatus(msg = "Finished Download",
@@ -148,7 +148,7 @@ import scala.scalajs.js
       div()(
         a(href := "#",
           className := "btn my-btn btn-icon-split",
-          onClick := (onDownload(_)))(
+          onClick := (onDownloadDecrypt(_)))(
           i(className := "fas fa-download m-button-label"),
           span(className := "my-label")("Download")
         ),

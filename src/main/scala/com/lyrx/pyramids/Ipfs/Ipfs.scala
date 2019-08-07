@@ -1,7 +1,7 @@
 package com.lyrx.pyramids.Ipfs
 
 import typings.nodeLib
-import typings.nodeLib.bufferMod
+import typings.nodeLib.{Buffer, bufferMod}
 
 import scala.concurrent.{ExecutionContext, Future}
 import scala.scalajs.js
@@ -32,7 +32,7 @@ trait Ipfs {
       .map(_.futureAdd(buffer).map(l => Some(l.head.hash)))
       .getOrElse(Future { None })
 
-  def readIpfs(aHash: String)(implicit executionContext: ExecutionContext) =
+  def readIpfs(aHash: String)(implicit executionContext: ExecutionContext): Future[Option[Buffer]] =
     ipfsClientOpt()
       .map(_.futureCat(aHash).map(Some(_)))
       .getOrElse(Future { None })
