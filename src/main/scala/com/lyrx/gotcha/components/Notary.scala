@@ -14,7 +14,7 @@ import slinky.web.html.{className, div, id}
 
   def render(): ReactElement =
     div(className := "container-fluid", id := "pyramid-root")(
-      pageHeading("Notary")
+      pageHeading("Your Trustless Blockchain Document Registry")
       ,
       div(className := "row")(
         IpfsEncrypt(props.pyramidOpt)
@@ -22,13 +22,13 @@ import slinky.web.html.{className, div, id}
       div(className := "row")(
         PharaohBalance(
           props.pyramidOpt,
-          title = "Notary Docs",
+          title = "Account Document Registration",
           currency = "XLM",
           pubKey = MyComponents.docsField.current.value
         ),
         PharaohBalance(
           props.pyramidOpt,
-          title = "Notary Ids",
+          title = "Account Identity Management",
           currency = "XLM",
           pubKey = MyComponents.idsField.current.value
         )

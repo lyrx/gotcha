@@ -135,7 +135,7 @@ import scala.scalajs.js
 
   override def render(): ReactElement =
     div(
-      className := s"card shadow mb-4 my-card  ${state.runtimeStatus.blinkMe()} ")(
+      className := s"card shadow my-mb-4 my-card  ${state.runtimeStatus.blinkMe()} ")(
       div(className := "card-header py-3")(
         h6(className := "m-0 font-weight-bold text-primary")(
           "Encrypt, Add, Register"

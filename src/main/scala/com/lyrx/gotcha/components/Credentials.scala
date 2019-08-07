@@ -78,7 +78,7 @@ import scala.concurrent.Future
 
 
   override def render(): ReactElement =
-    div(className := "card shadow mb-4")(
+    div(className := "card shadow my-mb-4")(
       div(className := "card-header py-3")(
         h6(className := "m-0 font-weight-bold text-primary")(
           "Load and Save Identity (Local Disc)"

@@ -6,6 +6,14 @@ span.account{
     margin-top: 7px;
 }
 
+
+.my-mb-4
+{
+    /* border-bottom: 1px solid black;  */
+    margin-bottom: 1.5rem !important;
+}
+
+
 span.my-label {
 
     margin-right: 5px;

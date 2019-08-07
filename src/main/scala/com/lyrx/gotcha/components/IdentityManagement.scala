@@ -38,7 +38,7 @@ import com.lyrx.gotcha._
 
   def render(): ReactElement =
     div(className := "container-fluid", id := "pyramid-root")(
-      pageHeading("Your Trustless Blockchain Notary and Identity Management"),
+      pageHeading("Your Trustless Blockchain Identity Management"),
       div(className := "row")(
         balance(),
         Credentials(props.pyramidOpt)

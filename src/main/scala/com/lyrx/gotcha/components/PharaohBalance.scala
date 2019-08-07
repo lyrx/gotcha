@@ -27,7 +27,7 @@ import com.lyrx.gotcha._
   def simpleCard(description: String,
                  amount: String,
                  currency: String): ReactElement =
-    div(className := "col-xl-3 col-md-6 mb-4")(
+    div(className := "col-xl-3 col-md-6 my-mb-4")(
       div(className := s"card shadow h-100 py-2 ${state.runtimeStatus.blinkMe()}")(
         div(className := "card-body")(
           div(className := "row no-gutters align-items-center")(
