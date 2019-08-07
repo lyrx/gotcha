@@ -2,9 +2,7 @@ package com.lyrx.gotcha.components
 
 
 import com.lyrx.gotcha.Main
-
 import Main.ec
-
 import com.lyrx.pyramids.{AccountData, Pyramid}
 import com.lyrx.pyramids.util.Implicits._
 import org.scalajs.dom
@@ -16,12 +14,16 @@ import slinky.core.{Component, SyntheticEvent}
 import slinky.web.html._
 import com.lyrx.gotcha.{Main, _}
 
+import scala.scalajs.js
+
 @react class IpfsEncrypt extends Component {
 
   val fileSelector = React.createRef[dom.html.Input]
 
   override def initialState: State =
-    State(accountData = AccountData(None, None),
+    State(
+      transactionOpt=None,
+      accountData = AccountData(None, None),
       hashOpt = None,
       fileOpt = None,
       runtimeStatus =
@@ -31,7 +33,7 @@ import com.lyrx.gotcha.{Main, _}
                     pyramidOpt: Option[Pyramid],
                   )
 
-  case class State(
+  case class State(  transactionOpt: Option[String],
                     accountData: AccountData,
                     hashOpt: Option[String],
                     fileOpt: Option[File],
@@ -49,6 +51,19 @@ import com.lyrx.gotcha.{Main, _}
     else
       Some(maybeFile)
   }
+
+
+  def renderTransaction()=
+  if(state.transactionOpt.isDefined)a(
+    href:=s"https://${props.pyramidOpt.steepx}/tx/${state.transactionOpt.get}",
+    target:="_blank")(
+    img(src:="img/registration.png")
+  )
+  else
+    span()()
+
+
+
 
   def onUpload(e: SyntheticEvent[Anchor, Event]) =
     if (!state.runtimeStatus.isOnGoing())
@@ -101,9 +116,11 @@ import com.lyrx.gotcha.{Main, _}
       p.stellarRegisterByTransaction(aHash = h,
         privKey = aPrivKey,
         pubKey = aPubKey)(Main.ec, Main.timeout)
-        .map(_.map(result => {
+        .map(_.map((result:js.UndefOr[String]) => {
+
           setState(
             state.copy(
+              transactionOpt= result.map(s=>Some(s)).getOrElse(None),
               runtimeStatus = RuntimeStatus(msg = "Registration done",
                 status = RuntimeStatus.DONE)))
           Main.initWithNotary(props.pyramidOpt)
@@ -164,6 +181,7 @@ import com.lyrx.gotcha.{Main, _}
             )
           else
             div()),
+          renderTransaction(),
           div()(
             span(state.runtimeStatus.msg)
           )
