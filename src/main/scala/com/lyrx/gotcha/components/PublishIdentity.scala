@@ -17,29 +17,31 @@ import slinky.web.html._
 @react class PublishIdentity extends Component {
 
 
-  override def initialState: RuntimeStatus = RuntimeStatus( msg = "(Unregistered)",status=RuntimeStatus.READY)
+  override def initialState: State = State(aHashOpt=None,runtimeStatus=RuntimeStatus( msg = "",status=RuntimeStatus.READY))
+
+
   case class Props(
       pyramidOpt: Option[Pyramid],
   )
 
-  type  State = RuntimeStatus
+  case class   State(aHashOpt:Option[String], runtimeStatus:RuntimeStatus)
 
 
 
   override def componentDidMount(): Unit = {
-    setState(RuntimeStatus(msg = registerHash(),status = RuntimeStatus.READY))
+    setState(state.copy(runtimeStatus= RuntimeStatus(msg = "",status = RuntimeStatus.READY)))
   }
 
   override def componentDidUpdate(prevProps: Props, prevState: State): Unit = {
-    val newHash= registerHash();
-    if(prevState.msg != newHash){
-      setState(RuntimeStatus(msg = newHash,status = RuntimeStatus.DONE))
+
+    val newOpt = registerHashOpt()
+    if(!prevState.aHashOpt.equals(newOpt)){
+      setState(state.copy(aHashOpt = newOpt,
+        runtimeStatus=RuntimeStatus(msg = "Publish complete!",status = RuntimeStatus.READY)))
     }
   }
 
 
-  def registerHash()= registerHashOpt()
-    .getOrElse("(Unknown)")
 
 
   def registerHashOpt()=props.pyramidOpt
@@ -51,16 +53,19 @@ import slinky.web.html._
 
 
   def handleClick(e: SyntheticEvent[Anchor, Event])=
-    if(!state.isOnGoing())props
+    if(!state.runtimeStatus.isOnGoing())props
     .pyramidOpt
     .map(p=>{
-      setState(RuntimeStatus(msg="Publishing ...",status=RuntimeStatus.ONGOING))
+      setState(state.copy(runtimeStatus=RuntimeStatus(msg="Publishing ...",status=RuntimeStatus.ONGOING)))
       p.ipfsRegister()
         .map(_.loadIdentity()
               .fmap(p3=>{
                 Main
                   .initWithIdentityManagement(
                     Some(p3))
+
+                setState(state.copy(runtimeStatus=RuntimeStatus(msg="Publish complete",status=RuntimeStatus.DONE)))
+
               })
         )
     })
@@ -69,7 +74,7 @@ import slinky.web.html._
 
 
   override def render(): ReactElement =
-    div(className := s"card shadow my-mb-4 my-card  ${state.blinkMe()} " )(
+    div(className := s"card shadow my-mb-4 my-card  ${state.runtimeStatus.blinkMe()} " )(
       div(className := "card-header py-3")(
         h6(className := "m-0 font-weight-bold text-primary")(
           "Publish Your Identity"
@@ -77,23 +82,28 @@ import slinky.web.html._
       ),
       div(className := s"my-card-body")(
         div()(
-          if(state.msg.startsWith("Qm"))
-          a(href:=s"https://ipfs.infura.io/ipfs/${state.msg}"
+          if(state.aHashOpt.isDefined)
+          a(href:=s"https://ipfs.infura.io/ipfs/${state.aHashOpt.get}"
             ,target:="_blank")(
-            //state.regHash
            img(src:="img/published.png")
-
+           , span(state.runtimeStatus.msg)
           )
         else
-         span(state.msg)),
+         span(state.runtimeStatus.msg)),
+
+        if(!state.runtimeStatus.isDone())
         div( )(
           a(href := "#",
             className := "btn my-btn btn-icon-split",
             onClick := (handleClick(_)))(
             i(className := "fas fa-upload m-button-label"),
-            span(className:="my-label")("Publish Identity In The IPFS Network")
+            span(className:="my-label")("Publish Identity")
           )
         )
+        else
+          div()
+
+
       )
     )
 
