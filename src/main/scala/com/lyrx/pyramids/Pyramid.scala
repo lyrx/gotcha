@@ -265,11 +265,13 @@ class Pyramid(val config: Config)
       timeout: Timeout) =
     config.blockchainData.stellar.notarizeFeeXLMOpt
       .map(
-        fee =>
+        fee =>{
           register(value = aHash,
-                   privateKey = privKey,
-                   aSendTo = pubKey,
-                   amount = fee,
-                   isTestNet = config.blockchainData.stellar.testNet))
+            privateKey = privKey,
+            aSendTo = pubKey,
+            amount = fee,
+            isTestNet = config.blockchainData.stellar.testNet)
+        })
+
 
 }

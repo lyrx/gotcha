@@ -139,7 +139,7 @@ object MyComponents {
     }
 
     override def componentDidMount(): Unit = {
-      initPyramid(true)
+      initPyramid(false)
         .map(
           p =>
             Main
