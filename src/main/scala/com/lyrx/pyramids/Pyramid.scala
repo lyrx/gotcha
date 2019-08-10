@@ -12,15 +12,14 @@ import org.scalajs.dom.raw.{File, FileReader}
 import typings.{nodeLib, stdLib}
 import typings.stdLib.JsonWebKey
 
-import scala.concurrent.{ExecutionContext, Future}
+import scala.concurrent.{ExecutionContext, Future, Promise}
 import scala.scalajs.js
 import js.Dynamic.{literal => l}
 import typings.fileDashSaverLib.fileDashSaverMod.{^ => filesaver}
 
-
 import scala.scalajs.js.JSON
 import scala.scalajs.js.typedarray.ArrayBuffer
-
+import scala.scalajs.js.timers._
 object Pyramid {
 
   def apply(config: Config)(implicit executionContext: ExecutionContext) =
@@ -58,10 +57,24 @@ class Pyramid(val config: Config)
     ipfsSupport()
       .saveBufferToIpfs(b)
 
+  def delay[T](milliseconds: Int,f:()=>Future[Option[T]])
+              (implicit executionContext: ExecutionContext):
+  Future[Option[T]] = {
+    val p = Promise[Unit]()
+    js.timers.setTimeout(milliseconds) {
+      p.success(())
+    }
+    p.future
+      .flatMap(r=>f())
+  }
+
   private def ipfsSaveString(s: String)(
-      implicit executionContext: ExecutionContext) =
-    ipfsSupport()
+      implicit executionContext: ExecutionContext) =  ipfsSupport()
       .saveStringToIpfs(s)
+      .fmap((s:String)=>s)
+
+
+
 
   private def uploadSymKey()(implicit executionContext: ExecutionContext) =
     crypto()
@@ -109,14 +122,15 @@ class Pyramid(val config: Config)
       .fmap(withPharaoh(_))
       .map(_.getOrElse(this))
 
-  def ipfsRegister()(implicit executionContext: ExecutionContext) =
+  def ipfsRegister()(implicit executionContext: ExecutionContext) = {
+    val delayy = 1000
     uploadSymKey()
       .map(_.getOrElse(""))
       .flatMap(
         aHash =>
           crypto()
             .identity()
-            .flatMap(ipfsSaveString(_))
+            .flatMap(r=>delay(delayy,()=>ipfsSaveString(r)))
             .map(identityString => (aHash, identityString.getOrElse(""))))
       .map(
         t =>
@@ -125,8 +139,9 @@ class Pyramid(val config: Config)
             "identity" -> t._2
           ).asInstanceOf[Registration])
       .map(stringify(_))
-      .flatMap(ipfsSaveString(_))
+      .flatMap(r2=>delay(delayy,()=>ipfsSaveString(r2)))
       .map(so => new Pyramid(config.withRegistration(so)))
+  }
 
   def downloadDecrypt(hash: String)(
       implicit executionContext: ExecutionContext) =
