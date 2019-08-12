@@ -8,7 +8,7 @@ import scala.concurrent.ExecutionContext
 
 object Config {
 
-  val IPFS_DEFAULT = () => IpfsSupport.infura()
+  val IPFS_DEFAULT = () => IpfsSupport.aws()
 
 
 

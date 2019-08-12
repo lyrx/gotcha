@@ -123,7 +123,7 @@ class Pyramid(val config: Config)
       .map(_.getOrElse(this))
 
   def ipfsRegister()(implicit executionContext: ExecutionContext) = {
-    val delayy = 1000
+    val delayy = 0
     uploadSymKey()
       .map(_.getOrElse(""))
       .flatMap(

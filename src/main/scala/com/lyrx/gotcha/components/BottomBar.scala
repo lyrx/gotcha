@@ -33,7 +33,7 @@ import slinky.web.html._
 
     case "aws" => initIpfs(p, () => IpfsSupport.aws(),"Using AWS  for IPFS")
 
-    case _ => initIpfs(p, () => IpfsSupport.infura(),"Using Default gateway (Infura) for IPFS")
+    case _ => initIpfs(p, () => IpfsSupport.aws(),"Using AWS  for IPFS")
 
 
     })
@@ -44,12 +44,12 @@ import slinky.web.html._
       span(className := "my-label")("Gateway: "),
       select(
         name := "IPFS Gateway"
-        ,defaultValue:="infura"
+        ,defaultValue:="aws"
         ,onChange:= (handleChange(_))
       )(
+        option(value := "aws")("Pyramids!"),
         option(value := "infura")("Infura"),
-        option(value := "local")("Pyramids!"),
-        option(value := "aws")("AWS")
+
       )
     ),
     nav(className := navClasses)(
