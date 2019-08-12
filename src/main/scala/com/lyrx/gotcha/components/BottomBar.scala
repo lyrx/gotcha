@@ -31,6 +31,8 @@ import slinky.web.html._
 
     case "infura" => initIpfs(p, () => IpfsSupport.infura(),"Using Infura gateway for IPFS")
 
+    case "aws" => initIpfs(p, () => IpfsSupport.aws(),"Using AWS  for IPFS")
+
     case _ => initIpfs(p, () => IpfsSupport.infura(),"Using Default gateway (Infura) for IPFS")
 
 
@@ -46,7 +48,8 @@ import slinky.web.html._
         ,onChange:= (handleChange(_))
       )(
         option(value := "infura")("Infura"),
-        option(value := "local")("Pyramids!")
+        option(value := "local")("Pyramids!"),
+        option(value := "aws")("AWS")
       )
     ),
     nav(className := navClasses)(

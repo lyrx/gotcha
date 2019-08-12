@@ -26,6 +26,12 @@ object IpfsSupport{
     "protocol" -> "http"
   )))
 
+   def aws() : Ipfs= new IpfsSupport(genClient(l(
+    "host" -> "ipfs.lyrx.de",
+    "port" -> 5001,
+    "protocol" -> "http"
+  )))
+
   def temporal(token:String,host:String):Ipfs = new IpfsSupport(genClient(l(
     "host" -> host,
     "port" -> 443,
