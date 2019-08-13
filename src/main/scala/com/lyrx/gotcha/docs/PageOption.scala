@@ -1,13 +1,13 @@
 package com.lyrx.gotcha.docs
 
-import com.lyrx.gotcha.docs.PageOption.CCreator
+import com.lyrx.gotcha.{GotchaPyramidRenderer, Main}
+import com.lyrx.pyramids.Pyramid
 import org.scalajs.dom
-import slinky.core.Component
+
 
 
 object PageOption {
 
-  type CCreator = ()=>Option[Component]
 
   def locale() =  {
     val lang = dom.window.navigator.language
@@ -36,13 +36,17 @@ object PageOption {
 
 
 case class PageOption(
-                       german:CCreator,
-                       english:CCreator
+                       german:GotchaPyramidRenderer,
+                       english:GotchaPyramidRenderer
                      ){
 
-def getCreator() = if(PageOption.isGerman())
+def renderer() = if(PageOption.isGerman())
   german
   else
   english
+
+  def render(pyramidOpt:Option[Pyramid]) =
+    Main.initReactElements(pyramidOpt,renderer())
+
 
 }
