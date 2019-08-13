@@ -37,7 +37,12 @@ import slinky.web.html._
                                "Sie basiert stattdessen vollständig auf ",
         strong("P2P-Netzwerken"),
         ", wodurch der Entwicklungsaufwand deutlich gesenkt wird."
-      )
+      ),
+
+      p(a( href:="#" ,className:="btn btn-light btn-icon-split")(
+          span( className:="icon text-black-50")(
+            i (className:="fas fa-arrow-right"),
+          span (className:="text")("Weiter"))))
 
     )
 

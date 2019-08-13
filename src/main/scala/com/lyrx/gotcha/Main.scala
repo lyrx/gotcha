@@ -12,7 +12,7 @@ import org.scalajs.dom
 import MyComponents._
 import com.lyrx.pyramids.Pyramid
 
-object Main {
+object Main extends PageOptionTrait {
 
   implicit val ec = ExecutionContext.global
   implicit val timeout: Timeout = new Timeout(30)
@@ -21,13 +21,11 @@ object Main {
     ManagementWrapper(pyramidOpt,renderer))
 
 
-  def locale()= dom.window.navigator.language
-
 
   def renderAll(p: ReactElement) =
     ReactDOM.render(p, document.getElementById("root"))
 
-  def main(args: Array[String]): Unit = PageOption.init()
+  def main(args: Array[String]): Unit = init()
 
 
   def initWithIdentityManagement(po:Option[Pyramid]): Unit =
