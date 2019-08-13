@@ -46,7 +46,7 @@ object PageOption {
   }
 
   def isGerman(): Boolean =
-    hashMark()
+    locale()
       .map(
         s =>
           (
