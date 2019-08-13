@@ -1,5 +1,6 @@
 package com.lyrx.gotcha.docs
 
+import com.lyrx.gotcha.Main.initWithIdentityManagement
 import com.lyrx.gotcha.{GotchaPyramidRenderer, Main}
 import com.lyrx.pyramids.Pyramid
 import org.scalajs.dom
@@ -15,6 +16,18 @@ object PageOption {
       english = Some((aPyramidOpt: Option[Pyramid]) => LandingEN(aPyramidOpt))
     )
   )
+
+  def fromHash(h:String) = map(h).render(None)
+
+  def fromDefault() =  initWithIdentityManagement(None)
+
+
+  def withPage() = hashMark().map(
+    h=>if(map.contains(h))Some(h)else None).getOrElse(None)
+
+  def init() = withPage()
+    .map(fromHash(_))
+    .getOrElse(fromDefault())
 
   def locale() = {
     val lang = dom.window.navigator.language
