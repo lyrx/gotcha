@@ -4,49 +4,57 @@ import com.lyrx.gotcha.{GotchaPyramidRenderer, Main}
 import com.lyrx.pyramids.Pyramid
 import org.scalajs.dom
 
-
+import scala.collection.immutable.HashMap
+import scala.collection.mutable
 
 object PageOption {
 
+  val map: Map[String, PageOption] = HashMap(
+    "landing" -> PageOption(
+      german = Some((aPyramidOpt: Option[Pyramid]) => Landing(aPyramidOpt)),
+      english = Some((aPyramidOpt: Option[Pyramid]) => LandingEN(aPyramidOpt))
+    )
+  )
 
-  def locale() =  {
+  def locale() = {
     val lang = dom.window.navigator.language
-    if(lang == null)
+    if (lang == null)
       None
     else
       Some(lang)
   }
 
-  def hashMark() ={
+  def hashMark() = {
     val s = dom.window.location.hash
-    if( s!=null && s.length > 1)
+    if (s != null && s.length > 1)
       Some(s.substring(1))
     else
       None
   }
 
-  def isGerman(): Boolean = hashMark()
-    .map(s=>(
-      s.toLowerCase.contains("de")
-      )
-    )
-  .getOrElse(false)
+  def isGerman(): Boolean =
+    hashMark()
+      .map(
+        s =>
+          (
+            s.toLowerCase.contains("de")
+        ))
+      .getOrElse(false)
 
 }
 
-
 case class PageOption(
-                       german:GotchaPyramidRenderer,
-                       english:GotchaPyramidRenderer
-                     ){
+    german: Option[GotchaPyramidRenderer],
+    english: Option[GotchaPyramidRenderer]
+) {
 
-def renderer() = if(PageOption.isGerman())
-  german
-  else
-  english
+  def renderer() =
+    if (PageOption.isGerman())
+      german
+    else
+      english
 
-  def render(pyramidOpt:Option[Pyramid]) =
-    Main.initReactElements(pyramidOpt,renderer())
-
+  def render(pyramidOpt: Option[Pyramid]) =
+    renderer().map(r => Main.initReactElements(pyramidOpt, r))
 
 }
