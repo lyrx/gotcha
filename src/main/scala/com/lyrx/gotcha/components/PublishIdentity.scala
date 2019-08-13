@@ -29,22 +29,26 @@ import slinky.web.html._
 
 
   override def componentDidMount(): Unit = {
-    setState(state.copy(runtimeStatus= RuntimeStatus(msg = "",status = RuntimeStatus.READY)))
+    setState(state.copy(runtimeStatus= RuntimeStatus(msg = "Initializing",status = RuntimeStatus.ONGOING)))
   }
 
   override def componentDidUpdate(prevProps: Props, prevState: State): Unit = {
-    val newOpt = registerHashOpt()
-    val aa = prevState.aHashOpt.getOrElse("")
-    val nn = newOpt.getOrElse("")
-
-    if(aa != nn){
-      setState(state.copy(aHashOpt = newOpt,
-        runtimeStatus=RuntimeStatus(msg = "Publish complete!",status = RuntimeStatus.READY)))
+    if(prevProps.pyramidOpt.isEmpty && props.pyramidOpt.isDefined){
+      setState(state.copy(runtimeStatus= RuntimeStatus(msg = "Ready",status = RuntimeStatus.READY)))
     }
+    else onNewHash(prevState)
   }
 
 
-
+  private def onNewHash(prevState: State) = {
+    val newOpt = registerHashOpt()
+    val aa = prevState.aHashOpt.getOrElse("")
+    val nn = newOpt.getOrElse("")
+    if (aa != nn) {
+      setState(state.copy(aHashOpt = newOpt,
+        runtimeStatus = RuntimeStatus(msg = "Publish complete!", status = RuntimeStatus.READY)))
+    }
+  }
 
   def registerHashOpt()=props.pyramidOpt
     .flatMap(p=>
