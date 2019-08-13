@@ -90,7 +90,7 @@ import slinky.web.html._
       div(className := s"my-card-body")(
         div()(
           if(state.aHashOpt.isDefined)
-          a(href:=s"https://ipfs.infura.io/ipfs/${state.aHashOpt.get}"
+          a(href:= MyComponents.hashUrl(state.aHashOpt.get)
             ,target:="_blank")(
            img(src:="img/published.png")
            , span(state.runtimeStatus.msg)

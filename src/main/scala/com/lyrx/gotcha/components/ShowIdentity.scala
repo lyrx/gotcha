@@ -1,5 +1,6 @@
 package com.lyrx.gotcha.components
 
+import com.lyrx.gotcha.MyComponents
 import com.lyrx.pyramids.Pyramid
 import slinky.core.StatelessComponent
 import slinky.core.annotations.react
@@ -35,7 +36,7 @@ import slinky.web.html._
       div(className := "my-card-body")(
         div()(
           a(
-            href := s"https://ipfs.infura.io/ipfs/${identHash()}"
+            href := MyComponents.hashUrl(identHash())
             , target :="_blank"
           )
           (
