@@ -8,12 +8,19 @@ import org.scalajs.dom
 import scala.collection.immutable.HashMap
 import scala.collection.mutable
 
-object PageOption{
+object PageOption extends PageOptionTrait {
   val map: Map[String, PageOption] = HashMap(
     "landing" -> PageOption(
       german = Some((aPyramidOpt: Option[Pyramid]) => Landing(aPyramidOpt)),
       english = Some((aPyramidOpt: Option[Pyramid]) => LandingEN(aPyramidOpt))
-    )
+    ),
+
+    "highavailability" -> PageOption(
+      german = Some((aPyramidOpt: Option[Pyramid]) => Landing2(aPyramidOpt)),
+      english = Some((aPyramidOpt: Option[Pyramid]) => Landing2(aPyramidOpt))
+    ),
+
+
   )
 }
 trait PageOptionTrait {
