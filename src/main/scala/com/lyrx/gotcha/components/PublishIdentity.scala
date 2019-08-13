@@ -33,12 +33,7 @@ import slinky.web.html._
   }
 
   override def componentDidUpdate(prevProps: Props, prevState: State): Unit = {
-
-
-
-
     val newOpt = registerHashOpt()
-
     val aa = prevState.aHashOpt.getOrElse("")
     val nn = newOpt.getOrElse("")
 
