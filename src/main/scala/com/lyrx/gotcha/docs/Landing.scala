@@ -9,6 +9,29 @@ import slinky.web.html._
 @react class Landing extends StatelessComponent {
   case class Props(pyramidOpt: Option[Pyramid])
 
+
+  def nav(nextOpt:Option[String])=p(
+
+    nextOpt.map(next =>
+    a(
+    href:="#" ,
+    className:="btn btn-light btn-icon-split",
+    onClick:= (e=>PageOption.renderHash(props.pyramidOpt,next))
+  )(
+    span( className:="icon text-black-50")(
+      i (className:="fas fa-arrow-right"),
+      span (className:="text")(if(PageOption.isGerman()) "Weiter" else "Next"))))
+      .getOrElse(span())
+
+
+
+
+
+  )
+
+
+
+
   def render(): ReactElement =
     div(className := "container-fluid", id := "pyramid-root")(
       pageHeading("Pyramids! "),
@@ -39,14 +62,8 @@ import slinky.web.html._
         ", wodurch der Entwicklungsaufwand deutlich gesenkt wird."
       ),
 
-      p(a(
-        href:="#landing" ,
-        className:="btn btn-light btn-icon-split",
-        onClick:= (e=>PageOption.renderHash(props.pyramidOpt,"highavailability"))
-      )(
-          span( className:="icon text-black-50")(
-            i (className:="fas fa-arrow-right"),
-          span (className:="text")("Weiter"))))
+      nav(nextOpt=Some("highavailability"))
+
 
     )
 
