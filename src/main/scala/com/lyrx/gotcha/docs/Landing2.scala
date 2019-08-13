@@ -10,6 +10,12 @@ import slinky.web.html._
 @react class Landing2 extends StatelessComponent {
   case class Props(pyramidOpt: Option[Pyramid])
 
+
+  def nav(previous:String,next:String)= PageOption
+    .navLinks(previous,next)(props.pyramidOpt)
+
+
+
   def render(): ReactElement =
     div(className := "container-fluid", id := "pyramid-root")(
       pageHeading("Pyramids!"),
@@ -29,7 +35,8 @@ import slinky.web.html._
         "Generell kann gesagt werden, dass die Zeit der Applikationsserver zu Ende geht. Es gibt ",
         "einen deutlichen Trend, die Programmierlogik in den Browser, also auf die Seite des Anwenders ",
         "zu verlagern."
-      )
+      ),
+      nav(previous = "landing",next="")
 
     )
 
