@@ -27,16 +27,7 @@ object Main {
   def renderAll(p: ReactElement) =
     ReactDOM.render(p, document.getElementById("root"))
 
-  def main(args: Array[String]): Unit = {
-    if(dom.window.location.hash == "#landing")
-      initReactElements(None,
-        ((aPyramidOpt) =>Landing(aPyramidOpt) ))
-    else if(dom.window.location.hash == "#start")
-      initReactElements(None,
-        ((aPyramidOpt) =>LandingEN(aPyramidOpt) ))
-      else
-    initWithIdentityManagement(None)
-  }
+  def main(args: Array[String]): Unit = PageOption.init()
 
 
   def initWithIdentityManagement(po:Option[Pyramid]): Unit =
