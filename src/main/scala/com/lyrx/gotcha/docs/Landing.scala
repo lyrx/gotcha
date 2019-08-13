@@ -9,10 +9,6 @@ import slinky.web.html._
 @react class Landing extends StatelessComponent {
   case class Props(pyramidOpt: Option[Pyramid])
 
-
-
-
-
   def render(): ReactElement =
     div(className := "container-fluid", id := "pyramid-root")(
       pageHeading("Pyramids! "),
