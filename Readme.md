@@ -1,5 +1,16 @@
 ![](src/main/webapp/img/logo.png)
 
-# Save/encrypt/register your documents in peer to peer networks #
+# Save/Encrypt/Register Your Documents In Peer To Peer Networks #
 
+The following technology stack is used:
+
+- [The Scala Programming Language](https://www.scala-lang.org/)
+- [Scala.js](https://www.scala-js.org/)
+- [ScalablyTyped](https://github.com/oyvindberg/ScalablyTyped) 
+- [Slinky](https://slinky.dev/)
+- [IPFS](https://ipfs.io/)
+- [Stellar](https://www.stellar.org/)
+
+The prototype can be found
+[here](https://lyrx.de).
  
