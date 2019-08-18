@@ -1,0 +1,56 @@
+==================================================================
+https://keybase.io/enna
+--------------------------------------------------------------------
+
+I hereby claim:
+
+  * I am an admin of http://www.lyrx.de
+  * I am enna (https://keybase.io/enna) on keybase.
+  * I have a public key ASBBD4ONqjzCOCwOvgqE6qHELT9lLcOBBGYnv5CPnLL8tAo
+
+To do so, I am signing this object:
+
+{
+  "body": {
+    "key": {
+      "eldest_kid": "01207bc0dea9102bb4f67b54dd285834588c673e9ccb53b46b160b86853ab866a0490a",
+      "host": "keybase.io",
+      "kid": "0120410f838daa3cc2382c0ebe0a84eaa1c42d3f652dc381046627bf908f9cb2fcb40a",
+      "uid": "a8b095fab1dba094fa77e3d2bc820719",
+      "username": "enna"
+    },
+    "merkle_root": {
+      "ctime": 1565376682,
+      "hash": "da7229f640bdd7657b90201c8bcc69cd5faad52a2896067ca407575e208e801b8e481e1f84d9a0b08f7b21a3f64db5318e265dff88ed72ce50cc3d0105f9d9cb",
+      "hash_meta": "f744d8434a68cc9ab7c8c92e04e73484cee30775d199e28e30b4d47b4580665c",
+      "seqno": 5980871
+    },
+    "service": {
+      "entropy": "3qU9anFu92NkTJBjQc+Y+7/A",
+      "hostname": "www.lyrx.de",
+      "protocol": "http:"
+    },
+    "type": "web_service_binding",
+    "version": 2
+  },
+  "client": {
+    "name": "keybase.io go client",
+    "version": "4.2.0"
+  },
+  "ctime": 1565376716,
+  "expire_in": 504576000,
+  "prev": "e1d540325d2563c810fdfe5b7c72b2aa42bf8cf1cb6e076f3bc6c1f5271520e2",
+  "seqno": 12,
+  "tag": "signature"
+}
+
+which yields the signature:
+
+hKRib2R5hqhkZXRhY2hlZMOpaGFzaF90eXBlCqNrZXnEIwEgQQ+Djao8wjgsDr4KhOqhxC0/ZS3DgQRmJ7+Qj5yy/LQKp3BheWxvYWTESpcCDMQg4dVAMl0lY8gQ/f5bfHKyqkK/jPHLbgdvO8bB9ScVIOLEIL+oKHuFWR/OmLfjMeOA+6t1KRxn2KW0+aWD1iS/sP/ZAgHCo3NpZ8RAD8OKywotyo8fRpTzMx7zAzABrRKH+TcBAWFMh2ijIOLdqkCP30xQ8s+e8ciO8p2U+sb50CPckGgO9fAEliotCahzaWdfdHlwZSCkaGFzaIKkdHlwZQildmFsdWXEIGQbssWBKjsiqvbOOpfjdZaT2OW0rJ2nPiQqcjXHPqLdo3RhZ80CAqd2ZXJzaW9uAQ==
+
+And finally, I am proving ownership of this host by posting or
+appending to this document.
+
+View my publicly-auditable identity here: https://keybase.io/enna
+
+==================================================================
