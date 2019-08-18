@@ -8,15 +8,6 @@ scalaVersion := "2.12.8"
 
 resolvers += Resolver.bintrayRepo("oyvindberg", "ScalablyTyped")
 
-// This is an application with a main method
-
-/*
-scalaJSModuleInitializers += ModuleInitializer
-  .mainMethod(
-    "com.lyrx.pyramids.frontend.Main"
-    ,"init")
- */
-
 scalaJSUseMainModuleInitializer := true
 
 scalacOptions += "-P:scalajs:sjsDefinedByDefault"
