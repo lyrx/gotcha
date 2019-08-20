@@ -40,7 +40,10 @@ import slinky.web.html._
 
   def render(): ReactElement = section(
     nav(className := navClasses)(
-      img(src := "img/ipfs.png"),
+     a(href:="https://ipfs.io", target:="_blank")(
+       img(src := "img/ipfs.png")
+     ),
+
       span(className := "my-label")("Gateway: "),
       select(
         name := "IPFS Gateway"
@@ -52,8 +55,14 @@ import slinky.web.html._
 
       )
     ),
+
     nav(className := navClasses)(
-      img(src := "img/ethereum.png")
+
+      a(href:="https://www.ethereum.org/", target:="_blank")(
+      img(src := "img/ethereum.png"))
+
+
+
     )
   )
 }

@@ -71,7 +71,8 @@ object MyComponents {
 
     def brand(): ReactElement =
       a(className := "sidebar-brand d-flex align-items-center justify-content-center",
-        href := "index.html")(
+        href := "https://github.com/lyrx/gotcha"
+      , target:="_blank")(
         div(className := "sidebar-brand-icon rotate-n-15")(
           img(src := "img/ETER-Logo-small.png")
         ),
