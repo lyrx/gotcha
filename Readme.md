@@ -14,3 +14,11 @@ The following technology stack is used:
 The prototype can be found
 [here](https://lyrx.de).
  
+ # Where  Can I Find Documentation about this project? #
+ 
+Me and my friends in India will write a   
+[Tutorial](tutorial.md) 
+and provide simple coding samples
+in the 
+[Euro-Indian-Repo](https://github.com/deshbandhumishra/euroindian)
+ 

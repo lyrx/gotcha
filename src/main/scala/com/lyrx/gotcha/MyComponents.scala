@@ -27,7 +27,7 @@ object MyComponents {
     )
 
 
-  def hashUrl(s:String) = s"https://blockchain.lyrx.de/ipfs/${s}"
+  def hashUrl(s:String) = s"https://www.lyrx.de/ipfs/${s}"
 
 
 
