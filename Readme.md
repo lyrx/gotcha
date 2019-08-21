@@ -13,17 +13,14 @@ The following technology stack is used:
 - [SubtleCrypto](https://developer.mozilla.org/en-US/docs/Web/API/SubtleCrypto)
 
 The prototype can be found
-[here](https://lyrx.de).
+[here](https://www.eternum.io/user/ulzazbrrvcqzn#landing).
  
  # Where  Can I Find Documentation about this project? #
  
-Me and my friends in India will write a   
-[Tutorial](tutorial.md) 
-and provide simple coding samples
-in the 
-[Euro-Indian-Repo](https://github.com/deshbandhumishra/euroindian)
+Me and my friends in India will write a [Tutorial](tutorial.md) 
+and provide simple coding samples [here](https://github.com/deshbandhumishra/euroindian).
  
-# What can I Do With This Application? #
+# What Can I Do With This Application? #
 
 [Read on ...]("features.md")
  

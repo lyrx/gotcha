@@ -1,6 +1,6 @@
 # Pyramids! The Tutorial #
 
-## A completely novel approach to web development ##
+## A Completely Novel Approach To Web Development ##
 
 This is an *SPA*, a *single page application*, which means that
 there is only one single [HTML-Page](src/main/webapp/index.html)
@@ -35,7 +35,7 @@ new resistrictions and new problems.
 
 But the main drawback of the conventional approach 
 is the amount of programming needed. The work load (and the cost) 
-will decrease significantly, as soon as you find a solution that works with 
+will decrease significantly as soon as you find a solution that works with 
 a browser and p2p networks only! 
 Normally, with p2p networks you get a generic and ready to use communication
 API. It will never be specific to your new application, but you will soon
@@ -57,7 +57,12 @@ To make that happen, let us set up everything from scratch, so that
 you will get the chance to learn  about  a new framework with each step. 
 
 So we will not look at the code inside this application, but set up 
+a new and blank project and then gradually add the features currently
+implemented here. Only when you are familiar with the basics, you 
+will return to this place here and look at the code. 
 
+I did my best to reach a good level in programming, but I am very
+sure that I am far from arriving at the optimum. 
 
  
  
