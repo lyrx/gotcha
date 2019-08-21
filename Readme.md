@@ -23,3 +23,7 @@ and provide simple coding samples
 in the 
 [Euro-Indian-Repo](https://github.com/deshbandhumishra/euroindian)
  
+# What can I Do With This Application? #
+
+[Read on ...]("features.md")
+ 
