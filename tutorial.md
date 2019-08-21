@@ -12,31 +12,39 @@ controls are generated  by Javascript.
 The app runs **inside the browser**. So there is no server backend, except
 gateways giving access to p2p networks like IPFS or Stellar. The fact
 that there is no server backend cannot overestimated, as the advantages
-coming from this are really enourmous. 
+coming from this are really big. 
 
-There is no need to set up and maintain a server infrastructure. Today
+There will no longer be the need to set up and maintain a server infrastructure. Today
 many huge sites work exactly the opposite way: Huge application servers
-are providing the needed application logic. There are often numerous 
-databases involved, plenty of backend services that can interact with
+are providing the needed application logic. Often there are numerous 
+databases involved, and plenty of backend services are interacting with
 each other in complex ways.
 
-The client server communication in such conventional web applications is never easy. 
-There always need to 
-be  one ore more protocols defining that communication process, and it
-can never be completely standardized. So it will remain  at least
-partly application specific. So it is a huge effort to
-maintain the client server interaction, and the task returns with each
-new web application. Of course, existing web frameworks can be 
-used to get over that problem. But those frameworks often impose
-other resistrictions and other problems. 
+Also, the client server communication in such conventional web applications is never easy. 
+There is always the need to 
+have one ore more protocols defining that communication process.  These
+can never be completely standardized.
+and will remain  at least
+partly application specific. 
 
-The main drawback of the conventional approach to web applications
-is the amount of programming that needs to be done. The work (and the cost) 
-isgreatly reduced, as soon as you find a solution that works with 
-browser applications and p2p networks only! 
+So  a huge effort is required to
+set up and maintain client server interaction. The task will return with each
+new web application. -- Of course, existing web frameworks can be 
+used. But they often impose
+new resistrictions and new problems. 
+
+But the main drawback of the conventional approach 
+is the amount of programming needed. The work load (and the cost) 
+will decrease significantly, as soon as you find a solution that works with 
+a browser and p2p networks only! 
 Normally, with p2p networks you get a generic and ready to use communication
 API. It will never be specific to your new application, but you will soon
-learn that  
+learn that it can serve your needs very well. Also modern Javascript 
+environments have evolved into a mighty infrastructure as well: They
+offer an enormous number of additional libraries. 
+
+
+
 
 
 
