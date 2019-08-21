@@ -73,8 +73,22 @@ helps me to improve even more.
 
 We will set this up as a Scala project, using the build tool [SBT](https://www.scala-sbt.org/).
 Do not worry about SBT! It is a complex tool, although is is based on very few (but very abstract)
-concepts. The tool is powerfull, but often you will have a hard time trying to accomplish only
-easy tasks. 
+concepts. The tool is powerful, but often you will have a hard time trying to accomplish 
+easy tasks with it. Luckily you need to do that only during project set up, and often you can
+simply copy/paste the stuff you need from other places. Let us
+hope that google can find us the needed code snippets
+and  leave the details to SBT experts.
+
+Three files need to be created:
+ 
+In [project/build.properties](project/build.properties) 
+you just write the sbt version: `sbt.version = 0.13.17`
+
+
+
+
+
+
  
 
  
