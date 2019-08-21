@@ -43,19 +43,20 @@ learn that it can serve your needs very well. Also modern Javascript
 environments have evolved into a mighty infrastructure as well: They
 offer an enormous number of additional libraries. 
 
-
-
-
-
-
-
-    
-
-As there is only JavaScript on the client side, it will be very
-easy to integrate the app into all sorts of already existing web content.
+Do not forget the portability issues! I our new world,
+as there is only JavaScript on the client side, it will be very
+easy to integrate our app into all sorts of already existing web content. 
 There is no need to port or duplicate a complete infrastructure to 
 a new location. It should just be enough to load existing Javascript modules
 into a new HTML page and integrate it with the existing HTML.
+
+**Let us start now!**
+
+I want you to glide easily into these new programming paradigms. 
+
+
+
+
 
 To make that happen as easily as possible, I used 
 
