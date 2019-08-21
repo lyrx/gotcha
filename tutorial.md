@@ -24,7 +24,7 @@ Also, the client server communication in such conventional web applications is n
 There is always the need to 
 have one ore more protocols defining that communication process.  These
 can never be completely standardized.
-and will remain  at least
+They will remain  at least
 partly application specific. 
 
 So  a huge effort is required to
@@ -43,22 +43,18 @@ learn that it can serve your needs very well. Also modern Javascript
 environments have evolved into a mighty infrastructure as well: They
 offer an enormous number of additional libraries. 
 
-Do not forget the portability issues! I our new world,
+Do not forget the portability issues! In our new world,
 as there is only JavaScript on the client side, it will be very
 easy to integrate our app into all sorts of already existing web content. 
 There is no need to port or duplicate a complete infrastructure to 
 a new location. It should just be enough to load existing Javascript modules
 into a new HTML page and integrate it with the existing HTML.
 
-**Let us start now!**
+## Let us start now! ##
 
 I want you to glide easily into these new programming paradigms. 
-
-
-
-
-
-To make that happen as easily as possible, I used 
+To make that happen, let us set up everything from scratch, so that
+you will get the chance to learn  about  a new framework with each step.     
 
 
  
