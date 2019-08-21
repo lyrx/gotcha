@@ -65,8 +65,8 @@ should return to this place here and look at the code.
 So, when you went through the tutorial, please note: I did my best to reach a good level in programming, 
 but I am very sure that I am far from arriving at the optimum. This project has been
 a learning project for me as well, and I tried to improve my skills in functional programming
-and web programming as much as was possible for me. I will be very happy if you profit from
-this as I could profit from it, and I will make me even happier if your feedback 
+and web programming as much as I could. I will be very happy if you profit from
+this as I could profit from it, and it will make me even happier if your feedback 
 helps me to improve even more.
 
 ## SBT ##
