@@ -1,6 +1,6 @@
 # Pyramids! The Tutorial #
 
-## The Environment ##
+## A completely novel approach to web development ##
 
 This is an *SPA*, a *single page application*, which means that
 there is only one single [HTML-Page](src/main/webapp/index.html)
