@@ -1,4 +1,4 @@
-# The Pyrmamids! Tutorial! #
+# Pyramids! The Tutorial! #
  
  
  

@@ -10,6 +10,7 @@ The following technology stack is used:
 - [Slinky](https://slinky.dev/)
 - [IPFS](https://ipfs.io/)
 - [Stellar](https://www.stellar.org/)
+- [SubtleCrypto](https://developer.mozilla.org/en-US/docs/Web/API/SubtleCrypto)
 
 The prototype can be found
 [here](https://lyrx.de).
