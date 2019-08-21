@@ -31,6 +31,13 @@ used to get over that problem. But those frameworks often impose
 other resistrictions and other problems. 
 
 The main drawback of the conventional approach to web applications
+is the amount of programming that needs to be done. The work (and the cost) 
+isgreatly reduced, as soon as you find a solution that works with 
+browser applications and p2p networks only! 
+Normally, with p2p networks you get a generic and ready to use communication
+API. It will never be specific to your new application, but you will soon
+learn that  
+
 
 
 
