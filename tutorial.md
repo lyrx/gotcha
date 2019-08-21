@@ -54,15 +54,28 @@ into a new HTML page and integrate it with the existing HTML.
 
 I want you to glide easily into these new programming paradigms. 
 To make that happen, let us set up everything from scratch, so that
-you will get the chance to learn  about  a new framework with each step. 
+you will get the chance to learn about one new framework with each 
+new step you do. 
 
-So we will not look at the code inside this application, but set up 
+So we will not look at the code inside this application, but instead set up 
 a new and blank project and then gradually add the features currently
 implemented here. Only when you are familiar with the basics, you 
-will return to this place here and look at the code. 
+should return to this place here and look at the code. 
 
-I did my best to reach a good level in programming, but I am very
-sure that I am far from arriving at the optimum. 
+So, when you went through the tutorial, please note: I did my best to reach a good level in programming, 
+but I am very sure that I am far from arriving at the optimum. This project has been
+a learning project for me as well, and I tried to improve my skills in functional programming
+and web programming as much as was possible for me. I will be very happy if you profit from
+this as I could profit from it, and I will make me even happier if your feedback 
+helps me to improve even more.
+
+## SBT ##
+
+We will set this up as a Scala project, using the build tool [SBT](https://www.scala-sbt.org/).
+Do not worry about SBT! It is a complex tool, although is is based on very few (but very abstract)
+concepts. The tool is powerfull, but often you will have a hard time trying to accomplish only
+easy tasks. 
+ 
 
  
  
