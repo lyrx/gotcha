@@ -54,7 +54,9 @@ into a new HTML page and integrate it with the existing HTML.
 
 I want you to glide easily into these new programming paradigms. 
 To make that happen, let us set up everything from scratch, so that
-you will get the chance to learn  about  a new framework with each step.     
+you will get the chance to learn  about  a new framework with each step. 
+
+So we will not look at the code inside this application, but set up 
 
 
  
