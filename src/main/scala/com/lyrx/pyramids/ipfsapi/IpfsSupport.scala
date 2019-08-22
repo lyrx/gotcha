@@ -42,12 +42,6 @@ object IpfsSupport{
     )
   )))
 
-  /*
-    https://github.com/orbitdb/orbit-db/blob/master/examples/browser/example.js
-   */
-  def orbitDB(): Ipfs = new IpfsSupport(genClient(
-    ???
-  ))
 
 
 
