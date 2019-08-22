@@ -31,6 +31,7 @@ npmDependencies in Compile ++= Seq(
   "react" -> "16.8", "react-dom" -> "16.8",
   "web3" -> "1.0.0-beta.55",
   "ipfs-http-client" -> "32.0.1",
+  "ipfs" -> "0.37.0",
   "buffer" -> "3.5.5",
   "jszip" -> "3.2.1",
   "file-saver" -> "2.0",
