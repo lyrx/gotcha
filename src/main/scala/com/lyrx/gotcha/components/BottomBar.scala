@@ -1,7 +1,7 @@
 package com.lyrx.gotcha.components
 
 import com.lyrx.gotcha.Main
-import com.lyrx.pyramids.Ipfs.IpfsSupport
+import com.lyrx.pyramids.ipfsapi.IpfsSupport
 import com.lyrx.pyramids.{IPFS, Pyramid}
 import org.scalajs.dom
 import org.scalajs.dom.Event

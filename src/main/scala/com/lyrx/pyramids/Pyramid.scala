@@ -1,7 +1,7 @@
 package com.lyrx.pyramids
 
 import com.lyrx.pyramids
-import com.lyrx.pyramids.Ipfs.IpfsSupport
+import com.lyrx.pyramids.ipfsapi.IpfsSupport
 import com.lyrx.pyramids.crypto.{CryptoSupport, PyramidCryptoKey, WalletNative}
 import com.lyrx.pyramids.jszip.ZipSupport
 import com.lyrx.pyramids.stellarsdk.{Stellar, Timeout}

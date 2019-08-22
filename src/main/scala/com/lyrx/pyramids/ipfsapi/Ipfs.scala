@@ -1,4 +1,4 @@
-package com.lyrx.pyramids.Ipfs
+package com.lyrx.pyramids.ipfsapi
 
 import typings.nodeLib
 import typings.nodeLib.{Buffer, bufferMod}

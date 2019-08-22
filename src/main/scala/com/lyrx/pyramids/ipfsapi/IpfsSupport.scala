@@ -1,4 +1,4 @@
-package com.lyrx.pyramids.Ipfs
+package com.lyrx.pyramids.ipfsapi
 
 import scala.scalajs.js
 import js.Dynamic.{literal => l}
@@ -42,6 +42,12 @@ object IpfsSupport{
     )
   )))
 
+  /*
+    https://github.com/orbitdb/orbit-db/blob/master/examples/browser/example.js
+   */
+  def orbitDB(): Ipfs = new IpfsSupport(genClient(
+    ???
+  ))
 
 
 

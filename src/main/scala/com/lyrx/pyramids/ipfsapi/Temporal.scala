@@ -1,4 +1,4 @@
-package com.lyrx.pyramids.Ipfs
+package com.lyrx.pyramids.ipfsapi
 
 
 import org.scalajs.dom.experimental.{Fetch, RequestInit, Response}

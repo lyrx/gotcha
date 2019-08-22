@@ -10,7 +10,7 @@ import nodeLib.bufferMod
 
 import scala.language.implicitConversions
 
-package object Ipfs {
+package object ipfsapi {
 
   type ClientConfig = () => Option[IpfsClient]
 

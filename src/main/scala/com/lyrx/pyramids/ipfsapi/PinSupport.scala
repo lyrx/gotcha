@@ -1,4 +1,4 @@
-package com.lyrx.pyramids.Ipfs
+package com.lyrx.pyramids.ipfsapi
 
 import scala.concurrent.Future
 import scala.scalajs.js

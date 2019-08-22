@@ -1,6 +1,6 @@
 package com.lyrx
 
-import com.lyrx.pyramids.Ipfs.Ipfs
+import com.lyrx.pyramids.ipfsapi.Ipfs
 import com.lyrx.pyramids.stellarsdk.AccountDetail
 import org.scalajs.dom.raw
 import org.scalajs.dom.raw.{Blob, FileReader, ProgressEvent}

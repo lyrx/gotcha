@@ -1,6 +1,6 @@
 package com.lyrx.pyramids
 
-import com.lyrx.pyramids.Ipfs.{IpfsSupport}
+import com.lyrx.pyramids.ipfsapi.{IpfsSupport}
 import com.lyrx.pyramids.crypto.{CryptoSupport, Cryptography}
 import org.scalajs.dom.raw.File
 
