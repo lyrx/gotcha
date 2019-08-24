@@ -18,17 +18,14 @@ libraryDependencies ++= Seq(
   "me.shadaj" %%% "slinky-web" % "0.6.2",
   "me.shadaj" %%% "slinky-native" % "0.6.2",
   "me.shadaj" %%% "slinky-hot" % "0.6.2",
-  "me.shadaj" %%% "slinky-scalajsreact-interop" % "0.6.2",
-  ScalablyTyped.J.jquery,
-  ScalablyTyped.J.jszip,
-  ScalablyTyped.F.`file-saver`,
-  ScalablyTyped.W.`web3`,
-  ScalablyTyped.B.`bs58`
+  "me.shadaj" %%% "slinky-scalajsreact-interop" % "0.6.2"
 )
 
 
 npmDependencies in Compile ++= Seq(
-  "react" -> "16.8", "react-dom" -> "16.8",
+  "react" -> "16.8", "react-dom" -> "16.8"
+
+  /* ,
   "web3" -> "1.0.0-beta.55",
   "ipfs-http-client" -> "32.0.1",
   //"ipfs" -> "0.37.0",
@@ -37,6 +34,8 @@ npmDependencies in Compile ++= Seq(
   "file-saver" -> "2.0",
   "bs58" -> "4.0.1",
   "stellar-sdk" -> "2.0.1"
+
+   */
 )
 
 
