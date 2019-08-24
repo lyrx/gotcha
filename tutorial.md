@@ -62,8 +62,8 @@ a new and blank project and then gradually add the features currently
 implemented here. Only when you are familiar with the basics, you 
 should return to this place here and look at the code. 
 
-So, when you went through the tutorial, please note: I did my best to reach a good level in programming, 
-but I am very sure that I am far from arriving at the optimum. This project has been
+I did my best to reach a good level in programming, 
+but I am  sure that I am still far from arriving at the optimum. This project has been
 a learning project for me as well, and I tried to improve my skills in functional programming
 and web programming as much as I could. I will be very happy if you profit from
 this as I could profit from it, and it will make me even happier if your feedback 
@@ -81,9 +81,11 @@ and  leave the details to SBT experts.
 
 Three files need to be created:
  
-In [project/build.properties](project/build.properties) 
-you just write the sbt version: `sbt.version = 0.13.17`
+In *project/build.properties*  you just specify the sbt version: `sbt.version = 0.13.17`
 
+And in *project/plugins.sbt* you specify the sbt plugins being used:
+
+    addSbtPlugin("org.scala-js" % "sbt-scalajs" % "0.6.27")
 
 
 

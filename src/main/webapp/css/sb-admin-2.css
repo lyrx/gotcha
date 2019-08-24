@@ -4418,7 +4418,7 @@ input[type="button"].btn-block {
 
 #pyramid-root{
   min-height: 756px;
-  background-image: url('../img/ETER-header.jpg');
+
 }
 
 .navbar {
@@ -10583,6 +10583,7 @@ a:focus {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
+  background-image: url('../img/hero.jpg');
 }
 
 #wrapper #content-wrapper {
