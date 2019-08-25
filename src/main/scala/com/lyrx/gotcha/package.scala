@@ -10,5 +10,41 @@ import scala.concurrent.Future
 
 package object gotcha {
 
+  type GotchaRenderer = () => ReactElement
+  type GotchaPyramidRenderer = (Option[Pyramid]) => ReactElement
+  type FAccountData = Future[AccountData]
+
+
+  implicit class PimpedEvent(target: EventTarget) {
+
+    def fileOpt() =
+      target
+        .asInstanceOf[Typings.DataTransferTarget]
+        .files
+        .map(_.headOption.map(_.asInstanceOf[File]))
+        .getOrElse(None)
+  }
+
+  implicit class PimpedPyramidOpt(po: Option[Pyramid]) {
+
+    def isStellarTestNet() =
+      po.map(_.config.blockchainData.stellar.testNet).getOrElse(false)
+
+    def steepx() =
+      if (isStellarTestNet())
+        "testnet.steexp.com"
+      else
+        "steexp.com"
+
+    def stellarData()=po.map(_.config.blockchainData.stellar)
+
+    def stellarPassword() = stellarData().map(_.passwordFieldValueDefault()).getOrElse("")
+
+
+    def clientAccount() =  po.map(_.stellarFromSecret(po.stellarPassword())).getOrElse("")
+
+
+
+  }
 
 }
