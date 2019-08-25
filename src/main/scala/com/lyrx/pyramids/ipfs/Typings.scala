@@ -1,11 +1,10 @@
 package com.lyrx.pyramids.ipfs
 
 import scala.scalajs.js
-import scala.scalajs.js.annotation.{JSGlobal, JSImport}
+import scala.scalajs.js.annotation.JSImport
 
 /* static members */
-//@JSImport("ipfs","Ipfs")
-@JSGlobal
+@JSImport("Ipfs","Ipfs")
 @js.native
 class Ipfs extends js.Object {
 

@@ -3,13 +3,11 @@ package com.lyrx.gotcha.docs
 import com.lyrx.gotcha.Main.initWithIdentityManagement
 import com.lyrx.gotcha.{GotchaPyramidRenderer, Main}
 import com.lyrx.pyramids.Pyramid
-import com.lyrx.pyramids.ipfs.PeerSupport
 import org.scalajs.dom
 import slinky.web.html._
 
 import scala.collection.immutable.HashMap
 import scala.collection.mutable
-import scala.concurrent.ExecutionContext
 
 object PageOption extends PageOptionTrait {
 
@@ -89,21 +87,10 @@ trait PageOptionTrait {
       .map(h => if (PageOption.map.contains(h)) Some(h) else None)
       .getOrElse(None)
 
-  def orbitDB()(implicit executionContext: ExecutionContext) = {
-   // val ipfs  = PeerSupport.orbitDB()
-   // ipfs.onException().map(e=>println(e))
-   // ipfs.onReady().map(aipfs=>println(s"Yochai: ${aipfs}"))
-  }
-
-  def init()(implicit executionContext: ExecutionContext) = {
+  def init() =
     withPage()
       .map(fromHash(_))
       .getOrElse(fromDefault())
-
-    orbitDB()
-
-
-  }
 
   def locale() = {
     val lang = dom.window.navigator.language
