@@ -59,8 +59,9 @@ new step you do.
 
 So we will not look at the code inside this application, but instead set up 
 a new and blank project and then gradually add the features currently
-implemented here. Only when you are familiar with the basics, you 
-should return to this place here and look at the code. 
+implemented in this project.
+As soon as you will be  familiar with the basics, you 
+will be ready to return to this place. 
 
 So, when you went through the tutorial, please note: I did my best to reach a good level in programming, 
 but I am very sure that I am far from arriving at the optimum. This project has been
@@ -72,18 +73,37 @@ helps me to improve even more.
 ## SBT ##
 
 We will set this up as a Scala project, using the build tool [SBT](https://www.scala-sbt.org/).
-Do not worry about SBT! It is a complex tool, although is is based on very few (but very abstract)
-concepts. The tool is powerful, but often you will have a hard time trying to accomplish 
-easy tasks with it. Luckily you need to do that only during project set up, and often you can
-simply copy/paste the stuff you need from other places. Let us
+Do not worry about SBT! It is a complex tool, although is is based on few (but very abstract)
+concepts. Though this tool is powerful, you will often have a hard time trying to accomplish 
+easy tasks with it. Luckily you need to do use the tool mainly during project set up.
+For new requirements, it is often enough to do a Google search and 
+simply copy/paste the stuff you need.. Let us
 hope that google can find us the needed code snippets
 and  leave the details to SBT experts.
 
-Three files need to be created:
+Three files need to be created, and we will copy the to our new project:
  
-In [project/build.properties](project/build.properties) 
-you just write the sbt version: `sbt.version = 0.13.17`
-
+- In [project/build.properties](project/build.properties) 
+  you just write the sbt version: `sbt.version = 0.13.17`
+- In [project/plugins.sbt](project/plugins.sbt) you configure the plugins 
+  used by SBT
+  - `sbt-scala-js` configures the build process, mainly 
+     compiling your Scala code into Javascript. 
+     It is the most important plugin.
+  - `sbt-scalajs-bundler` is used to bundle other dependencies,
+     mainly node.js dependencies, together with the compilation
+     results from      
+  - `sbt-scalablytyped` is an interesting new plugin that enables
+    usage of thousands of node.js modules in Scala. With this the
+    whole ecosystem of node.js is opening up for Scala developers
+   
+- [build.sbt](build.sbt) is the most important file, because here
+  the complete build process is configured. (In our case, when 
+  copying it to our new projects, which just change the artifact id
+  *"gotcha"* into something else, say "incredibleindia")
+  
+  
+    
 
 
 
