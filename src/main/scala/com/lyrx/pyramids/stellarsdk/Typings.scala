@@ -138,6 +138,9 @@ trait AccountDetail extends js.Object {
 @js.native
 class Server extends js.Object {
   def this(serverURL: java.lang.String) = this()
+  def this(serverURL: java.lang.String,config:js.Dynamic) = this()
+
+
   var serverURL: js.Any = js.native
   def fetchBaseFee():js.Promise[Double] = js.native
 

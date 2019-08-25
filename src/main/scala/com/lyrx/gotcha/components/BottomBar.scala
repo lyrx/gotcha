@@ -58,14 +58,14 @@ import scala.scalajs.js
   def options() =
     if (isLocal())
       Seq(
-        option(value := "aws")("Pyramids!"),
-        option(value := "infura")("Infura"),
-        option(value := "macmini")("Macmini")
+        option(value := "aws", key:="aws")("Pyramids!"),
+        option(value := "infura", key:="infura")("Infura"),
+        option(value := "macmini", key:="macmini")("Macmini")
       )
     else
       Seq(
-        option(value := "aws")("Pyramids!"),
-        option(value := "infura")("Infura")
+        option(value := "aws", key:="aws")("Pyramids!"),
+        option(value := "infura", key:="infura")("Infura")
       )
 
   def render(): ReactElement = section(
