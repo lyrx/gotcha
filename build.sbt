@@ -28,12 +28,9 @@ libraryDependencies ++= Seq(
 
 
 npmDependencies in Compile ++= Seq(
-  "react" -> "16.8", "react-dom" -> "16.8"
-
-  ,
-
+  "react" -> "16.8",
+  "react-dom" -> "16.8",
   "ipfs-http-client" -> "32.0.1",
-
   "buffer" -> "3.5.5",
   "jszip" -> "3.2.1",
   "file-saver" -> "2.0",
@@ -43,11 +40,6 @@ npmDependencies in Compile ++= Seq(
 )
 
 
-
-
-// optional, but recommended; enables the @react macro annotation API
-addCompilerPlugin(
-  "org.scalamacros" % "paradise" % "2.1.1" cross CrossVersion.full)
 
 testFrameworks += new TestFramework("utest.runner.Framework")
 
