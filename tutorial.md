@@ -102,7 +102,37 @@ Three files need to be created, and we will copy the to our new project:
   copying it to our new projects, which just change the artifact id
   *"gotcha"* into something else, say "incredibleindia")
   
-  
+## Start Hacking ##
+
+Let us start by printing *"Hello World*. 
+
+We create a new Scala object
+as defined in
+ [src/test/scala/com/lyrx/examples/Main.scala](src/test/scala/com/lyrx/examples/Main.scala).
+
+For that purpose, we write such a file into our  repository
+[IncredibleIndia](https://github.com/deshbandhumishra/euroindian) --- where
+we have also put, the sbt files from the previous chapter.
+
+For best results and usability, we will use Intellij as  our development environment. But
+of course, you will be able to do everything with another development environment, if
+you feel more comfortable with it.
+
+Now this is the right moment to try out if the project (containing only one single Scala file)
+can be compiled by Intellij.
+
+Please note: You have to set up the project by using `File -> New -> Project from existing source ...`
+and configure it as a project using SBT. This should setup everything correctly, but I do not recommend
+using Intellij to work as anm interface  to SBT. Instead, you should just use Intellij to write 
+Scala code, compile it (into bytecode), and also to run tests. You can of course also run SBT from
+Intellij, but I do not do the on a regular basis, as I feel more comfortable with the command line.
+
+So, for now, let us just try to compile our Scala file the way we would normally do that, if it were
+a project targeted to the Java virtual machine. In the next chapter, we will go on and 
+introduce the basics of Scala.JS
+
+
+
     
 
 
