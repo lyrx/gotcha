@@ -28,14 +28,15 @@ libraryDependencies ++= Seq(
 
 
 npmDependencies in Compile ++= Seq(
-  "react" -> "16.8",
-  "react-dom" -> "16.8",
+  "react" -> "16.8", "react-dom" -> "16.8",
+  "web3" -> "1.0.0-beta.55",
   "ipfs-http-client" -> "32.0.1",
   "buffer" -> "3.5.5",
   "jszip" -> "3.2.1",
   "file-saver" -> "2.0",
-  "bs58" -> "4.0.1"
-
+  "bs58" -> "4.0.1",
+  "stellar-sdk" -> "2.0.1"
+)
 
 )
 
