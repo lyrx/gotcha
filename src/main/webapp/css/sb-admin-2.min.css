@@ -4417,7 +4417,7 @@ input[type="button"].btn-block {
 }
 
 #pyramid-root{
-  min-height: 756px;
+  height: 756px;
   background-image: url('../img/ETER-header.jpg');
 }
 
@@ -4879,8 +4879,9 @@ input[type="button"].btn-block {
   flex-direction: column;
   min-width: 0;
   word-wrap: break-word;
-  background-color: rgba(0, 0, 0, 0.1);
+  background-color: #fff;
   background-clip: border-box;
+  border: 1px solid #e3e6f0;
   border-radius: 0.35rem;
 }
 
@@ -4930,8 +4931,8 @@ input[type="button"].btn-block {
 .card-header {
   padding: 0.75rem 1.25rem;
   margin-bottom: 0;
-  /* background-color: #f8f9fc; */
-  /* border-bottom: 1px solid #e3e6f0; */
+  background-color: #f8f9fc;
+  border-bottom: 1px solid #e3e6f0;
 }
 
 .card-header:first-child {
@@ -8554,7 +8555,7 @@ button.bg-dark:focus {
 
 .mb-4,
 .my-4 {
-  /* border-bottom: 1px solid black;  */
+  border-bottom: 1px solid black;
   /* margin-bottom: 1.5rem !important; */
 }
 
