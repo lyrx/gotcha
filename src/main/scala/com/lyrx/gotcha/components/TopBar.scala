@@ -1,21 +1,23 @@
 package com.lyrx.gotcha.components
 
-import com.lyrx.gotcha.CContext
-import slinky.core.ComponentWrapper
+import com.lyrx.pyramids.Pyramid
+import slinky.core.StatelessComponent
+import slinky.core.annotations.react
+import slinky.core.facade.ReactElement
 import slinky.web.html._
 
-import scala.scalajs.js
+@react class TopBar extends StatelessComponent {
+  case class Props(pyramidOpt: Option[Pyramid])
 
-object TopBar extends ComponentWrapper {
-  case class Props(context:CContext)
-  case class State(s:String)
-
-  class Def(jsProps: js.Object) extends Definition(jsProps) {
-    def initialState = State("")
-
-
-    def render =   nav(className := "")(
-      img(src :="img/logo.png", id:="logo")
+  def render(): ReactElement =
+    nav(
+      className := "navbar navbar-expand navbar-light bg-white topbar mb-4 static-top shadow")(
+      button(id := "sidebarToggleTop",
+        className := "btn btn-link d-md-none rounded-circle mr-3")(
+        i(className := "fa fa-bars")),
+      form(
+        className := "d-none d-sm-inline-block form-inline mr-auto ml-md-3 my-2 my-md-0 mw-100")(
+        Stellar(props.pyramidOpt)
+      )
     )
-  }
 }

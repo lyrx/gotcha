@@ -1,57 +1,40 @@
 package com.lyrx.gotcha
 
-import com.lyrx.gotcha.components.Page
 import com.lyrx.pyramids.stellarsdk.Timeout
-import org.scalajs.dom
 import org.scalajs.dom.document
-import org.scalajs.dom.raw.Event
+import slinky.core.facade.ReactElement
 import slinky.web.ReactDOM
-import slinky.web.html.h1
 
+import com.lyrx.gotcha.components._
+import com.lyrx.gotcha.docs._
 import scala.concurrent.ExecutionContext
+import org.scalajs.dom
+import MyComponents._
+import com.lyrx.pyramids.Pyramid
 
-object Main  {
+object Main extends PageOptionTrait {
 
   implicit val ec = ExecutionContext.global
   implicit val timeout: Timeout = new Timeout(30)
 
+  def initReactElements(pyramidOpt:Option[Pyramid],renderer:GotchaPyramidRenderer) = renderAll(
+    ManagementWrapper(pyramidOpt,renderer))
 
 
 
-  def page()=Page(Page.Props(
-        context = CContext("")
-      ))
+  def renderAll(p: ReactElement) =
+    ReactDOM.render(p, document.getElementById("root"))
+
+  def main(args: Array[String]): Unit = init()
 
 
+  def initWithIdentityManagement(po:Option[Pyramid]): Unit =
+    initReactElements(po,
+      ((aPyramidOpt) =>IdentityManagement(aPyramidOpt) ))
 
-  def main(args: Array[String]): Unit = {
-
-    println("yocha")
-
-
-    dom.document.addEventListener("DOMContentLoaded", (event:Event) =>{
-      println("DOM fully loaded and parsed");
-
-    });
-
-
-    ReactDOM.render( page(),
-      document.getElementById("wrapper"))
-
-
-
-
-
-
-
-
-
-
-
-
-
-  }
-
+  def initWithNotary(po:Option[Pyramid]): Unit =
+    initReactElements(po,
+      ((aPyramidOpt) =>Notary(aPyramidOpt) ))
 
 
 
