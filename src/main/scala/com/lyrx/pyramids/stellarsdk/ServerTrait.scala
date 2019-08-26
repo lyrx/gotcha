@@ -137,10 +137,11 @@ trait ServerTrait {
       .toFuture
       .flatMap(aFee =>
         loadPrivateAcount(privateKey).map((t: (String, Account)) => {
+          val networkPassphrase = if(isTest) Networks.TESTNET else Networks.PUBLIC
           val transaction =
             new TransactionBuilder(t._2, l(
               "fee" -> aFee,
-              "networkPassphrase" -> (if(isTest) Networks.TESTNET else Networks.MAINNET)
+              "networkPassphrase" -> networkPassphrase
             ))
               .addOperation(
                 Operation.payment(l(

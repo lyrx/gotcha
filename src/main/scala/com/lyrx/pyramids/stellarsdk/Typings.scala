@@ -3,7 +3,8 @@ package com.lyrx.pyramids.stellarsdk
 import typings.nodeLib
 
 import scala.scalajs.js
-import scala.scalajs.js.annotation.JSImport
+
+import js.annotation.JSImport
 
 @JSImport("stellar-sdk", "Network")
 @js.native
@@ -15,12 +16,14 @@ object Network extends js.Object {
 }
 
 
-@JSImport("stellar-base", "Networks")
+@JSImport("stellar-sdk", "Networks")
 @js.native
-object Networks extends js.Object {
+object Networks extends js.Any {
   val TESTNET:String = js.native
-  val MAINNET:String = js.native
+  val PUBLIC:String = js.native
 }
+
+
 
 
 
