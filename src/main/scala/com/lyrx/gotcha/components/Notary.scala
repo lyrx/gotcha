@@ -14,7 +14,7 @@ import slinky.web.html.{className, div, id}
 
   def render(): ReactElement =
     div(className := "container-fluid", id := "pyramid-root")(
-      pageHeading("Your Trustless Blockchain Document Registry")
+      pageHeading("Uncensored Publishing")
       ,
       div(className := "row")(
         IpfsEncrypt(props.pyramidOpt)

@@ -41,7 +41,7 @@ import scala.concurrent.{ExecutionContext, Future}
             .renderAll(
               ManagementWrapper(
                 Some(new Pyramid(p.config
-                  .withMessage("Eternalize Your Documents In A Blockchain!"))),
+                  .withMessage("Eternalize Your Documents!"))),
                 props.renderer)))
   }
 }

@@ -13,7 +13,7 @@ import com.lyrx.gotcha._
 
   def render(): ReactElement =
     div(className := "container-fluid", id := "pyramid-root")(
-      pageHeading("Your Trustless Blockchain Identity Management"),
+      pageHeading("Your Decentralized Identity Management"),
       div(className := "row")(
 
         PublishIdentity(props.pyramidOpt)
