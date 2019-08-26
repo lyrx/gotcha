@@ -2,7 +2,7 @@ package com.lyrx.pyramids.stellarsdk
 
 import scala.concurrent.Future
 import scala.scalajs.js
-import scala.scalajs.js.{JSON, Promise}
+import scala.scalajs.js.Promise
 import js.Dynamic.{literal => l}
 import com.lyrx.pyramids.util.Implicits._
 
@@ -137,14 +137,11 @@ trait ServerTrait {
       .toFuture
       .flatMap(aFee =>
         loadPrivateAcount(privateKey).map((t: (String, Account)) => {
-          println(s"Have account ${JSON.stringify(t._2)}")
-          val tb =
+          val transaction =
             new TransactionBuilder(t._2, l(
-              aFee //,
-              //"networkPassphrase" -> (if(isTest) Networks.TESTNET else Networks.MAINNET)
+              "fee" -> aFee,
+              "networkPassphrase" -> (if(isTest) Networks.TESTNET else Networks.MAINNET)
             ))
-
-              /*
               .addOperation(
                 Operation.payment(l(
                   "destination" -> sendTo,
@@ -152,14 +149,8 @@ trait ServerTrait {
                   "amount" -> amount)))
             .addMemo(Memo.hash(aHash.forStellarMemo()))
               .setTimeout(timeoutSeconds.seconds)
-          */
-
-          println(s"Have ${JSON.stringify(tb)}")
-          val transaction = tb.build()
-
-          println(s"Have ${transaction}")
+              .build()
           transaction.sign(Keypair.fromSecret(t._1))
-          println(s"Have ${(transaction, t._2)}")
           (transaction, t._2)
         }))
 

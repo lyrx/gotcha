@@ -36,7 +36,7 @@ npmDependencies in Compile ++= Seq(
   "jszip" -> "3.2.1",
   "file-saver" -> "2.0",
   "bs58" -> "4.0.1",
-  "stellar-sdk" -> "2.3.0"
+  "stellar-sdk" -> "2.0.1"
 )
 
 

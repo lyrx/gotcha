@@ -1,6 +1,5 @@
 package com.lyrx.pyramids.ipfs
 
-import scala.concurrent.Future
 import scala.scalajs.js
 import scala.scalajs.js.annotation.{JSGlobal, JSImport}
 
@@ -19,19 +18,10 @@ class Ipfs extends js.Object {
 
 
 @js.native
-@JSGlobal("OrbitDB")
-object OrbitDB  extends js.Object {
-  def createInstance(ipfs:Ipfs):js.Promise[OrbitDB] = js.native
-}
-
-object PimpedOrbitDB{
-  def createInstance(ipfs:Ipfs):Future[OrbitDB] = OrbitDB
-    .createInstance(ipfs).toFuture
+@JSGlobal
+class OrbitDB  extends js.Object {
+  def createInstance(ipfs:Ipfs):OrbitDB = js.native
 }
 
 
-@js.native
-trait OrbitDB  extends js.Object {
-
-}
 

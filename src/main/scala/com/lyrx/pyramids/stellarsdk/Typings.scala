@@ -3,7 +3,7 @@ package com.lyrx.pyramids.stellarsdk
 import typings.nodeLib
 
 import scala.scalajs.js
-import scala.scalajs.js.annotation.{JSGlobal, JSImport}
+import scala.scalajs.js.annotation.JSImport
 
 @JSImport("stellar-sdk", "Network")
 @js.native
@@ -142,7 +142,7 @@ class Server extends js.Object {
 
 
   var serverURL: js.Any = js.native
-  def fetchBaseFee():js.Promise[(String,js.Dynamic)] = js.native
+  def fetchBaseFee():js.Promise[Double] = js.native
 
   def loadAccount(accountId: java.lang.String): js.Promise[Account] = js.native
 
@@ -155,7 +155,6 @@ class Server extends js.Object {
 
 
 @JSImport("stellar-sdk", "TransactionBuilder")
-//@JSGlobal("TransactionBuilder")
 @js.native
 class TransactionBuilder extends js.Object {
   def this(sourceAccount: Account) = this()
