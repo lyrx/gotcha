@@ -39,5 +39,4 @@ const main = (IPFS, ORBITDB) => {
 }
 
 
-main()
 
