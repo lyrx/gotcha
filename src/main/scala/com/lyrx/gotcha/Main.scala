@@ -6,10 +6,9 @@ import slinky.core.facade.ReactElement
 import slinky.web.ReactDOM
 
 import com.lyrx.gotcha.components._
-import com.lyrx.gotcha.docs._
+
 import scala.concurrent.ExecutionContext
-import org.scalajs.dom
-import MyComponents._
+
 import com.lyrx.pyramids.Pyramid
 
 object Main extends PageOptionTrait {

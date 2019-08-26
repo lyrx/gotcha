@@ -1,4 +1,4 @@
-package com.lyrx.gotcha.docs
+package com.lyrx.gotcha.components
 
 import com.lyrx.gotcha.MyComponents.pageHeading
 import com.lyrx.pyramids.Pyramid

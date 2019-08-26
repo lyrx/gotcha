@@ -1,13 +1,12 @@
-package com.lyrx.gotcha.docs
+package com.lyrx.gotcha.components
 
 import com.lyrx.gotcha.Main.initWithIdentityManagement
-import com.lyrx.gotcha.{GotchaPyramidRenderer, Main}
+import com.lyrx.gotcha.{Main, components}
 import com.lyrx.pyramids.Pyramid
 import org.scalajs.dom
 import slinky.web.html._
 
 import scala.collection.immutable.HashMap
-import scala.collection.mutable
 
 object PageOption extends PageOptionTrait {
 
@@ -63,11 +62,11 @@ object PageOption extends PageOptionTrait {
   )
 
   val map: Map[String, PageOption] = HashMap(
-    "landing" -> PageOption(
+    "landing" -> components.PageOption(
       german = Some((aPyramidOpt: Option[Pyramid]) => Landing(aPyramidOpt)),
       english = Some((aPyramidOpt: Option[Pyramid]) => LandingEN(aPyramidOpt))
     ),
-    "highavailability" -> PageOption(
+    "highavailability" -> components.PageOption(
       german = Some((aPyramidOpt: Option[Pyramid]) => Landing2(aPyramidOpt)),
       english = Some((aPyramidOpt: Option[Pyramid]) => Landing2(aPyramidOpt))
     ),
