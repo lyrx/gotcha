@@ -4,13 +4,13 @@ import com.lyrx.gotcha.{Main, OrbitDBSupport}
 import com.lyrx.pyramids.{Config, Pyramid}
 import slinky.core.ComponentWrapper
 import slinky.web.html.{div, id}
-import Main.ec
+
 import slinky.core.facade.ReactElement
 
 import scala.concurrent.{ExecutionContext, Future}
 import scala.scalajs.js
 
-
+import com.lyrx.gotcha.Implicits._
 
 
 object ManagementWrapper extends ComponentWrapper with OrbitDBSupport {

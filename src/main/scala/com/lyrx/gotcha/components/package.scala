@@ -6,8 +6,7 @@ import org.scalajs.dom.raw.EventTarget
 import slinky.core.facade.ReactElement
 
 import scala.concurrent.Future
-import Main.ec
-
+import Implicits._
 
 package object components {
   type GotchaRenderer = () => ReactElement

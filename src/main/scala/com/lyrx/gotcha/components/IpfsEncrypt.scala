@@ -2,7 +2,7 @@ package com.lyrx.gotcha.components
 
 
 import com.lyrx.gotcha.Main
-import Main.ec
+
 import com.lyrx.pyramids.{AccountData, Pyramid}
 import com.lyrx.pyramids.util.Implicits._
 import org.scalajs.dom
@@ -15,6 +15,8 @@ import slinky.web.html._
 import com.lyrx.gotcha.{Main, _}
 
 import scala.scalajs.js
+import Implicits._
+
 
 @react class IpfsEncrypt extends Component {
 
@@ -128,7 +130,7 @@ import scala.scalajs.js
 
       p.stellarRegisterByTransaction(aHash = h,
         privKey = aPrivKey,
-        pubKey = aPubKey)(Main.ec, Main.timeout)
+        pubKey = aPubKey)
         .map(_.map((result: js.UndefOr[String]) => {
 
           setState(

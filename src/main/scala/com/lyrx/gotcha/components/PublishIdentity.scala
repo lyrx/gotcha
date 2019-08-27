@@ -1,16 +1,13 @@
 package com.lyrx.gotcha.components
 
-import com.lyrx.gotcha.Main.ec
-import com.lyrx.gotcha.components.ManagementWrapper.Definition
+import com.lyrx.gotcha.Implicits._
 import com.lyrx.gotcha.{MyComponents, PageOptionTrait}
 import com.lyrx.pyramids.Pyramid
 import com.lyrx.pyramids.util.Implicits._
-import org.scalajs.dom
 import org.scalajs.dom.Event
 import org.scalajs.dom.html.Anchor
-import slinky.core.annotations.react
 import slinky.core.facade.ReactElement
-import slinky.core.{Component, ComponentWrapper, SyntheticEvent}
+import slinky.core.{ComponentWrapper, SyntheticEvent}
 import slinky.web.html._
 
 import scala.scalajs.js

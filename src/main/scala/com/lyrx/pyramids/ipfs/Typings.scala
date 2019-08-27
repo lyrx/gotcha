@@ -25,6 +25,13 @@ object OrbitDB  extends js.Object {
 
 @js.native
 trait OrbitDB  extends js.Object {
+
+
+}
+
+
+@js.native
+trait OrbitDBInstance  extends js.Object {
   val events:Events = js.native
 
 }

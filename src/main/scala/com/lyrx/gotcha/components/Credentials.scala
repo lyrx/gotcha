@@ -1,7 +1,7 @@
 package com.lyrx.gotcha.components
 
 import com.lyrx.gotcha.Main
-import com.lyrx.gotcha.Main.ec
+
 import com.lyrx.pyramids.Pyramid
 import org.scalajs.dom
 import org.scalajs.dom.Event
@@ -15,7 +15,7 @@ import com.lyrx.gotcha._
 import scala.concurrent.Future
 
 
-
+import Implicits._
 
 
 

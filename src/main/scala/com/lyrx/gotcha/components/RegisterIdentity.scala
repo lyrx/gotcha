@@ -1,16 +1,13 @@
 package com.lyrx.gotcha.components
 
-import com.lyrx.gotcha.Main.ec
+import com.lyrx.gotcha.Implicits._
 import com.lyrx.gotcha.{Main, MyComponents}
 import com.lyrx.pyramids.Pyramid
 import org.scalajs.dom.Event
 import org.scalajs.dom.html.Anchor
-import slinky.core.annotations.react
 import slinky.core.facade.ReactElement
-import slinky.core.{Component, ComponentWrapper, SyntheticEvent}
+import slinky.core.{ComponentWrapper, SyntheticEvent}
 import slinky.web.html._
-import com.lyrx.gotcha._
-import com.lyrx.gotcha.components.Wizard.Definition
 
 import scala.scalajs.js
 
@@ -64,8 +61,7 @@ object RegisterIdentity extends ComponentWrapper {
                     status = RuntimeStatus.ONGOING)))
               p.stellarRegisterByTransaction(aHash = s,
                 privKey = aPrivKey,
-                pubKey = aPubKey)(Main.ec,
-                Main.timeout)
+                pubKey = aPubKey)
                 .map(_.map((so) => {
                   Main.initWithIdentityManagement(props.pyramidOpt.map(_.withTID(so.toOption)))
                   setState(

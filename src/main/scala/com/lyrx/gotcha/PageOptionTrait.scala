@@ -1,9 +1,7 @@
 package com.lyrx.gotcha
 
-import com.lyrx.gotcha.Main.initReactElements
-import com.lyrx.gotcha.components.{GotchaPyramidRenderer, IdentityManagement, ManagementWrapper, Notary, PageOption}
+import com.lyrx.gotcha.components.{GotchaPyramidRenderer, IdentityManagement, ManagementWrapper, PageOption,Notary}
 import com.lyrx.pyramids.{Config, Pyramid}
-import com.lyrx.pyramids.stellarsdk.Timeout
 import org.scalajs.dom
 import org.scalajs.dom.document
 import slinky.core.facade.ReactElement
@@ -12,7 +10,9 @@ import slinky.web.ReactDOM
 import scala.concurrent.{ExecutionContext, Future}
 
 
+
 trait PageOptionTrait {
+
 
 
 
@@ -29,8 +29,7 @@ trait PageOptionTrait {
 
 
 
-  implicit val ec = ExecutionContext.global
-  implicit val timeout: Timeout = new Timeout(30)
+
 
   def initReactElements(pyramidOpt:Option[Pyramid],renderer:GotchaPyramidRenderer) = renderAll(
     ManagementWrapper(  ManagementWrapper.Props(pyramidOpt,renderer)))

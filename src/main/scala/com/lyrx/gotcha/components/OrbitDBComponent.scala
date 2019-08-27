@@ -5,8 +5,12 @@ import com.lyrx.pyramids.ipfs.{LoadProgress, OrbitDB}
 import slinky.core.{ComponentWrapper, KeyAndRefAddingStage}
 import slinky.core.facade.ReactElement
 import slinky.web.html.{className, div, h6, p, s}
+import com.lyrx.pyramids.ipfs.{OrbitDB, PimpedEvents}
 
+import scala.concurrent.ExecutionContext
 import scala.scalajs.js
+import com.lyrx.gotcha.Implicits._
+
 
 object OrbitDBComponent extends ComponentWrapper {
 
@@ -34,8 +38,9 @@ object OrbitDBComponent extends ComponentWrapper {
 
     }
 
-    def init(db: OrbitDB) = {
-      println("Yochaiii")
+    def init(db: OrbitDB)(implicit executionContext: ExecutionContext) = {
+     // db.events.onReady().map((r)=>println("Yochaiii"))
+
     }
 
     override def componentDidUpdate(prevProps: Props, prevState: State): Unit = {
