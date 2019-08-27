@@ -1,48 +1,69 @@
 package com.lyrx.gotcha.components
 
-import com.lyrx.gotcha.{ Main}
+import com.lyrx.gotcha.Main
 import com.lyrx.pyramids.{Config, Pyramid}
-import slinky.core.StatelessComponent
-import slinky.core.annotations.react
-import slinky.core.facade.ReactElement
+import slinky.core.{ComponentWrapper}
 import slinky.web.html.{div, id}
 import Main.ec
+
 import scala.concurrent.{ExecutionContext, Future}
+import scala.scalajs.js
 
 
-@react class ManagementWrapper extends StatelessComponent {
+
+
+object ManagementWrapper extends ComponentWrapper {
   case class Props(pyramidOpt: Option[Pyramid],
                    renderer: GotchaPyramidRenderer)
 
-  def initPyramid(isTestNet: Boolean)(
-    implicit executionContext: ExecutionContext) =
-    props.pyramidOpt
-      .map(p => Future { p })
-      .getOrElse(
-        Config
-          .createFuture(isTestNet)
-          .flatMap(Pyramid(_)
-            .loadPharaohKey())
+  case class State(s:String)
+
+
+
+
+  class Def(jsProps: js.Object) extends Definition(jsProps) {
+    def initialState = State("")
+
+    def initPyramid(isTestNet: Boolean)(
+      implicit executionContext: ExecutionContext) =
+      props.pyramidOpt
+        .map(p => Future { p })
+        .getOrElse(
+          Config
+            .createFuture(isTestNet)
+            .flatMap(Pyramid(_)
+              .loadPharaohKey())
+        )
+
+
+
+    def render = {
+      implicit val pyrOpt: Option[Pyramid] = props.pyramidOpt
+      div(id := "wrapper")(
+        SideBar(pyrOpt),
+        ContentWrapper(pyrOpt, (() => props.renderer(pyrOpt)))
       )
-
-  override def render(): ReactElement = {
-    implicit val pyrOpt: Option[Pyramid] = props.pyramidOpt
-    div(id := "wrapper")(
-      SideBar(pyrOpt),
-      ContentWrapper(pyrOpt, (() => props.renderer(pyrOpt)))
-    )
-  }
-
-  override def componentDidMount(): Unit = {
-    initPyramid(false)
-      .map(
-        p =>
-          Main
+    }
+    override def componentDidMount(): Unit = {
+      initPyramid(false)
+        .map(
+          p =>{Main
             .renderAll(
               ManagementWrapper(
-                Some(new Pyramid(p.config
+                ManagementWrapper.Props(Some(new Pyramid(p.config
                   .withMessage("Eternalize Your Documents!"))),
-                props.renderer)))
+                props.renderer))
+            )
+          }
+        )
+    }
+
   }
+
+
+
+
+
+
 }
 

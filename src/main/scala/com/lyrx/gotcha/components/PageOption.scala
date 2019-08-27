@@ -88,17 +88,12 @@ trait PageOptionTrait {
       .map(h => if (PageOption.map.contains(h)) Some(h) else None)
       .getOrElse(None)
 
-  def orbitDB()(implicit executionContext: ExecutionContext) = {
-     val ipfs  = PeerSupport.orbitDB()
-    // ipfs.onException().map(e=>println(e))
-    // ipfs.onReady().map(aipfs=>println(s"Yochai: ${aipfs}"))
-  }
+
 
   def init()(implicit executionContext: ExecutionContext) = {
     withPage()
       .map(fromHash(_))
       .getOrElse(fromDefault())
-    orbitDB()
   }
 
   def locale() = {

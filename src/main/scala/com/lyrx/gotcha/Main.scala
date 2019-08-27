@@ -17,7 +17,7 @@ object Main extends PageOptionTrait {
   implicit val timeout: Timeout = new Timeout(30)
 
   def initReactElements(pyramidOpt:Option[Pyramid],renderer:GotchaPyramidRenderer) = renderAll(
-    ManagementWrapper(pyramidOpt,renderer))
+    ManagementWrapper(  ManagementWrapper.Props(pyramidOpt,renderer)))
 
 
 
