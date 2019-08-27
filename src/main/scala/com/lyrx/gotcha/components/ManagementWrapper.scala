@@ -25,17 +25,6 @@ object ManagementWrapper extends ComponentWrapper with OrbitDBSupport {
   class Def(jsProps: js.Object) extends Definition(jsProps) {
     def initialState = State("")
 
-    def initPyramid(isTestNet: Boolean)(
-      implicit executionContext: ExecutionContext) =
-      props.pyramidOpt
-        .map(p => Future { p })
-        .getOrElse(
-          Config
-            .createFuture(isTestNet)
-            .flatMap(Pyramid(_)
-              .loadPharaohKey())
-        )
-
 
 
     override def render(): ReactElement = {
@@ -46,7 +35,7 @@ object ManagementWrapper extends ComponentWrapper with OrbitDBSupport {
       )
     }
     override def componentDidMount(): Unit = {
-      initPyramid(false)
+      initPyramid(false,props.pyramidOpt)
         .map(
           p => initWithPyramid(new Pyramid(p.config
             .withMessage("Free Your Documents!")))

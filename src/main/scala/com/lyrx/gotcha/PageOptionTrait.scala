@@ -1,18 +1,32 @@
 package com.lyrx.gotcha
 
 import com.lyrx.gotcha.Main.initReactElements
-import com.lyrx.gotcha.components.{GotchaPyramidRenderer, ManagementWrapper, PageOption,IdentityManagement,Notary}
-import com.lyrx.pyramids.Pyramid
+import com.lyrx.gotcha.components.{GotchaPyramidRenderer, IdentityManagement, ManagementWrapper, Notary, PageOption}
+import com.lyrx.pyramids.{Config, Pyramid}
 import com.lyrx.pyramids.stellarsdk.Timeout
 import org.scalajs.dom
 import org.scalajs.dom.document
 import slinky.core.facade.ReactElement
 import slinky.web.ReactDOM
 
-import scala.concurrent.ExecutionContext
+import scala.concurrent.{ExecutionContext, Future}
 
 
 trait PageOptionTrait {
+
+
+
+  def initPyramid(isTestNet: Boolean,pyramidOpt:Option[Pyramid])(
+    implicit executionContext: ExecutionContext) =
+    pyramidOpt
+      .map(p => Future { p })
+      .getOrElse(
+        Config
+          .createFuture(isTestNet)
+          .flatMap(Pyramid(_)
+            .loadPharaohKey())
+      )
+
 
 
   implicit val ec = ExecutionContext.global
