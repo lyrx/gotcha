@@ -1,7 +1,8 @@
 package com.lyrx.pyramids
 
-import com.lyrx.pyramids.ipfsapi.{IpfsSupport}
+import com.lyrx.pyramids.ipfsapi.IpfsSupport
 import com.lyrx.pyramids.crypto.{CryptoSupport, Cryptography}
+import com.lyrx.pyramids.ipfs.{Ipfs, OrbitDB}
 import org.scalajs.dom.raw.File
 
 import scala.concurrent.ExecutionContext
@@ -67,6 +68,10 @@ case class Config(
 
 
   def withIdentityName(n:String) = this.copy(cryptoSupport = this.cryptoSupport.withName(n))
+
+
+  def withIpfs(ipfs:Ipfs)=this.copy(p2pData=this.p2pData.withIpfs(ipfs))
+  def withOrbit(db:OrbitDB)=this.copy(p2pData=this.p2pData.withOrbit(db))
 
 
 
