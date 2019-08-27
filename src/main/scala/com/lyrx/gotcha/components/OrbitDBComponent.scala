@@ -44,6 +44,15 @@ object OrbitDBComponent extends ComponentWrapper {
       if(prevDBOpt.isEmpty && ! dbOpt.isEmpty){
         init(dbOpt.get)
       }
+      /*
+      prevState.loadProgressOpt match {
+        case state.loadProgressOpt =>
+        case _ =>
+      }
+
+       */
+
+
 
     }
 
