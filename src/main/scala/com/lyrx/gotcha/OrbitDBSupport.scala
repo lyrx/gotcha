@@ -10,7 +10,6 @@ trait OrbitDBSupport  {
   def orbitDB(p:Pyramid)(implicit executionContext: ExecutionContext) = {
     val ipfs:Ipfs = PeerSupport
       .orbitDB()
-      //.onException()
 
     ipfs.onReady().map(aipfs=>{})
     ipfs.onException().map(e=>println(e))
