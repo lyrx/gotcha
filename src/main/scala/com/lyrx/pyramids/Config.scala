@@ -31,7 +31,7 @@ object Config {
                 identityOpt = None,
               ),
             p2pData = P2PData(
-              StellarData(
+              stellar = StellarData(
                 transactionIdOpt=None,
                 registrationFeeXLMOpt = if(isTestNet)
                   Some("4")
@@ -44,6 +44,8 @@ object Config {
                   Some("0.00001"),
                 isTestNet
               )
+              , ipfsOpt = None
+              , dbOpt = None
             ),
             ipfsSupport = IPFS_DEFAULT
         ))
