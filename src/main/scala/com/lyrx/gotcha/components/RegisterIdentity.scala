@@ -49,7 +49,7 @@ import com.lyrx.gotcha._
         .flatMap(p => {
           val aPrivKey = MyComponents.passwordField.current.value
           val aPubKey = MyComponents.idsField.current.value
-          p.config.ipfsData.regOpt.flatMap(s => {
+          p.config.p2pData.ipfsData.regOpt.flatMap(s => {
             setState(
               state.copy(
                 runtimeStatus = RuntimeStatus(msg = "Registration ongoing",

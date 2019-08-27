@@ -24,7 +24,7 @@ import com.lyrx.gotcha._
           div())
 
         ,(if (props.pyramidOpt
-               .map(p => p.config.ipfsData.regOpt.isDefined)
+               .map(p => p.config.p2pData.ipfsData.regOpt.isDefined)
                .getOrElse(false)) {
            RegisterIdentity(props.pyramidOpt)
          } else div())

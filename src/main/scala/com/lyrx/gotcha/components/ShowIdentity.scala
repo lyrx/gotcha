@@ -18,7 +18,7 @@ import slinky.web.html._
 
   def identHash()=props
     .pyramidOpt
-    .flatMap(_.config.ipfsData.identityOpt.map(_.identity.getOrElse("")))
+    .flatMap(_.config.p2pData.ipfsData.identityOpt.map(_.identity.getOrElse("")))
     .getOrElse("")
 
 

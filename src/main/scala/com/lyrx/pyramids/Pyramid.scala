@@ -36,7 +36,7 @@ class Pyramid(val config: Config)
 
   def clearIdentity() = new Pyramid(config.clearIdentity())
 
-  def hasIdentity()=config.ipfsData.regOpt.isDefined
+  def hasIdentity()=config.p2pData.ipfsData.regOpt.isDefined
 
   private def ipfsSupport() = config.ipfsSupport()
 
@@ -100,7 +100,7 @@ class Pyramid(val config: Config)
       .map(Pyramid(_))
 
   def loadIdentity()(implicit executionContext: ExecutionContext) =
-    config.ipfsData.regOpt
+    config.p2pData.ipfsData.regOpt
       .map(hash => ipfsSupport().readIpfsString(hash))
       .getOrElse(Future { None })
       .fmap(
@@ -111,7 +111,7 @@ class Pyramid(val config: Config)
       .fmap(io => new Pyramid(config.withIdentity(Some(io))))
 
   def loadPharaohKey()(implicit executionContext: ExecutionContext) =
-    config.ipfsData.pharaoOpt
+    config.p2pData.ipfsData.pharaoOpt
       .map(
         h =>
           ipfsSupport()

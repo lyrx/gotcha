@@ -57,7 +57,7 @@ import slinky.web.html._
 
   def registerHashOpt() =
     props.pyramidOpt
-      .flatMap(p => p.config.ipfsData.regOpt)
+      .flatMap(p => p.config.p2pData.ipfsData.regOpt)
 
   def handleClick(e: SyntheticEvent[Anchor, Event]) =
     if (!state.runtimeStatus.isOnGoing())
