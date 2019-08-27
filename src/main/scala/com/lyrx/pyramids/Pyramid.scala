@@ -3,6 +3,7 @@ package com.lyrx.pyramids
 import com.lyrx.pyramids
 import com.lyrx.pyramids.ipfsapi.IpfsSupport
 import com.lyrx.pyramids.crypto.{CryptoSupport, PyramidCryptoKey, WalletNative}
+import com.lyrx.pyramids.ipfs.{Ipfs, OrbitDB}
 import com.lyrx.pyramids.jszip.ZipSupport
 import com.lyrx.pyramids.stellarsdk.{Stellar, Timeout}
 import com.lyrx.pyramids.util.Implicits._
@@ -30,6 +31,10 @@ class Pyramid(val config: Config)
     extends PyramidJSON
     with Stellar
     with ZipSupport {
+
+
+  def withIpfs(ipfs: Ipfs) = new Pyramid(this.config.withIpfs(ipfs))
+  def withOrbit(db: OrbitDB) =new Pyramid( this.config.withOrbit(db))
 
 
   def withTID(id:Option[String])=new Pyramid(config.withTID(id))
