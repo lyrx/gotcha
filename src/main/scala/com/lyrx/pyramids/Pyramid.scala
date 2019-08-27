@@ -38,7 +38,7 @@ class Pyramid(val config: Config)
 
   def hasIdentity()=config.p2pData.ipfsData.regOpt.isDefined
 
-  private def ipfsSupport() = config.ipfsSupport()
+  private def ipfsSupport() = config.p2pData.ipfsSupport()
 
   def crypto() = config.cryptoSupport
 

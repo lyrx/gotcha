@@ -6,7 +6,8 @@ case class P2PData(
     stellar: StellarData,
     ipfsOpt: Option[Ipfs],
     ipfsData: IpfsData,
-    dbOpt: Option[OrbitDB]
+    dbOpt: Option[OrbitDB],
+    ipfsSupport: IPFS
 ) {
   def withTID(id: Option[String]) =
     this.copy(stellar = this.stellar.withTID(id))
@@ -17,7 +18,8 @@ case class P2PData(
 
   def withIpfsData(ipfsData:IpfsData) =  this.copy(ipfsData = ipfsData)
 
-
+  def withIpfssupport(aIpfsSupport: IPFS) =
+    this.copy(ipfsSupport = aIpfsSupport)
 
 
 }

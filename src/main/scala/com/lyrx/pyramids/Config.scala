@@ -9,7 +9,7 @@ import scala.concurrent.ExecutionContext
 
 object Config {
 
-  val IPFS_DEFAULT = () => IpfsSupport.aws()
+  val IPFS_DEFAULT:IPFS = () => IpfsSupport.aws()
 
   def createFuture(isTestNet: Boolean)(
       implicit executionContext: ExecutionContext) =
@@ -43,18 +43,19 @@ object Config {
                 pharaoOpt =
                   Some("QmUK2hhKzDfEtnetu41AZUjc7CU8EtLn135EVKyHprVVyn"),
                 identityOpt = None,
-              )
-            ),
-            ipfsSupport = IPFS_DEFAULT
+              ),
+              ipfsSupport = IPFS_DEFAULT
+            )
         ))
 }
 
 case class Config(
     cryptoSupport: Cryptography,
     frontendData: FrontendData,
-    p2pData: P2PData,
-    ipfsSupport: IPFS
+    p2pData: P2PData
 ) {
+  def withIpfssupport(h: IPFS):Config = this.copy(p2pData=this.p2pData.withIpfssupport(h))
+
 
   def withTID(id: Option[String]) =
     this.copy(p2pData = this.p2pData.withTID(id))
@@ -70,8 +71,7 @@ case class Config(
       ipfsData = this.p2pData.ipfsData.copy(regOpt = None, identityOpt = None))
   )
 
-  def withIpfssupport(aIpfsSupport: IPFS) =
-    this.copy(ipfsSupport = aIpfsSupport)
+
 
   def withMessage(s: String) =
     this.copy(frontendData = this.frontendData.copy(message = s))
