@@ -25,11 +25,7 @@ object IdentityManagement extends StatelessComponentWrapper {
           PublishIdentity(PublishIdentity.Props(props.pyramidOpt)),
             ShowIdentity(ShowIdentity.Props(props.pyramidOpt))
           , OmniDB(props.pyramidOpt)
-          , (if (props.pyramidOpt
-            .map(p => p.config.p2pData.ipfsData.regOpt.isDefined)
-            .getOrElse(false)) {
-            RegisterIdentity(props.pyramidOpt)
-          } else div())
+          , RegisterIdentity(RegisterIdentity.Props(props.pyramidOpt))
         ),
         div(className := "row")(
           Credentials(props.pyramidOpt)

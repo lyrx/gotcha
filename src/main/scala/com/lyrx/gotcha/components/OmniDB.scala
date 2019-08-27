@@ -1,9 +1,10 @@
 package com.lyrx.gotcha.components
 
 import com.lyrx.pyramids.Pyramid
+import com.lyrx.pyramids.ipfs.OrbitDB
 import slinky.core.{ComponentWrapper, KeyAndRefAddingStage}
 import slinky.core.facade.ReactElement
-import slinky.web.html.p
+import slinky.web.html.{className, div, h6, p, s}
 
 import scala.scalajs.js
 
@@ -26,8 +27,18 @@ object OmniDB extends ComponentWrapper {
       .pyramidOpt
       .dbOpt()
       .map(db=>{
-      p("Got DB"):ReactElement
-    }).getOrElse(p("No DB")):ReactElement
+        renderDB(db):ReactElement
+    }).getOrElse(div()):ReactElement
+
+
+    private def renderDB(db:OrbitDB) =
+      div(
+        className := s"card shadow my-mb-4 my-card")(
+        div(className := "card-header py-3")(
+          h6(className := "m-0 font-weight-bold text-primary")(
+            "P2P Log")))
+
+
 
 
 
