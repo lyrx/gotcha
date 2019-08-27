@@ -43,13 +43,16 @@ object ManagementWrapper extends ComponentWrapper with OrbitDBSupport {
     }
 
     private def initWithPyramid(p: Pyramid) = {
-      Main
-        .renderAll(
-          ManagementWrapper(
-            ManagementWrapper.Props(Some(p),
-              props.renderer))
-        )
-      orbitDB(p)
+      renderAllWithPyramid(p)
+      orbitDB(p).map(renderAllWithPyramid(_))
+    }
+
+    private def renderAllWithPyramid(p: Pyramid) = {
+      renderAll(
+        ManagementWrapper(
+          ManagementWrapper.Props(Some(p),
+            props.renderer))
+      )
     }
   }
 
