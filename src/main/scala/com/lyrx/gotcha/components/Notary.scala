@@ -18,7 +18,7 @@ import slinky.web.html.{className, div, id}
       ,
       div(className := "row")(
         IpfsEncrypt(props.pyramidOpt)
-        ,IpfsUpload(props.pyramidOpt)
+        ,IpfsUpload(IpfsUpload.Props(props.pyramidOpt))
       ),
       div(className := "row")(
         PharaohBalance(
