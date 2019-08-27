@@ -30,7 +30,7 @@ object Config {
                   Some("QmUK2hhKzDfEtnetu41AZUjc7CU8EtLn135EVKyHprVVyn"),
                 identityOpt = None,
               ),
-            blockchainData = BlockchainData(
+            p2pData = P2PData(
               StellarData(
                 transactionIdOpt=None,
                 registrationFeeXLMOpt = if(isTestNet)
@@ -53,15 +53,15 @@ object Config {
 
 
 case class Config(
-    cryptoSupport: Cryptography,
-    frontendData: FrontendData,
-    ipfsData: IpfsData,
-    blockchainData: BlockchainData,
-    ipfsSupport: IPFS
+                   cryptoSupport: Cryptography,
+                   frontendData: FrontendData,
+                   ipfsData: IpfsData,
+                   p2pData: P2PData,
+                   ipfsSupport: IPFS
 ) {
 
 
-  def withTID(id:Option[String])=this.copy(blockchainData=this.blockchainData.withTID(id))
+  def withTID(id:Option[String])=this.copy(p2pData=this.p2pData.withTID(id))
 
 
   def withIdentityName(n:String) = this.copy(cryptoSupport = this.cryptoSupport.withName(n))

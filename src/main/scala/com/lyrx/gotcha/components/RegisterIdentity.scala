@@ -25,7 +25,7 @@ import com.lyrx.gotcha._
   override def componentDidMount(): Unit = {
     val fee: String = props.pyramidOpt
       .flatMap(
-        _.config.blockchainData.stellar.registrationFeeXLMOpt
+        _.config.p2pData.stellar.registrationFeeXLMOpt
           .map(fee => s"Registration fee: XLM ${fee}"))
       .getOrElse("")
     setState(
@@ -34,11 +34,11 @@ import com.lyrx.gotcha._
   }
 
   override def componentDidUpdate(prevProps: Props, prevState: State): Unit = {
-    val n  = props.pyramidOpt.map(_.config.blockchainData.stellar.transactionIdOpt).getOrElse(None)
+    val n  = props.pyramidOpt.map(_.config.p2pData.stellar.transactionIdOpt).getOrElse(None)
     val nn = n.getOrElse("")
     val aa = prevState.aIdOpt.getOrElse("")
    if( aa != nn){
-     val n  = props.pyramidOpt.map(_.config.blockchainData.stellar.transactionIdOpt).getOrElse(None)
+     val n  = props.pyramidOpt.map(_.config.p2pData.stellar.transactionIdOpt).getOrElse(None)
      setState(state.copy(aIdOpt = n))
    }
   }

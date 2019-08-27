@@ -28,7 +28,7 @@ package object components {
   implicit class PimpedPyramidOpt(po: Option[Pyramid]) {
 
     def isStellarTestNet() =
-      po.map(_.config.blockchainData.stellar.testNet).getOrElse(false)
+      po.map(_.config.p2pData.stellar.testNet).getOrElse(false)
 
     def steepx() =
       if (isStellarTestNet())
@@ -36,7 +36,7 @@ package object components {
       else
         "steexp.com"
 
-    def stellarData()=po.map(_.config.blockchainData.stellar)
+    def stellarData()=po.map(_.config.p2pData.stellar)
 
     def stellarPassword() = stellarData().map(_.passwordFieldValueDefault()).getOrElse("")
 

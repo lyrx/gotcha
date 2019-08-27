@@ -245,26 +245,26 @@ class Pyramid(val config: Config)
 
   def balanceStellar(privateKey: String)(
       implicit executionContext: ExecutionContext) =
-    balanceForPrivate(privateKey, config.blockchainData.stellar.testNet)
+    balanceForPrivate(privateKey, config.p2pData.stellar.testNet)
 
 
 
 
   def balanceForAccount(s: String)(
       implicit executionContext: ExecutionContext) =
-    balanceForPublic(s, config.blockchainData.stellar.testNet)
+    balanceForPublic(s, config.p2pData.stellar.testNet)
 
   def stellarFromSecret(privateKey: String)(
     implicit executionContext: ExecutionContext) =if ("".equals(privateKey))
     ""
     else
-    fromSecret(privateKey, config.blockchainData.stellar.testNet)
+    fromSecret(privateKey, config.p2pData.stellar.testNet)
 
 
 
   def stellarAccountInfo(s: String)(
     implicit executionContext: ExecutionContext):Future[AccountData] =
-    accountData(s, config.blockchainData.stellar.testNet)
+    accountData(s, config.p2pData.stellar.testNet)
 
 
 
@@ -278,14 +278,14 @@ class Pyramid(val config: Config)
                                    pubKey: String)(
       implicit executionContext: ExecutionContext,
       timeout: Timeout) =
-    config.blockchainData.stellar.notarizeFeeXLMOpt
+    config.p2pData.stellar.notarizeFeeXLMOpt
       .map(
         fee =>{
           register(value = aHash,
             privateKey = privKey,
             aSendTo = pubKey,
             amount = fee,
-            isTestNet = config.blockchainData.stellar.testNet)
+            isTestNet = config.p2pData.stellar.testNet)
         })
 
 
