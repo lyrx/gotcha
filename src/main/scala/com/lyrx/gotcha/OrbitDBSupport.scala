@@ -1,19 +1,19 @@
 package com.lyrx.gotcha
 
 import com.lyrx.pyramids.Pyramid
-import com.lyrx.pyramids.ipfs.PeerSupport
+import com.lyrx.pyramids.ipfs.{Ipfs, PeerSupport, PimpedIpfs}
 
 import scala.concurrent.ExecutionContext
-import scala.scalajs.js
 
 trait OrbitDBSupport  {
 
   def orbitDB(p:Pyramid)(implicit executionContext: ExecutionContext) = {
-    PeerSupport
+    val ipfs:Ipfs = PeerSupport
       .orbitDB()
-      .onException()
-    // ipfs.onException().map(e=>println(e))
-    // ipfs.onReady().map(aipfs=>println(s"Yochai: ${aipfs}"))
+      //.onException()
+
+    ipfs.onReady().map(aipfs=>{})
+    ipfs.onException().map(e=>println(e))
   }
 
 }

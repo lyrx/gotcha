@@ -3,7 +3,7 @@ package com.lyrx.gotcha.components
 import com.lyrx.gotcha.Main.initWithIdentityManagement
 import com.lyrx.gotcha.{Main, components}
 import com.lyrx.pyramids.Pyramid
-import com.lyrx.pyramids.ipfs.PeerSupport
+
 import org.scalajs.dom
 import slinky.web.html._
 
