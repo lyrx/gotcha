@@ -1,6 +1,6 @@
 package com.lyrx
 
-import com.lyrx.pyramids.ipfsapi.Ipfs
+import com.lyrx.pyramids.ipfsapi.IpfsAPI
 import com.lyrx.pyramids.stellarsdk.AccountDetail
 import org.scalajs.dom.raw
 import org.scalajs.dom.raw.{Blob, FileReader, ProgressEvent}
@@ -12,7 +12,7 @@ import scala.scalajs.js
 
 
 package object pyramids {
-  type  IPFS = () => Ipfs
+  type  IPFS = () => IpfsAPI
 
 
   implicit def convertStellarAccount(input:AccountDetail):AccountData=AccountData(

@@ -9,7 +9,7 @@ import scala.scalajs.js.typedarray.ArrayBuffer
 import com.lyrx.pyramids.util.Implicits._
 import org.scalajs.dom.File
 
-trait Ipfs {
+trait IpfsAPI {
 
   val ipfsClientOpt: ClientConfig
 

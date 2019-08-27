@@ -13,26 +13,26 @@ object IpfsSupport{
 
 
 
-  def infura() : Ipfs= new IpfsSupport(genClient(l(
+  def infura() : IpfsAPI= new IpfsSupport(genClient(l(
     "host" -> "ipfs.infura.io",
     "port" -> 5001,
     "protocol" -> "https"
   )))
 
 
-  def macmini() : Ipfs= new IpfsSupport(genClient(l(
+  def macmini() : IpfsAPI= new IpfsSupport(genClient(l(
     "host" -> "192.168.1.30",
     "port" -> 5001,
     "protocol" -> "http"
   )))
 
-   def aws() : Ipfs= new IpfsSupport(genClient(l(
+   def aws() : IpfsAPI= new IpfsSupport(genClient(l(
     "host" -> "blockchain.lyrx.de",
     "port" -> 5001,
     "protocol" -> "https"
   )))
 
-  def temporal(token:String,host:String):Ipfs = new IpfsSupport(genClient(l(
+  def temporal(token:String,host:String):IpfsAPI = new IpfsSupport(genClient(l(
     "host" -> host,
     "port" -> 443,
     "protocol" -> "https",
@@ -47,12 +47,12 @@ object IpfsSupport{
 
 
 
-  def apply( ipfsClientOpt: ClientConfig): Ipfs = new IpfsSupport(ipfsClientOpt)
+  def apply( ipfsClientOpt: ClientConfig): IpfsAPI = new IpfsSupport(ipfsClientOpt)
 
   def apply() = new IpfsSupport(()=>None)
 }
 
 
-class IpfsSupport(override val ipfsClientOpt: ClientConfig) extends Ipfs{
+class IpfsSupport(override val ipfsClientOpt: ClientConfig) extends IpfsAPI{
 
 }
