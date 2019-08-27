@@ -30,8 +30,8 @@ object ManagementWrapper extends ComponentWrapper with OrbitDBSupport {
     override def render(): ReactElement = {
       implicit val pyrOpt: Option[Pyramid] = props.pyramidOpt
       div(id := "wrapper")(
-        SideBar(pyrOpt),
-        ContentWrapper(pyrOpt, (() => props.renderer(pyrOpt)))
+        SideBar(SideBar.Props(pyrOpt)),
+        ContentWrapper(ContentWrapper.Props(pyrOpt, (() => props.renderer(pyrOpt))))
       )
     }
     override def componentDidMount(): Unit = {

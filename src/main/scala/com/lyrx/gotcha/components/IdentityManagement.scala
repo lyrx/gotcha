@@ -2,44 +2,47 @@ package com.lyrx.gotcha.components
 
 import com.lyrx.gotcha.MyComponents.pageHeading
 import com.lyrx.pyramids.Pyramid
-import slinky.core.StatelessComponent
+import slinky.core.{StatelessComponent, StatelessComponentWrapper}
 import slinky.core.annotations.react
 import slinky.core.facade.ReactElement
 import slinky.web.html._
 import com.lyrx.gotcha._
+import com.lyrx.gotcha.components.Wizard.Definition
 
-@react class IdentityManagement extends StatelessComponent {
+import scala.scalajs.js
+
+object IdentityManagement extends StatelessComponentWrapper {
   case class Props(pyramidOpt: Option[Pyramid])
 
-  def render(): ReactElement =
-    div(className := "container-fluid", id := "pyramid-root")(
-      pageHeading("Your Decentralized Identity Management"),
-      div(className := "row")(
 
-        PublishIdentity(PublishIdentity.Props(props.pyramidOpt))
 
-        ,(if (props.pyramidOpt.map(_.hasIdentity()).getOrElse(false))
-          ShowIdentity(props.pyramidOpt)
-        else
-          div())
 
-        ,(if (props.pyramidOpt
-               .map(p => p.config.p2pData.ipfsData.regOpt.isDefined)
-               .getOrElse(false)) {
-           RegisterIdentity(props.pyramidOpt)
-         } else div())
-      ),
-      div(className := "row")(
-        Credentials(props.pyramidOpt)
-      ),
-      div(className := "row")(
-        PharaohBalance(
-          props.pyramidOpt,
-          title = "Client Account",
-          currency = "XLM",
-          pubKey = props.pyramidOpt.clientAccount()
+  class Def(jsProps: js.Object) extends Definition(jsProps) {
+    def render(): ReactElement =
+      div(className := "container-fluid", id := "pyramid-root")(
+        pageHeading("Your Decentralized Identity Management"),
+        div(className := "row")(
+          PublishIdentity(PublishIdentity.Props(props.pyramidOpt)),
+            ShowIdentity(ShowIdentity.Props(props.pyramidOpt))
+          , OmniDB(props.pyramidOpt)
+          , (if (props.pyramidOpt
+            .map(p => p.config.p2pData.ipfsData.regOpt.isDefined)
+            .getOrElse(false)) {
+            RegisterIdentity(props.pyramidOpt)
+          } else div())
+        ),
+        div(className := "row")(
+          Credentials(props.pyramidOpt)
+        ),
+        div(className := "row")(
+          PharaohBalance(
+            props.pyramidOpt,
+            title = "Client Account",
+            currency = "XLM",
+            pubKey = props.pyramidOpt.clientAccount()
+          )
         )
       )
-    )
+  }
 
 }

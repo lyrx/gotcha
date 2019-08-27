@@ -39,7 +39,7 @@ trait PageOptionTrait {
 
   def initWithIdentityManagement(po:Option[Pyramid]): Unit =
     initReactElements(po,
-      ((aPyramidOpt) =>IdentityManagement(aPyramidOpt) ))
+      ((aPyramidOpt) =>IdentityManagement(IdentityManagement.Props(aPyramidOpt) )))
 
   def initWithNotary(po:Option[Pyramid]): Unit =
     initReactElements(po,
