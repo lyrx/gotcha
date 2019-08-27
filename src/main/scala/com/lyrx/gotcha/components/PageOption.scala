@@ -1,7 +1,7 @@
 package com.lyrx.gotcha.components
 
 
-import com.lyrx.gotcha.{Main, PageOptionTrait, components}
+import com.lyrx.gotcha.{ PageOptionTrait, components}
 import com.lyrx.pyramids.Pyramid
 import org.scalajs.dom
 import slinky.web.html._
@@ -87,6 +87,6 @@ case class PageOption(
       english
 
   def render(pyramidOpt: Option[Pyramid]) =
-    renderer().map(r => Main.initReactElements(pyramidOpt, r))
+    renderer().map(r => initReactElements(pyramidOpt, r))
 
 }

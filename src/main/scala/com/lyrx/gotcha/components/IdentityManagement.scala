@@ -16,7 +16,7 @@ import com.lyrx.gotcha._
       pageHeading("Your Decentralized Identity Management"),
       div(className := "row")(
 
-        PublishIdentity(props.pyramidOpt)
+        PublishIdentity(PublishIdentity.Props(props.pyramidOpt))
 
         ,(if (props.pyramidOpt.map(_.hasIdentity()).getOrElse(false))
           ShowIdentity(props.pyramidOpt)
