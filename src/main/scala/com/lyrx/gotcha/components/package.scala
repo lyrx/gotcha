@@ -43,6 +43,7 @@ package object components {
 
     def clientAccount() =  po.map(_.stellarFromSecret(po.stellarPassword())).getOrElse("")
 
+    def dbOpt() = po.flatMap(_.db())
 
 
   }

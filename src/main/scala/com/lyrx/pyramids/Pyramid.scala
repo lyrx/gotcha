@@ -48,6 +48,8 @@ class Pyramid(val config: Config)
   def crypto() = config.cryptoSupport
 
 
+  def db()=config.p2pData.dbOpt
+
 
   def msg(s: String) = new Pyramid(config.withMessage(s))
 
