@@ -1,12 +1,14 @@
 package com.lyrx.gotcha
 
+import com.lyrx.pyramids.Pyramid
 import com.lyrx.pyramids.ipfs.PeerSupport
 
 import scala.concurrent.ExecutionContext
+import scala.scalajs.js
 
-trait OrbitDBSupport {
+trait OrbitDBSupport  {
 
-  def orbitDB()(implicit executionContext: ExecutionContext) = {
+  def orbitDB(p:Pyramid)(implicit executionContext: ExecutionContext) = {
     PeerSupport
       .orbitDB()
       .onException()
