@@ -19,8 +19,13 @@ class Ipfs extends js.Object {
 
 @js.native
 @JSGlobal
-class OrbitDB  extends js.Object {
+object OrbitDB  extends js.Object {
   def createInstance(ipfs:Ipfs):OrbitDB = js.native
+}
+
+@js.native
+trait OrbitDB  extends js.Object {
+
 }
 
 
