@@ -1,4 +1,4 @@
-![](src/main/webapp/img/logo.png)
+![](src/main/webapp/img/ETER-header.png)
 
 # Save/Encrypt/Register Your Documents In Peer To Peer Networks #
 

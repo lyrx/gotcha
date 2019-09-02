@@ -67,7 +67,7 @@ object OrbitDBComponent extends ComponentWrapper {
         className := s"card shadow my-mb-4 my-card")(
         div(className := "card-header py-3")(
           h6(className := "m-0 font-weight-bold text-primary")(
-            "P2P Log")))
+            "P2P Log (OrbitDB)")))
 
 
 
