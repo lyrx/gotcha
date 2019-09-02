@@ -22,5 +22,5 @@ and provide simple coding samples [here](https://github.com/deshbandhumishra/eur
  
 # What Can I Do With This Application? #
 
-[Read on ...]("features.md")
+[Read on ...](features.md)
  
