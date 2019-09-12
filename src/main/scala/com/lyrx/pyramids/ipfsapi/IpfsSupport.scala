@@ -32,6 +32,13 @@ object IpfsSupport{
     "protocol" -> "https"
   )))
 
+  def perfectPrivacy() : IpfsAPI= new IpfsSupport(genClient(l(
+    "host" -> "80.255.7.86",
+    "port" ->  57788,  //5001,
+    "protocol" -> "http"
+  )))
+
+
   def temporal(token:String,host:String):IpfsAPI = new IpfsSupport(genClient(l(
     "host" -> host,
     "port" -> 443,
