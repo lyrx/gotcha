@@ -1,5 +1,7 @@
 package com.lyrx.pyramids.ipfsapi
 
+import com.lyrx.pyramids.IpfsTrait
+
 import scala.scalajs.js
 import js.Dynamic.{literal => l}
 
@@ -13,33 +15,33 @@ object IpfsSupport{
 
 
 
-  def infura() : IpfsAPI= new IpfsSupport(genClient(l(
+  def infura() : IpfsTrait= new IpfsSupport(genClient(l(
     "host" -> "ipfs.infura.io",
     "port" -> 5001,
     "protocol" -> "https"
   )))
 
 
-  def macmini() : IpfsAPI= new IpfsSupport(genClient(l(
+  def macmini() : IpfsTrait= new IpfsSupport(genClient(l(
     "host" -> "192.168.1.30",
     "port" -> 5001,
     "protocol" -> "http"
   )))
 
-   def aws() : IpfsAPI= new IpfsSupport(genClient(l(
+   def aws() : IpfsTrait= new IpfsSupport(genClient(l(
     "host" -> "blockchain.lyrx.de",
     "port" -> 5001,
     "protocol" -> "https"
   )))
 
-  def perfectPrivacy() : IpfsAPI= new IpfsSupport(genClient(l(
+  def perfectPrivacy() : IpfsTrait= new IpfsSupport(genClient(l(
     "host" -> "80.255.7.88",
     "port" ->  57788,  //5001,
     "protocol" -> "http"
   )))
 
 
-  def temporal(token:String,host:String):IpfsAPI = new IpfsSupport(genClient(l(
+  def temporal(token:String,host:String):IpfsTrait = new IpfsSupport(genClient(l(
     "host" -> host,
     "port" -> 443,
     "protocol" -> "https",
@@ -54,12 +56,12 @@ object IpfsSupport{
 
 
 
-  def apply( ipfsClientOpt: ClientConfig): IpfsAPI = new IpfsSupport(ipfsClientOpt)
+  def apply( ipfsClientOpt: ClientConfig): IpfsTrait = new IpfsSupport(ipfsClientOpt)
 
   def apply() = new IpfsSupport(()=>None)
 }
 
 
-class IpfsSupport(override val ipfsClientOpt: ClientConfig) extends IpfsAPI{
+class IpfsSupport(override val ipfsClientOpt: ClientConfig) extends IpfsAPITrait{
 
 }

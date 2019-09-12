@@ -8,7 +8,7 @@ import typings.nodeLib.{Buffer, bufferMod}
 import scala.concurrent.{ExecutionContext, Future}
 import scala.scalajs.js.typedarray.ArrayBuffer
 
-trait IpfsAPI extends IpfsTrait{
+trait IpfsAPITrait extends IpfsTrait{
 
   val ipfsClientOpt: ClientConfig
 
