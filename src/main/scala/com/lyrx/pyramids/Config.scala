@@ -9,7 +9,7 @@ import scala.concurrent.ExecutionContext
 
 object Config {
 
-  val IPFS_DEFAULT:IPFS = () => IpfsSupport.perfectPrivacy()
+  val IPFS_DEFAULT:IPFS = () => IpfsSupport.aws()
 
   def createFuture(isTestNet: Boolean)(
       implicit executionContext: ExecutionContext) =

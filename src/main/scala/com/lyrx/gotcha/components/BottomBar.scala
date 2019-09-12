@@ -43,9 +43,6 @@ import scala.scalajs.js
           case "macmini" =>
             initIpfs(p, () => IpfsSupport.macmini(), "Using macmini  for IPFS")
 
-          case "pp" =>
-            initIpfs(p, () => IpfsSupport.perfectPrivacy(), "Using PP  for IPFS")
-
 
           case _ => initIpfs(p, () => IpfsSupport.aws(), "Using AWS  for IPFS")
 
@@ -63,14 +60,12 @@ import scala.scalajs.js
       Seq(
         option(value := "aws", key:="aws")("Pyramids!"),
         option(value := "infura", key:="infura")("Infura"),
-        option(value := "macmini", key:="macmini")("Macmini"),
-        option(value := "pp", key:="pp")("PP")
+        option(value := "macmini", key:="macmini")("Macmini")
       )
     else
       Seq(
         option(value := "aws", key:="aws")("Pyramids!"),
-        option(value := "infura", key:="infura")("Infura"),
-        option(value := "pp", key:="pp")("PP")
+        option(value := "infura", key:="infura")("Infura")
       )
 
   def render(): ReactElement = section(
@@ -81,7 +76,7 @@ import scala.scalajs.js
       span(className := "my-label")("Gateway: "),
       select(
         name := "IPFS Gateway",
-        defaultValue := "pp",
+        defaultValue := "aws",
         onChange := (handleChange(_))
       )(options())
     ),
