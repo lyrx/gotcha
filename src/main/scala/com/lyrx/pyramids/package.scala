@@ -15,6 +15,15 @@ package object pyramids {
   type  IPFS = () => IpfsAPI
 
 
+
+  implicit def typedArrayArrayBufferToStdlib(
+                                              b: js.typedarray.ArrayBuffer): stdLib.ArrayBuffer =
+    b.asInstanceOf[stdLib.ArrayBuffer]
+  implicit def jstdLibArrayBufferToTypedArrayArrayBuffer(
+                                                          b: js.typedarray.ArrayBuffer): js.typedarray.ArrayBuffer =
+    b.asInstanceOf[js.typedarray.ArrayBuffer]
+
+
   implicit def convertStellarAccount(input:AccountDetail):AccountData=AccountData(
     balanceOpt = input.balances.headOption.map(_.balance),
     idOpt = input.id.toOption)

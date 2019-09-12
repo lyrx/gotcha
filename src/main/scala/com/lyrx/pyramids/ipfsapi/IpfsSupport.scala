@@ -33,7 +33,7 @@ object IpfsSupport{
   )))
 
   def perfectPrivacy() : IpfsAPI= new IpfsSupport(genClient(l(
-    "host" -> "80.255.7.86",
+    "host" -> "80.255.7.88",
     "port" ->  57788,  //5001,
     "protocol" -> "http"
   )))
