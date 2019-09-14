@@ -24,6 +24,7 @@ libraryDependencies ++= Seq(
   ScalablyTyped.F.`file-saver`,
   ScalablyTyped.W.`web3`,
   ScalablyTyped.B.`bs58`
+
 )
 
 
@@ -37,6 +38,7 @@ npmDependencies in Compile ++= Seq(
   "file-saver" -> "2.0",
   "bs58" -> "4.0.1",
   "stellar-sdk" -> "2.3.0"
+  ,"libp2p" -> "0.26.1"
 )
 
 
