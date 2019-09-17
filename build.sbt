@@ -8,7 +8,7 @@ scalaVersion := "2.12.8"
 
 resolvers += Resolver.bintrayRepo("oyvindberg", "ScalablyTyped")
 
-scalaJSUseMainModuleInitializer := true
+//scalaJSUseMainModuleInitializer := true
 
 scalacOptions += "-P:scalajs:sjsDefinedByDefault"
 
