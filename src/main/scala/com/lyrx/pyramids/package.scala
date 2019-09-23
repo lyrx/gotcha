@@ -1,6 +1,5 @@
 package com.lyrx
 
-import com.lyrx.pyramids.ipfsapi.IpfsAPI
 import com.lyrx.pyramids.stellarsdk.AccountDetail
 import org.scalajs.dom.raw
 import org.scalajs.dom.raw.{Blob, FileReader, ProgressEvent}
@@ -12,7 +11,16 @@ import scala.scalajs.js
 
 
 package object pyramids {
-  type  IPFS = () => IpfsAPI
+  type  IPFS = () => IpfsTrait
+
+
+
+  implicit def typedArrayArrayBufferToStdlib(
+                                              b: js.typedarray.ArrayBuffer): stdLib.ArrayBuffer =
+    b.asInstanceOf[stdLib.ArrayBuffer]
+  implicit def jstdLibArrayBufferToTypedArrayArrayBuffer(
+                                                          b: js.typedarray.ArrayBuffer): js.typedarray.ArrayBuffer =
+    b.asInstanceOf[js.typedarray.ArrayBuffer]
 
 
   implicit def convertStellarAccount(input:AccountDetail):AccountData=AccountData(

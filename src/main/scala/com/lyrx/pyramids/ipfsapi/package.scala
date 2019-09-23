@@ -22,12 +22,7 @@ package object ipfsapi {
 
   type PubSubHandler = js.Function1[PubSubMessage, Unit]
 
-  implicit def typedArrayArrayBufferToStdlib(
-      b: js.typedarray.ArrayBuffer): stdLib.ArrayBuffer =
-    b.asInstanceOf[stdLib.ArrayBuffer]
-  implicit def jstdLibArrayBufferToTypedArrayArrayBuffer(
-      b: js.typedarray.ArrayBuffer): js.typedarray.ArrayBuffer =
-    b.asInstanceOf[js.typedarray.ArrayBuffer]
+
 
   implicit class PimpedString(b: js.typedarray.ArrayBuffer) {
 
