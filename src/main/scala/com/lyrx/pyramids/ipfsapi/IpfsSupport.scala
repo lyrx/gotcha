@@ -34,6 +34,13 @@ object IpfsSupport{
     "protocol" -> "https"
   )))
 
+  def hosttech() : IpfsTrait= new IpfsSupport(genClient(l(
+    "host" -> "ipfsapi.lyrx.de",
+    "port" -> 2053,
+    "protocol" -> "https"
+  )))
+
+
   def perfectPrivacy() : IpfsTrait= new IpfsSupport(genClient(l(
     "host" -> "80.255.7.88",
     "port" ->  57788,  //5001,

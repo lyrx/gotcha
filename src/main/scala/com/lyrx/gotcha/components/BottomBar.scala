@@ -28,23 +28,21 @@ import scala.scalajs.js
       .map(p =>
         e.target.value match {
 
-          case "local" =>
+          case "hosttech" =>
             initIpfs(p,
-                     () => IpfsSupport.macmini(),
-                     "Using Pyramids! gateway for IPFS")
+                     () => IpfsSupport.hosttech(),
+                     "Using Pyramids!  for IPFS")
 
           case "infura" =>
             initIpfs(p,
                      () => IpfsSupport.infura(),
                      "Using Infura gateway for IPFS")
 
-          case "aws" =>
-            initIpfs(p, () => IpfsSupport.aws(), "Using AWS  for IPFS")
           case "macmini" =>
             initIpfs(p, () => IpfsSupport.macmini(), "Using macmini  for IPFS")
 
 
-          case _ => initIpfs(p, () => IpfsSupport.aws(), "Using AWS  for IPFS")
+          case _ => initIpfs(p, () => IpfsSupport.hosttech(), "Using Pyramids! for IPFS")
 
       })
 
@@ -58,13 +56,13 @@ import scala.scalajs.js
   def options() =
     if (isLocal())
       Seq(
-        option(value := "aws", key:="aws")("Pyramids!"),
+        option(value := "hosttech", key:="hosttech")("Pyramids!"),
         option(value := "infura", key:="infura")("Infura"),
         option(value := "macmini", key:="macmini")("Macmini")
       )
     else
       Seq(
-        option(value := "aws", key:="aws")("Pyramids!"),
+        option(value := "hosttech", key:="hosttech")("Pyramids!"),
         option(value := "infura", key:="infura")("Infura")
       )
 
@@ -76,7 +74,7 @@ import scala.scalajs.js
       span(className := "my-label")("Gateway: "),
       select(
         name := "IPFS Gateway",
-        defaultValue := "aws",
+        defaultValue := "hosttech",
         onChange := (handleChange(_))
       )(options())
     ),
